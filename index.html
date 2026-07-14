@@ -4,25 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PVEP · OECD Governance HUB</title>
-<meta name="theme-color" content="#0A1F3D">
+<meta name="theme-color" content="#006838">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="OECD HUB">
+<meta name="format-detection" content="telephone=no">
 <link rel="icon" href="assets/pvep-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="assets/pvep-logo.png">
 <style>
 /* ================= TOKENS ================= */
 :root{
-  --navy:#0A1F3D; --navy-2:#122E56; --navy-3:#1B3D6E;
-  --cobalt:#1D5FC2; --cobalt-d:#164A99; --sky:#7FB2E5; --ice:#DCE9F7;
-  --paper:#F5F8FC; --card:#FFFFFF; --line:#E2E9F3; --line-d:#C9D6E8;
-  --ink:#13233D; --muted:#5C6C85; --faint:#8E9CB3;
-  --gold:#C9A227; --gold-d:#A8861B;
-  --lane-tw:#B5121B; --lane-pvn:#1D5FC2; --lane-du:#C4731A; --lane-hdtv:#0E7C6B;
+  --navy:#23286b; --navy-2:#2e3192; --navy-3:#262d7a;
+  --cobalt:#2e3192; --cobalt-d:#20256e; --sky:#cfe8d8; --ice:#e3f4e8;
+  --paper:#eef3f1; --card:#FFFFFF; --line:#e4e8ef; --line-d:#c9d6cf;
+  --ink:#16203a; --muted:#5b6577; --faint:#94a3b8;
+  --gold:#00a651; --gold-d:#006838;
+  --green:#006838; --green2:#00a651; --amber:#E0982A;
+  --lane-tw:#d8584e; --lane-pvn:#2e3192; --lane-du:#E0982A; --lane-hdtv:#006838;
   --ok:#1E8E5A; --warn:#C4731A; --bad:#C0392B;
-  --ff-body:'Be Vietnam Pro','Segoe UI',system-ui,sans-serif;
-  --ff-disp:'Lora',Georgia,'Times New Roman',serif;
-  --shadow:0 1px 2px rgba(10,31,61,.05),0 10px 30px rgba(10,31,61,.08);
-  --shadow-lg:0 18px 50px rgba(10,31,61,.16);
+  --ff-body:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --ff-disp:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --shadow:0 1px 2px rgba(20,40,60,.06),0 8px 24px rgba(20,40,60,.07);
+  --shadow-lg:0 8px 40px rgba(20,40,60,.15);
   --r:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -33,61 +37,61 @@ a:hover{text-decoration:underline}
 .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
 img{max-width:100%}
 
-/* ================= TOPBAR ================= */
-.topbar{background:#fff;border-bottom:1px solid var(--line);position:relative;z-index:5}
-.topbar .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
-.topbar img{height:44px}
+/* ================= TOPBAR (nổi trên hero, không nền trắng) ================= */
+.topbar{position:absolute;top:0;left:0;right:0;background:transparent;z-index:6}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.16)}
+.topbar img{height:48px;filter:drop-shadow(0 0 5px rgba(255,255,255,.95)) drop-shadow(0 0 14px rgba(255,255,255,.65)) drop-shadow(0 0 30px rgba(180,255,215,.45)) drop-shadow(0 2px 4px rgba(0,0,0,.3))}
 .topbar .who{line-height:1.25}
-.topbar .who b{font-size:14px;letter-spacing:.2px;display:block}
-.topbar .who span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px}
+.topbar .who b{font-size:14px;letter-spacing:.2px;display:block;color:#fff}
+.topbar .who span{font-size:11.5px;color:#cfe8d8;text-transform:uppercase;letter-spacing:1.2px}
 .topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.topbar .stamp{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:5px 13px;white-space:nowrap}
-.topbar .stamp b{color:var(--ink)}
+.topbar .stamp{font-size:12px;color:#d7ecdc;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);border-radius:20px;padding:5px 13px;white-space:nowrap}
+.topbar .stamp b{color:#fff}
 
 /* ================= HERO ================= */
-.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.hero{background:linear-gradient(115deg,#00843d 0%,#006838 30%,#0a5a52 55%,#262d7a 100%);color:#fff;position:relative;overflow:hidden;border-bottom:3px solid #00a651;display:flex;min-height:100svh}
 .hero::before{content:"";position:absolute;inset:0;
   background:
-   radial-gradient(900px 420px at 85% -10%, rgba(29,95,194,.45), transparent 62%),
-   radial-gradient(700px 380px at -5% 110%, rgba(14,124,107,.28), transparent 60%);
+   radial-gradient(900px 420px at 85% -10%, rgba(46,49,146,.5), transparent 62%),
+   radial-gradient(700px 380px at -5% 110%, rgba(0,166,81,.35), transparent 60%);
 }
 .hero .globe{position:absolute;right:-140px;top:-160px;width:760px;height:760px;opacity:.5;pointer-events:none}
-.hero .wrap{position:relative;z-index:1;padding-top:64px;padding-bottom:56px}
+.hero .wrap{position:relative;z-index:1;padding-top:104px;padding-bottom:22px;margin-top:auto;margin-bottom:auto;width:100%}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--sky)}
-.eyebrow::before{content:"";width:34px;height:2px;background:var(--gold)}
-.hero h1{font-family:var(--ff-disp);font-weight:600;font-size:clamp(34px,4.6vw,58px);line-height:1.08;margin:18px 0 10px;max-width:900px}
-.hero h1 em{font-style:normal;color:var(--gold)}
-.hero .lede{font-size:clamp(14.5px,1.4vw,17px);color:#C6D6EC;max-width:760px;line-height:1.7}
+.eyebrow::before{content:"";width:34px;height:2px;background:#F5C64F}
+.hero h1{font-family:var(--ff-disp);font-weight:800;font-size:clamp(30px,3.6vw,48px);line-height:1.12;margin:14px 0 10px;max-width:1000px;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;color:#F5C64F}
+.hero .lede{font-size:clamp(14px,1.3vw,16.5px);color:#d7ecdc;max-width:920px;line-height:1.65}
 .hero .lede b{color:#fff}
 /* KPI band */
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.16)}
-.kpi{padding:26px 26px 6px 0;border-right:1px solid rgba(255,255,255,.16)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:30px;border-top:1px solid rgba(255,255,255,.16)}
+.kpi{padding:20px 24px 6px 0;border-right:1px solid rgba(255,255,255,.16)}
 .kpi:last-child{border-right:none}
-.kpi+.kpi{padding-left:26px}
-.kpi .v{font-family:var(--ff-body);font-weight:800;font-size:clamp(44px,4.6vw,68px);line-height:1;letter-spacing:-2px;color:#fff;font-variant-numeric:tabular-nums}
+.kpi+.kpi{padding-left:24px}
+.kpi .v{font-family:var(--ff-body);font-weight:800;font-size:clamp(40px,4vw,60px);line-height:1;letter-spacing:-1.5px;color:#fff;font-variant-numeric:tabular-nums}
 .kpi .v small{font-size:.45em;font-weight:700;letter-spacing:0;color:var(--sky);margin-left:2px}
-.kpi .v .grade{display:inline-block;vertical-align:middle;margin-left:10px;background:var(--gold);color:var(--navy);font-size:15px;font-weight:800;padding:4px 12px;border-radius:8px;letter-spacing:.5px;transform:translateY(-8px)}
-.kpi .t{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--sky);margin-top:12px}
-.kpi .d{font-size:12.5px;color:#93A9C9;margin-top:4px;line-height:1.5}
-.hero .narr{margin-top:40px;border-left:3px solid var(--gold);padding:6px 0 6px 20px;max-width:880px}
-.hero .narr p{font-family:var(--ff-disp);font-size:16.5px;line-height:1.75;color:#DAE6F5}
+.kpi .v .grade{display:inline-block;vertical-align:middle;margin-left:10px;background:var(--green2);color:#fff;font-size:14px;font-weight:800;padding:4px 12px;border-radius:8px;letter-spacing:.5px;transform:translateY(-7px);box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.kpi .t{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.1px;color:var(--sky);margin-top:10px}
+.kpi .d{font-size:12px;color:#a9c9b6;margin-top:4px;line-height:1.5}
+.hero .narr{margin-top:24px;border-left:3px solid #F5C64F;padding:4px 0 4px 18px;max-width:980px}
+.hero .narr p{font-family:var(--ff-disp);font-size:14px;line-height:1.65;color:#dcebe0}
 .hero .narr p b{color:#fff}
-.hero .narr .src{font-size:11.5px;color:#7E93B5;margin-top:8px;font-family:var(--ff-body)}
+.hero .narr .src{font-size:11.5px;color:#9fb8a8;margin-top:8px;font-family:var(--ff-body)}
 
 /* ================= MODULE NAV ================= */
-.modnav{position:sticky;top:0;z-index:40;background:rgba(10,31,61,.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.12)}
+.modnav{position:sticky;top:0;z-index:40;background:linear-gradient(100deg,rgba(0,90,48,.96) 0%,rgba(9,80,72,.96) 42%,rgba(33,38,102,.96) 100%);backdrop-filter:blur(10px);border-bottom:2px solid rgba(0,166,81,.55);box-shadow:0 6px 24px rgba(10,30,50,.25)}
 .modnav .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:0;padding-bottom:0}
-.modnav a{flex:none;color:#A9BEDC;font-size:13px;font-weight:600;padding:14px 16px;border-bottom:3px solid transparent;letter-spacing:.2px}
+.modnav a{flex:none;color:#cfe0d6;font-size:13px;font-weight:600;padding:14px 16px;border-bottom:3px solid transparent;letter-spacing:.2px}
 .modnav a:hover{color:#fff;text-decoration:none}
-.modnav a.on{color:#fff;border-bottom-color:var(--gold)}
-.modnav a .n{color:var(--gold);font-weight:800;margin-right:7px;font-size:12px}
+.modnav a.on{color:#fff;border-bottom-color:#F5C64F}
+.modnav a .n{color:#F5C64F;font-weight:800;margin-right:7px;font-size:12px}
 
 /* ================= SECTIONS ================= */
 section.mod{padding:72px 0 64px}
 section.mod.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .mhead{display:flex;align-items:baseline;gap:18px;margin-bottom:8px;flex-wrap:wrap}
-.mhead .num{font-family:var(--ff-disp);font-size:52px;font-weight:600;color:var(--ice);line-height:1;-webkit-text-stroke:1px var(--line-d)}
-.mhead h2{font-family:var(--ff-disp);font-size:clamp(24px,2.6vw,34px);font-weight:600;color:var(--navy)}
+.mhead .num{font-family:var(--ff-disp);font-size:52px;font-weight:800;color:var(--ice);line-height:1;-webkit-text-stroke:1px var(--line-d)}
+.mhead h2{font-family:var(--ff-disp);font-size:clamp(23px,2.5vw,32px);font-weight:800;color:var(--navy);letter-spacing:-.3px}
 .msub{color:var(--muted);max-width:820px;margin-bottom:34px;font-size:14.5px}
 .msub b{color:var(--ink)}
 
@@ -95,7 +99,7 @@ section.mod.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1
 .lib-tools{display:flex;gap:12px;align-items:center;margin-bottom:26px;flex-wrap:wrap}
 .lib-tools input{flex:1;min-width:240px;max-width:420px;font-family:inherit;font-size:14px;padding:11px 16px;border:1px solid var(--line-d);border-radius:10px;background:#fff;color:var(--ink)}
 .lib-tools input:focus{outline:2px solid var(--cobalt);outline-offset:-1px}
-.groupttl{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--cobalt);margin:30px 0 16px;display:flex;align-items:center;gap:12px}
+.groupttl{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--green);margin:30px 0 16px;display:flex;align-items:center;gap:12px}
 .groupttl::after{content:"";flex:1;height:1px;background:var(--line-d)}
 .books{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
 .book{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .22s ease, box-shadow .22s ease}
@@ -146,40 +150,59 @@ section.mod.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1
 .ti .act a{font-size:12.5px;font-weight:700}
 .ti .act a::after{content:"↗";margin-left:4px}
 .ti.hide{display:none}
-.ti.hl .card{border-color:var(--gold);border-left-color:var(--gold);background:linear-gradient(120deg,#FFFDF4,#fff 45%)}
+.ti.hl .card{border-color:var(--green2);border-left-color:var(--green2);background:linear-gradient(120deg,#F2FBF5,#fff 45%)}
 .ti.hl::before{border-color:var(--gold)}
 
+/* ================= MODULE 2 : MATRIX CẤP × THÁNG ================= */
+.mxwrap{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;overflow-x:auto}
+.matrix{display:grid;grid-template-columns:168px repeat(7,1fr);min-width:940px}
+.mx-h{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:6px 8px 10px;border-bottom:2px solid var(--line);text-align:center}
+.mx-h.corner{text-align:left;color:var(--green)}
+.mx-lane{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 12px 8px 14px;border-top:1px solid var(--line);border-left:4px solid var(--lc);margin:4px 0;border-radius:4px 0 0 4px}
+.mx-lane .nm{font-size:13px;font-weight:800;color:var(--navy);line-height:1.25}
+.mx-lane .ct{font-size:11px;color:var(--faint);font-weight:600}
+.mx-cell{border-top:1px solid var(--line);border-left:1px dashed #e8edf2;padding:6px 5px;display:flex;flex-direction:column;gap:5px;justify-content:center;background:var(--cellbg,transparent);margin:4px 0}
+.mchip{font-family:inherit;cursor:pointer;text-align:left;background:#fff;border:1px solid var(--line);border-left:3px solid var(--lc);border-radius:8px;padding:5px 8px 6px;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;width:100%}
+.mchip:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.mchip .dd{font-size:9.5px;color:var(--faint);font-weight:700;letter-spacing:.3px;float:right;margin-top:2px}
+.mchip .rr{font-size:11.5px;font-weight:800;color:var(--navy);line-height:1.25;margin:0 0 1px;display:block}
+.mchip .tt{font-size:10px;color:var(--muted);line-height:1.3;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.mchip.hl{border-color:var(--amber);border-left-color:var(--amber);box-shadow:0 0 0 2px rgba(224,152,42,.22),var(--shadow)}
+.mchip.hl .rr::after{content:" ★";color:var(--amber);font-size:10px}
+.mxlegend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+.mxlegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.mxlegend .star{color:var(--amber);font-weight:800}
 /* ================= MODULE 3 : PLAN 1017 ================= */
 .plan{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:stretch}
 .pcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:26px 28px}
 .pk{display:grid;grid-template-columns:repeat(4,auto);gap:34px;justify-content:start;margin-bottom:26px}
-.pk .v{font-size:40px;font-weight:800;line-height:1;color:var(--navy);font-variant-numeric:tabular-nums}
-.pk .v small{font-size:16px;font-weight:700;color:var(--muted)}
+.pk .v{font-size:40px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(120deg,#006838,#00a651 45%,#2e3192);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pk .v small{font-size:16px;font-weight:700}
 .pk .t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:7px;max-width:120px;line-height:1.4}
 .gbar{display:grid;grid-template-columns:26px 1fr 220px 44px;gap:12px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
 .gbar:first-of-type{border-top:2px solid var(--line-d)}
 .gbar .rn{font-weight:800;color:var(--faint);font-size:12px}
 .gbar .gn{color:var(--ink);font-weight:600;line-height:1.35}
 .gbar .track{height:9px;background:var(--ice);border-radius:6px;overflow:hidden}
-.gbar .track i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cobalt),var(--sky));width:0;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
+.gbar .track i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#006838,#00a651);width:0;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
 .gbar .pv{font-weight:800;text-align:right;color:var(--navy);font-variant-numeric:tabular-nums;font-size:12.5px}
 .cta-cc{background:var(--navy);color:#fff;border-radius:var(--r);box-shadow:var(--shadow-lg);padding:30px;display:flex;flex-direction:column;position:relative;overflow:hidden}
-.cta-cc::before{content:"";position:absolute;inset:0;background:radial-gradient(420px 260px at 110% -20%,rgba(29,95,194,.55),transparent 65%)}
+.cta-cc::before{content:"";position:absolute;inset:0;background:radial-gradient(420px 260px at 110% -20%,rgba(0,166,81,.4),transparent 65%),radial-gradient(360px 240px at -10% 120%,rgba(46,49,146,.5),transparent 60%)}
 .cta-cc>*{position:relative}
-.cta-cc .tag{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
-.cta-cc h3{font-family:var(--ff-disp);font-size:23px;font-weight:600;margin:10px 0 8px;line-height:1.3}
-.cta-cc p{font-size:13.5px;color:#B9CBE4;line-height:1.65;flex:1}
+.cta-cc .tag{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F5C64F}
+.cta-cc h3{font-family:var(--ff-disp);font-size:23px;font-weight:800;margin:10px 0 8px;line-height:1.3}
+.cta-cc p{font-size:13.5px;color:#c4cdec;line-height:1.65;flex:1}
 .cta-cc .btns{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13.5px;font-weight:700;padding:11px 20px;border-radius:10px;cursor:pointer;border:1px solid transparent;transition:.15s}
-.btn.gold{background:var(--gold);color:var(--navy)}
-.btn.gold:hover{background:#DDB93A;text-decoration:none}
+.btn.gold{background:var(--green2);color:#fff}
+.btn.gold:hover{background:#00934a;text-decoration:none}
 .btn.ghost{background:transparent;border-color:rgba(255,255,255,.35);color:#fff}
 .btn.ghost:hover{background:rgba(255,255,255,.1);text-decoration:none}
 .updated{font-size:11.5px;color:var(--faint);margin-top:14px}
 
 /* ================= MODULE 4 : PRODUCTS + ACGS ================= */
 .acgs{background:var(--navy);border-radius:var(--r);box-shadow:var(--shadow-lg);color:#fff;padding:34px 36px;display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;margin-bottom:44px;position:relative;overflow:hidden}
-.acgs::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at -10% 120%,rgba(14,124,107,.35),transparent 60%),radial-gradient(500px 300px at 110% -30%,rgba(29,95,194,.4),transparent 60%)}
+.acgs::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at -10% 120%,rgba(0,132,61,.4),transparent 60%),radial-gradient(500px 300px at 110% -30%,rgba(46,49,146,.55),transparent 60%)}
 .acgs>*{position:relative}
 .donut-wrap{text-align:center}
 .donut{width:210px;height:210px}
@@ -188,13 +211,13 @@ section.mod.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1
 .donut text{fill:#fff;font-family:var(--ff-body)}
 .donut .big{font-size:38px;font-weight:800;letter-spacing:-1px}
 .donut .sm{font-size:10.5px;fill:var(--sky);font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
-.donut-wrap .grade2{display:inline-block;margin-top:14px;background:var(--gold);color:var(--navy);font-weight:800;font-size:14.5px;padding:5px 18px;border-radius:8px;letter-spacing:1px}
-.acgs h3{font-family:var(--ff-disp);font-size:24px;font-weight:600;margin-bottom:4px}
+.donut-wrap .grade2{display:inline-block;margin-top:14px;background:var(--green2);color:#fff;font-weight:800;font-size:14.5px;padding:5px 18px;border-radius:8px;letter-spacing:1px}
+.acgs h3{font-family:var(--ff-disp);font-size:24px;font-weight:800;margin-bottom:4px}
 .acgs .note{font-size:13px;color:#AEC3DF;margin-bottom:20px}
 .pillar{display:grid;grid-template-columns:minmax(190px,240px) 1fr 52px;gap:14px;align-items:center;padding:7px 0;font-size:13px}
 .pillar .pn{color:#D5E2F2;font-weight:600}
 .pillar .track{height:9px;background:rgba(255,255,255,.12);border-radius:6px;overflow:hidden}
-.pillar .track i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--gold),#EACB63);width:0;transition:width 1.4s cubic-bezier(.2,.7,.3,1)}
+.pillar .track i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#00a651,#7ddf9f);width:0;transition:width 1.4s cubic-bezier(.2,.7,.3,1)}
 .pillar .pv{font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
 .acgs .steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .acgs .step{font-size:11.5px;font-weight:600;color:#C7D7EC;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:5px 12px;border-radius:16px}
@@ -216,13 +239,13 @@ section.mod.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1
 .months{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .mth{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:18px;text-align:left;position:relative;transition:transform .2s,box-shadow .2s;display:block;color:var(--ink)}
 a.mth:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);text-decoration:none}
-.mth .mn{font-family:var(--ff-disp);font-size:26px;font-weight:600;color:var(--navy)}
+.mth .mn{font-family:var(--ff-disp);font-size:26px;font-weight:800;color:var(--navy)}
 .mth .mn small{font-size:13px;color:var(--faint);font-family:var(--ff-body);font-weight:600}
 .mth .st{margin-top:10px;font-size:11.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px}
 .mth .st::before{content:"";width:8px;height:8px;border-radius:50%}
 .mth.done .st{color:var(--ok)} .mth.done .st::before{background:var(--ok)}
 .mth.done::after{content:"↗";position:absolute;top:14px;right:16px;color:var(--cobalt);font-weight:700}
-.mth.next{background:linear-gradient(135deg,#FFFDF4,#fff);border-color:var(--gold)}
+.mth.next{background:linear-gradient(135deg,#F2FBF5,#fff);border-color:var(--green2)}
 .mth.next .st{color:var(--gold-d)} .mth.next .st::before{background:var(--gold)}
 .mth.wait{opacity:.55;background:var(--paper)}
 .mth.wait .st{color:var(--faint)} .mth.wait .st::before{background:var(--line-d)}
@@ -233,6 +256,79 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
 footer b{color:#fff}
 footer .sig{text-align:right}
 
+/* ================= HERO LAUNCHER ================= */
+.launch{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:30px}
+.lc{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-top:3px solid var(--ac);border-radius:14px;padding:16px 16px 14px;color:#fff;display:flex;flex-direction:column;gap:8px;transition:.2s;position:relative;overflow:hidden}
+.lc::after{content:"";position:absolute;inset:0;background:radial-gradient(220px 120px at 85% -30%, color-mix(in srgb, var(--ac) 26%, transparent), transparent 70%);pointer-events:none}
+.lc:hover{background:rgba(255,255,255,.14);border-color:var(--ac);transform:translateY(-5px);text-decoration:none;box-shadow:0 14px 34px rgba(0,0,0,.3)}
+.lc .lic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--ac) 20%, transparent);border:1px solid color-mix(in srgb, var(--ac) 50%, transparent);color:var(--ac)}
+.lc .lic svg{width:22px;height:22px}
+.lc .ln{position:absolute;top:12px;right:14px;font-family:var(--ff-disp);font-size:20px;font-weight:800;color:color-mix(in srgb, var(--ac) 70%, #fff);line-height:1;opacity:.9}
+.lc b{font-size:14.5px;line-height:1.35}
+.lc .ld{font-size:12px;color:#c2dccd;line-height:1.5;flex:1}
+.lc .go{font-size:12px;font-weight:700;color:var(--ac)}
+.lc .go::after{content:" ↓"}
+/* ================= MODAL ================= */
+#modal{position:fixed;inset:0;z-index:100;background:rgba(10,31,61,.62);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:22px}
+#modal[hidden]{display:none}
+.mbox{background:#fff;border-radius:16px;box-shadow:var(--shadow-lg);max-width:660px;width:100%;max-height:86vh;overflow:auto;padding:30px 32px;position:relative;border-top:5px solid var(--gold)}
+.mx{position:absolute;top:14px;right:16px;border:none;background:var(--paper);color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:17px;cursor:pointer;line-height:1}
+.mx:hover{background:var(--ice);color:var(--navy)}
+.mcat{font-size:10.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--cobalt)}
+.mbox h3{font-family:var(--ff-disp);font-size:20px;font-weight:800;color:var(--navy);margin:6px 0 4px;line-height:1.35;padding-right:28px}
+.mmeta{font-size:12.5px;color:var(--muted);margin-bottom:16px}
+.mkp{list-style:none;margin:0 0 6px}
+.mkp li{position:relative;padding:7px 0 7px 22px;font-size:13.5px;line-height:1.6;color:var(--ink);border-bottom:1px dashed var(--line)}
+.mkp li:last-child{border-bottom:none}
+.mkp li::before{content:"";position:absolute;left:2px;top:14px;width:8px;height:8px;background:var(--gold);border-radius:2px}
+.mnote{font-size:12px;color:var(--faint);margin-top:10px;font-style:italic}
+.mact{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.mact a{display:inline-flex;font-size:13px;font-weight:700;padding:9px 17px;border-radius:9px;background:var(--navy);color:#fff}
+.mact a:hover{background:var(--navy-3);text-decoration:none}
+.mact a::after{content:"↗";margin-left:7px}
+/* nút điểm chính */
+.bkp{font-family:inherit;font-size:12.5px;font-weight:700;color:var(--navy);background:var(--ice);border:none;border-radius:8px;padding:6px 13px;cursor:pointer}
+.bkp:hover{background:#CBDDF2}
+.bkp::before{content:"◈ ";color:var(--gold-d)}
+/* ================= LIÊN KẾT CHỈ ĐẠO ================= */
+.impl{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.impl .lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--faint)}
+.ichip{font-family:inherit;font-size:11.5px;font-weight:700;padding:3.5px 11px;border-radius:14px;border:1px dashed var(--line-d);background:var(--paper);color:var(--navy);cursor:pointer}
+.ichip:hover{border-color:var(--cobalt);color:var(--cobalt);border-style:solid}
+.ichip::before{content:"↑ "}
+.ichip.plain{cursor:default;color:var(--muted)}
+.ichip.plain::before{content:""}
+.ichip.plain:hover{border-color:var(--line-d);color:var(--muted);border-style:dashed}
+@keyframes flashbg{0%{box-shadow:0 0 0 4px rgba(0,166,81,.7)}100%{box-shadow:0 0 0 4px rgba(0,166,81,0)}}
+.ti.flash .card{animation:flashbg 1.8s ease-out}
+/* nội bộ badge */
+.pcat.nb{background:#8E9CB3}
+/* ================= MODULE 5 EXT ================= */
+.reqgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.req{background:#fff;border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:12px;box-shadow:var(--shadow);padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.req .rref{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--cobalt)}
+.req .rwho{font-size:14.5px;font-weight:700;color:var(--navy)}
+.req .rwhat{font-size:13px;color:var(--muted);line-height:1.6;flex:1}
+.req .rwhat b{color:var(--ink)}
+.req a{font-size:12.5px;font-weight:700}
+.req a::after{content:"↗";margin-left:4px}
+.repwrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:36px}
+.reptable{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
+.reptable th{background:#f8fafc;color:var(--muted);text-align:left;padding:11px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;border-bottom:2px solid var(--line)}
+.reptable td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+.reptable tr:last-child td{border-bottom:none}
+.reptable tr:hover td{background:var(--paper)}
+.reptable .rn2{font-weight:700;color:var(--ink)}
+.reptable .cad{font-weight:800;color:var(--navy);white-space:nowrap}
+.stb{display:inline-block;font-size:11px;font-weight:800;padding:3px 11px;border-radius:14px;white-space:nowrap}
+.stb.ok{background:#E3F4E9;color:#1E8E5A}
+.stb.run{background:#FBF1DC;color:#A8861B}
+.stb.wait{background:#EEF2F7;color:#8E9CB3}
+/* ================= FAB NEXT ================= */
+#fab{position:fixed;right:24px;bottom:24px;z-index:80;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--gold);background:var(--navy);color:var(--gold);font-size:19px;cursor:pointer;box-shadow:var(--shadow-lg);transition:.2s;display:flex;align-items:center;justify-content:center}
+#fab:hover{background:var(--navy-3);transform:translateY(-3px)}
+#fab .fl{position:absolute;right:60px;top:50%;transform:translateY(-50%);background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
+#fab:hover .fl{opacity:1}
 /* ================= REVEAL ================= */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
@@ -250,6 +346,8 @@ footer .sig{text-align:right}
   .acgs{grid-template-columns:1fr;gap:28px;text-align:left}
   .donut-wrap{margin:0 auto}
   .months{grid-template-columns:repeat(3,1fr)}
+  .launch{grid-template-columns:repeat(2,1fr)}
+  .reqgrid{grid-template-columns:1fr}
   .flow{grid-template-columns:repeat(2,1fr)}
   .fnode:nth-child(2)::after{display:none}
   .fnode:nth-child(-n+2){border-bottom:1px solid var(--line)}
@@ -258,6 +356,31 @@ footer .sig{text-align:right}
   .wrap{padding:0 18px}
   .pk{grid-template-columns:repeat(2,1fr);gap:20px}
   .pk .t{max-width:none}
+  /* hero kiểu app: KPI 2 cột gọn, module = danh sách hàng ngang */
+  .hero .wrap{padding-top:88px;padding-bottom:20px}
+  .hero h1{font-size:25px;margin:10px 0 6px}
+  .hero .lede{display:none}
+  .kpis{grid-template-columns:repeat(2,1fr) !important;margin-top:14px}
+  .kpi{padding:12px 10px 8px 0 !important;border-right:none !important;border-bottom:1px solid rgba(255,255,255,.14)}
+  .kpi:nth-child(odd){border-right:1px solid rgba(255,255,255,.14) !important;padding-right:12px !important}
+  .kpi:nth-child(even){padding-left:12px !important}
+  .kpi:nth-last-child(-n+2){border-bottom:none}
+  .kpi .v{font-size:30px;letter-spacing:-1px}
+  .kpi .v .grade{font-size:10.5px;padding:2px 8px;margin-left:6px;transform:translateY(-4px)}
+  .kpi .t{font-size:10px;margin-top:6px}
+  .kpi .d{display:none}
+  .launch{grid-template-columns:1fr;gap:9px;margin-top:18px}
+  .lc{display:grid;grid-template-columns:44px 1fr;column-gap:12px;row-gap:2px;align-items:center;padding:11px 40px 11px 13px}
+  .lc .lic{grid-row:1/3;width:38px;height:38px}
+  .lc b{grid-column:2;font-size:13.5px}
+  .lc .ld{grid-column:2;font-size:11px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .lc .go{display:none}
+  .lc .ln{top:50%;transform:translateY(-50%);right:13px;font-size:14px;opacity:.65}
+  .hero .narr{margin-top:16px}
+  .hero .narr p{font-size:12.5px}
+  .hero .narr .src{display:none}
+  #fab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:46px;height:46px}
+  .mbox{padding:24px 20px}
   .kpis{grid-template-columns:1fr}
   .kpi{border-right:none !important;padding:18px 0 12px !important}
   .months{grid-template-columns:repeat(2,1fr)}
@@ -272,13 +395,22 @@ footer .sig{text-align:right}
   .topbar .stamp{display:none}
 }
 
+/* Điện thoại xoay ngang / màn thấp: không ép hero cao hết màn hình */
+@media(max-height:540px){
+  .hero{min-height:auto}
+  .hero .wrap{padding-top:88px;padding-bottom:22px}
+  .kpis{margin-top:14px}
+  .launch{margin-top:14px}
+}
 /* ================= PRINT (A4 landscape) ================= */
 @media print{
   @page{size:A4 landscape;margin:10mm}
   body{background:#fff;font-size:11px}
-  .modnav,.lib-tools,.filters,.btn,.cta-cc .btns{display:none !important}
+  .modnav,.lib-tools,.filters,.btn,.cta-cc .btns,#fab,#modal,.bkp{display:none !important}
   .hero,.acgs,.cta-cc,footer{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   section.mod{padding:18px 0;page-break-before:always}
+  .topbar{position:static;background:linear-gradient(115deg,#00843d 0%,#006838 60%,#0a5a52 100%)}
+  .hero{min-height:auto;display:block}
   .hero .wrap{padding:22px 28px}
   .rv{opacity:1 !important;transform:none !important}
   .book:hover,.prod:hover,a.mth:hover{transform:none}
@@ -304,13 +436,13 @@ footer .sig{text-align:right}
 <!-- ============ HERO ============ -->
 <header class="hero">
   <svg class="globe" viewBox="0 0 600 600" fill="none" aria-hidden="true">
-    <g stroke="#7FB2E5" stroke-opacity=".35" stroke-width="1">
+    <g stroke="#ffffff" stroke-opacity=".28" stroke-width="1">
       <circle cx="300" cy="300" r="250"/><circle cx="300" cy="300" r="190"/><circle cx="300" cy="300" r="130"/>
       <ellipse cx="300" cy="300" rx="250" ry="100"/><ellipse cx="300" cy="300" rx="250" ry="180"/>
       <ellipse cx="300" cy="300" rx="100" ry="250"/><ellipse cx="300" cy="300" rx="180" ry="250"/>
       <line x1="50" y1="300" x2="550" y2="300"/><line x1="300" y1="50" x2="300" y2="550"/>
     </g>
-    <g fill="#C9A227"><circle cx="300" cy="50" r="4"/><circle cx="470" cy="180" r="3.2"/><circle cx="130" cy="410" r="3.2"/><circle cx="480" cy="420" r="2.6"/></g>
+    <g fill="#F5C64F"><circle cx="300" cy="50" r="4"/><circle cx="470" cy="180" r="3.2"/><circle cx="130" cy="410" r="3.2"/><circle cx="480" cy="420" r="2.6"/></g>
   </svg>
   <div class="wrap">
     <span class="eyebrow">OECD Governance HUB</span>
@@ -340,6 +472,24 @@ footer .sig{text-align:right}
       </div>
     </div>
 
+    <div class="launch">
+      <a class="lc" href="#m1" style="--ac:#3fd68f"><span class="ln">01</span>
+        <span class="lic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a3 3 0 0 1 3-3h7z"/></svg></span>
+        <b>Tài liệu gốc OECD</b><span class="ld">Thư viện OECD/G20 &amp; tài liệu đào tạo — kèm điểm chính từng tài liệu</span><span class="go">Vào module</span></a>
+      <a class="lc" href="#m2" style="--ac:#F5C64F"><span class="ln">02</span>
+        <span class="lic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2.2"/><circle cx="5" cy="19.5" r="2.2"/><circle cx="19" cy="19.5" r="2.2"/><path d="M12 7v4.5m0 0-5.8 6m5.8-6 5.8 6"/></svg></span>
+        <b>Chỉ đạo các cấp</b><span class="ld">Ma trận 13 văn bản: Bộ Chính trị → PVN → Đảng ủy → HĐTV PVEP</span><span class="go">Vào module</span></a>
+      <a class="lc" href="#m3" style="--ac:#6fb3ff"><span class="ln">03</span>
+        <span class="lic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span>
+        <b>Kế hoạch 1017</b><span class="ld">21 nhiệm vụ, 8 nhóm — tiến độ &amp; cổng vào Command Center</span><span class="go">Vào module</span></a>
+      <a class="lc" href="#m4" style="--ac:#52dcc8"><span class="ln">04</span>
+        <span class="lic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.2"/><path d="m8.8 13.2-1.8 7.3 5-2.9 5 2.9-1.8-7.3"/></svg></span>
+        <b>Sản phẩm KSNB &amp; các Ban</b><span class="ld">Kết quả ACGS Hạng A, memo chuyên đề, công văn đã ban hành</span><span class="go">Vào module</span></a>
+      <a class="lc" href="#m5" style="--ac:#ff9d8a"><span class="ln">05</span>
+        <span class="lic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4m8-4v4M8 14.5h4m-4 3.5h7"/></svg></span>
+        <b>Báo cáo định kỳ tháng</b><span class="ld">Quy định báo cáo, danh mục báo cáo phải gửi &amp; tiến độ 2026</span><span class="go">Vào module</span></a>
+    </div>
+
     <div class="narr">
       <p>Từ Nghị quyết 79-NQ/TW của Bộ Chính trị đến Quyết định 1017/QĐ-TDKT của HĐTV, PVEP đã hoàn thành <b>tự đánh giá đạt Hạng A (89,25%)</b> và chính thức bước vào giai đoạn thực thi kế hoạch <b>21 nhiệm vụ</b> hướng tới chuẩn mực quản trị OECD trong 2026–2027.</p>
       <div class="src">Ban Kiểm soát Nội bộ tổng hợp · nguồn: kho dữ liệu OECD trên M365-KSNB</div>
@@ -362,7 +512,7 @@ footer .sig{text-align:right}
 <section class="mod" id="m1">
   <div class="wrap">
     <div class="mhead rv"><span class="num">01</span><h2>Tài liệu gốc OECD</h2></div>
-    <p class="msub rv">Bộ tài liệu chuẩn của OECD/G20 về quản trị công ty và doanh nghiệp nhà nước, cùng tài liệu đào tạo – tham khảo trong nước. Bấm vào tài liệu để mở bản gốc trên SharePoint (yêu cầu tài khoản PVEP).</p>
+    <p class="msub rv">Bộ tài liệu chuẩn của OECD/G20 về quản trị công ty và doanh nghiệp nhà nước, cùng tài liệu đào tạo – tham khảo trong nước. <b>Bấm vào thẻ để nghiên cứu điểm chính</b>; nút "Mở PDF" mở bản gốc trên SharePoint (yêu cầu tài khoản PVEP).</p>
     <div class="lib-tools rv">
       <input type="search" id="libsearch" placeholder="Tìm tài liệu… (ví dụ: SOE, Factbook, CG Code)">
     </div>
@@ -377,10 +527,11 @@ footer .sig{text-align:right}
 <section class="mod alt" id="m2">
   <div class="wrap">
     <div class="mhead rv"><span class="num">02</span><h2>Chỉ đạo các cấp về OECD</h2></div>
-    <p class="msub rv">Dòng chảy chỉ đạo từ <b>Bộ Chính trị</b> xuống <b>Petrovietnam</b>, <b>Đảng ủy PVEP</b> và <b>HĐTV PVEP</b> — sắp xếp theo thời gian, kèm trích yếu và văn bản gốc.</p>
-    <div class="flow rv" id="flow"></div>
-    <div class="filters rv" id="lanefilters"></div>
-    <div class="tl" id="timeline"></div>
+    <p class="msub rv">Toàn bộ dòng chảy chỉ đạo trên một màn hình: <b>hàng</b> là cấp ban hành (từ Bộ Chính trị xuống HĐTV PVEP), <b>cột</b> là tháng năm 2026. Bấm vào một văn bản để xem điểm chính, văn bản cấp trên mà nó cụ thể hóa và bản gốc.</p>
+    <div class="mxwrap rv">
+      <div class="matrix" id="matrix"></div>
+      <div class="mxlegend" id="mxlegend"></div>
+    </div>
   </div>
 </section>
 
@@ -418,7 +569,7 @@ footer .sig{text-align:right}
 <section class="mod alt" id="m4">
   <div class="wrap">
     <div class="mhead rv"><span class="num">04</span><h2>Sản phẩm KSNB & các Ban</h2></div>
-    <p class="msub rv">Chuỗi sản phẩm phân tích – đánh giá do Ban KSNB chủ trì và các Ban phối hợp thực hiện, từ nghiên cứu ban đầu đến bộ chấm điểm ACGS trình Petrovietnam.</p>
+    <p class="msub rv">Chuỗi sản phẩm phân tích – đánh giá do Ban KSNB chủ trì và các Ban phối hợp thực hiện. Mỗi sản phẩm có nút <b>"Điểm chính"</b> để nắm nhanh nội dung; chỉ các <b>văn bản đã ban hành, có số và chữ ký</b> mới kèm link mở bản gốc.</p>
 
     <div class="acgs rv">
       <div class="donut-wrap">
@@ -454,10 +605,29 @@ footer .sig{text-align:right}
 <section class="mod" id="m5">
   <div class="wrap">
     <div class="mhead rv"><span class="num">05</span><h2>Báo cáo định kỳ tháng</h2></div>
-    <p class="msub rv">Báo cáo chuẩn bị Giao ban HĐTV – Ban TGĐ hằng tháng của Ban KSNB năm 2026 (kèm phụ lục danh mục chỉ đạo PVN/HĐTV). Bấm vào tháng để mở thư mục báo cáo trên SharePoint.</p>
+    <p class="msub rv">Chế độ báo cáo định kỳ của công tác OECD: <b>căn cứ yêu cầu</b>, <b>danh mục báo cáo phải gửi</b> và <b>tiến độ thực hiện</b> năm 2026.</p>
+    <div class="groupttl rv">5.1 · Căn cứ yêu cầu báo cáo</div>
+    <div class="reqgrid rv" id="reqcards"></div>
+    <div class="groupttl rv">5.2 · Các báo cáo phải gửi định kỳ &amp; tiến độ</div>
+    <div class="repwrap rv"><table class="reptable"><thead><tr><th>Báo cáo</th><th>Định kỳ</th><th>Chủ trì</th><th>Căn cứ</th><th>Trạng thái</th></tr></thead><tbody id="reptbody"></tbody></table></div>
+    <div class="groupttl rv">5.3 · Báo cáo Giao ban HĐTV – Ban TGĐ năm 2026 (mở thư mục theo tháng)</div>
     <div class="months rv" id="months"></div>
   </div>
 </section>
+
+<!-- ============ MODAL & FAB ============ -->
+<div id="modal" hidden>
+  <div class="mbox">
+    <button class="mx" id="mclose" title="Đóng">✕</button>
+    <span class="mcat" id="mcat"></span>
+    <h3 id="mtitle"></h3>
+    <div class="mmeta" id="mmeta"></div>
+    <ul class="mkp" id="mkp"></ul>
+    <div class="mnote" id="mnote"></div>
+    <div class="mact" id="mact"></div>
+  </div>
+</div>
+<button id="fab" title="Chuyển xuống mục tiếp theo"><span id="fabarrow">↓</span><span class="fl" id="fablabel">Mục tiếp theo</span></button>
 
 <!-- ============ FOOTER ============ -->
 <footer>
@@ -486,18 +656,28 @@ const spO   = rel => sp(OECD + rel);
 
 /* --- Module 1: thư viện --- */
 const DOCS_ORIGINAL = [
- {t:"G20/OECD Principles of Corporate Governance", org:"OECD · G20", yr:"2023", d:"Bộ nguyên tắc gốc — 6 trụ cột quản trị công ty, nền tảng của toàn bộ chương trình.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/G20.OECD Principles of Corporate Governance.pdf")},
- {t:"OECD Guidelines on Corporate Governance of SOEs", org:"OECD", yr:"2024", d:"Hướng dẫn quản trị dành riêng cho doanh nghiệp nhà nước — khung tham chiếu chính của PVEP.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Guidelines on Corporate Governance of SOEs.pdf")},
- {t:"Review of the Corporate Governance of SOEs in Vietnam", org:"OECD", yr:"2022", d:"Báo cáo OECD rà soát quản trị DNNN Việt Nam — bối cảnh và khuyến nghị cho Việt Nam.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Review of the corporate governance of SOEs in Vietnam.pdf")},
- {t:"Báo cáo đánh giá quản trị công ty DNNN Việt Nam", org:"OECD · bản tiếng Việt", yr:"VN", vn:true, d:"Bản tiếng Việt của báo cáo đánh giá — thuận tiện tra cứu nhanh cho Lãnh đạo.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/Báo cáo đánh giá quản trị công ty DNNN Viet Nam.pdf")},
- {t:"OECD Corporate Governance Factbook 2025", org:"OECD", yr:"2025", d:"Dữ liệu so sánh khung quản trị của 49 nền kinh tế — phiên bản mới nhất.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Corporate Governance Factbook 2025.pdf")},
- {t:"OECD Corporate Governance Factbook 2023", org:"OECD", yr:"2023", d:"Phiên bản 2023 — dùng đối chiếu xu hướng thay đổi giữa hai kỳ.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Corporate Governance Factbook 2023.pdf")},
- {t:"Ownership and Governance of State-Owned Enterprises", org:"OECD", yr:"2024", d:"Tổng hợp thông lệ sở hữu & quản trị DNNN các nước thành viên và đối tác OECD.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/Ownership and Governance of SOEs 2024.pdf")},
+ {t:"G20/OECD Principles of Corporate Governance", org:"OECD · G20", yr:"2023", d:"Bộ nguyên tắc gốc — 6 trụ cột quản trị công ty, nền tảng của toàn bộ chương trình.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/G20.OECD Principles of Corporate Governance.pdf"),
+  kp:["Chuẩn mực quản trị công ty toàn cầu do G20 và OECD thông qua tháng 9/2023 (bản cập nhật từ phiên bản 2015).","6 chương: (I) Nền tảng khung quản trị hiệu quả · (II) Quyền và đối xử công bằng với cổ đông · (III) Nhà đầu tư tổ chức, thị trường và trung gian · (IV) Công bố thông tin & minh bạch · (V) Trách nhiệm của Hội đồng quản trị · (VI) Phát triển bền vững & sức chống chịu.","Điểm mới 2023: chương riêng về bền vững — khí hậu, ESG; nhấn mạnh số hóa, an ninh mạng và vai trò HĐQT trong giám sát rủi ro.","Là cột \"Tham chiếu OECD 2023\" trong bộ chấm điểm ACGS 152 câu của PVEP."]},
+ {t:"OECD Guidelines on Corporate Governance of SOEs", org:"OECD", yr:"2024", d:"Hướng dẫn quản trị dành riêng cho doanh nghiệp nhà nước — khung tham chiếu chính của PVEP.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Guidelines on Corporate Governance of SOEs.pdf"),
+  kp:["Khuyến nghị của OECD dành riêng cho DNNN, bản cập nhật 2024 (từ phiên bản 2015).","7 chương: lý do sở hữu nhà nước · nhà nước với vai trò chủ sở hữu · DNNN trên thị trường (sân chơi bình đẳng) · đối xử công bằng với cổ đông/nhà đầu tư · quan hệ bên hữu quan & kinh doanh có trách nhiệm · công bố thông tin & minh bạch · trách nhiệm HĐQT DNNN.","Bản 2024 bổ sung nội dung khí hậu, chuyển dịch năng lượng, liêm chính và chống tham nhũng.","Khung tham chiếu sát nhất với PVEP — doanh nghiệp 100% vốn thuộc Petrovietnam."]},
+ {t:"Review of the Corporate Governance of SOEs in Vietnam", org:"OECD", yr:"2022", d:"Báo cáo OECD rà soát quản trị DNNN Việt Nam — bối cảnh và khuyến nghị cho Việt Nam.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Review of the corporate governance of SOEs in Vietnam.pdf"),
+  kp:["OECD rà soát khung quản trị DNNN Việt Nam theo bộ SOE Guidelines.","Nhận diện các điểm yếu: chức năng chủ sở hữu nhà nước còn phân tán, tính độc lập và chuyên nghiệp của HĐQT/HĐTV hạn chế, công bố thông tin chưa theo chuẩn quốc tế.","Khuyến nghị: tập trung hóa chức năng chủ sở hữu, chuyên nghiệp hóa bộ máy quản trị, nâng chuẩn minh bạch báo cáo tài chính.","Là bối cảnh trực tiếp dẫn tới chủ trương 100% tập đoàn, tổng công ty nhà nước áp dụng OECD tại NQ 79-NQ/TW."]},
+ {t:"Báo cáo đánh giá quản trị công ty DNNN Việt Nam", org:"OECD · bản tiếng Việt", yr:"VN", vn:true, d:"Bản tiếng Việt của báo cáo đánh giá — thuận tiện tra cứu nhanh cho Lãnh đạo.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/Báo cáo đánh giá quản trị công ty DNNN Viet Nam.pdf"),
+  kp:["Bản dịch tiếng Việt của báo cáo OECD đánh giá quản trị DNNN Việt Nam.","Phục vụ Lãnh đạo đọc nhanh và thống nhất thuật ngữ tiếng Việt khi soạn văn bản nội bộ.","Dùng kèm bản gốc tiếng Anh khi cần trích dẫn chính xác."]},
+ {t:"OECD Corporate Governance Factbook 2025", org:"OECD", yr:"2025", d:"Dữ liệu so sánh khung quản trị của 49 nền kinh tế — phiên bản mới nhất.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Corporate Governance Factbook 2025.pdf"),
+  kp:["Dữ liệu so sánh khung quản trị công ty của khoảng 49 nền kinh tế, cập nhật 2 năm/lần.","Bao quát: cấu trúc sở hữu, khung pháp lý, ĐHĐCĐ và quyền cổ đông, cơ cấu — thù lao HĐQT, kiểm toán, công bố ESG.","Dùng làm benchmark khi PVEP xây dựng, sửa đổi quy chế quản trị nội bộ."]},
+ {t:"OECD Corporate Governance Factbook 2023", org:"OECD", yr:"2023", d:"Phiên bản 2023 — dùng đối chiếu xu hướng thay đổi giữa hai kỳ.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/OECD Corporate Governance Factbook 2023.pdf"),
+  kp:["Phiên bản kỳ trước của Factbook (2023).","Dùng đối chiếu với bản 2025 để thấy xu hướng thay đổi chính sách quản trị giữa hai kỳ."]},
+ {t:"Ownership and Governance of State-Owned Enterprises", org:"OECD", yr:"2024", d:"Tổng hợp thông lệ sở hữu & quản trị DNNN các nước thành viên và đối tác OECD.", f:"PDF", u:spO("1. Tài liệu từ tổ chức OECD/Ownership and Governance of SOEs 2024.pdf"),
+  kp:["Tuyển tập thông lệ quốc gia (compendium) về sở hữu và quản trị DNNN của các nước OECD và đối tác.","So sánh các mô hình cơ quan chủ sở hữu: tập trung, hỗn hợp, phân tán; quy trình đề cử — bổ nhiệm HĐQT; cơ chế giám sát hiệu quả.","Tham khảo trực tiếp khi thiết kế quan hệ Petrovietnam – PVEP và cơ chế Người đại diện vốn (nhóm nhiệm vụ VIII của KH 1017)."]},
 ];
 const DOCS_TRAINING = [
- {t:"Bộ Nguyên tắc quản trị công ty Việt Nam 2026 (VN CG Code)", org:"UBCKNN · IFC", yr:"2026", vn:true, d:"Chuẩn quản trị công ty Việt Nam cập nhật 2026 — cầu nối giữa quy định trong nước và OECD.", f:"PDF", u:spO("2. Tài liệu tham khảo/260423_Bo Nguyen tac quan tri cong ty VN 2026 (VN CG CODE 2026).pdf")},
- {t:"Tài liệu Hội thảo Quản trị công ty của Petrovietnam", org:"Petrovietnam", yr:"01/2026", vn:true, d:"Tài liệu hội thảo QTCT toàn Tập đoàn (cập nhật 20/01/2026) — định hướng chung cho các ĐVTV.", f:"PDF", u:spO("2. Tài liệu tham khảo/PVN_Tài liệu Hội thảo về QTCT_updated 20260120.pdf")},
- {t:"CGS/VNICG — Đánh giá OECD tại Petrovietnam", org:"CGS · Hội thảo PVN", yr:"05/2026", vn:true, d:"Bài giới thiệu của công ty tư vấn CGS về phương pháp đánh giá theo OECD (hội thảo 20/05/2026).", f:"PDF", u:spO("2. Tài liệu tham khảo/6-Gioi thieu cua cong ty CGS ve OECD_Hoi thao PVN_201526/CGS_VNICG_PVN_OECD assessment_20260520.pdf")},
+ {t:"Bộ Nguyên tắc quản trị công ty Việt Nam 2026 (VN CG Code)", org:"UBCKNN · IFC", yr:"2026", vn:true, d:"Chuẩn quản trị công ty Việt Nam cập nhật 2026 — cầu nối giữa quy định trong nước và OECD.", f:"PDF", u:spO("2. Tài liệu tham khảo/260423_Bo Nguyen tac quan tri cong ty VN 2026 (VN CG CODE 2026).pdf"),
+  kp:["Bộ nguyên tắc quản trị công ty của Việt Nam, bản cập nhật 2026, tiệm cận Nguyên tắc OECD 2023.","Áp dụng theo cơ chế \"tuân thủ hoặc giải thích\" — cao hơn mức tối thiểu của pháp luật.","Là cầu nối giữa quy định trong nước (Luật Doanh nghiệp, NĐ 155…) và chuẩn mực OECD khi PVEP rà soát VBQLNB."]},
+ {t:"Tài liệu Hội thảo Quản trị công ty của Petrovietnam", org:"Petrovietnam", yr:"01/2026", vn:true, d:"Tài liệu hội thảo QTCT toàn Tập đoàn (cập nhật 20/01/2026) — định hướng chung cho các ĐVTV.", f:"PDF", u:spO("2. Tài liệu tham khảo/PVN_Tài liệu Hội thảo về QTCT_updated 20260120.pdf"),
+  kp:["Tài liệu hội thảo quản trị công ty toàn Tập đoàn (cập nhật 20/01/2026).","Truyền đạt định hướng của Petrovietnam về áp dụng OECD cho các đơn vị thành viên.","Tài liệu đào tạo nền cho đội ngũ đầu mối OECD của các Ban/Đơn vị (nhiệm vụ 1.1 KH 1017)."]},
+ {t:"CGS/VNICG — Đánh giá OECD tại Petrovietnam", org:"CGS · Hội thảo PVN", yr:"05/2026", vn:true, d:"Bài giới thiệu của công ty tư vấn CGS về phương pháp đánh giá theo OECD (hội thảo 20/05/2026).", f:"PDF", u:spO("2. Tài liệu tham khảo/6-Gioi thieu cua cong ty CGS ve OECD_Hoi thao PVN_201526/CGS_VNICG_PVN_OECD assessment_20260520.pdf"),
+  kp:["Bài trình bày của tư vấn CGS/VNICG tại hội thảo Petrovietnam ngày 20/05/2026.","Giới thiệu phương pháp đánh giá mức độ đáp ứng OECD theo thang ACGS (ASEAN Corporate Governance Scorecard).","Cơ sở phương pháp luận cho bộ chấm điểm Hybrid 152 câu mà Ban KSNB xây dựng cho PVEP."]},
 ];
 
 /* --- Module 2: chỉ đạo (lane: tw | pvn | du | hdtv) --- */
@@ -508,19 +688,32 @@ const LANES = {
  hdtv:{name:"HĐTV PVEP",         short:"HĐTV PVEP", c:"var(--lane-hdtv)"},
 };
 const DIRECTIVES = [
- {lane:"tw", date:"06/01/2026", ref:"Nghị quyết 79-NQ/TW — Bộ Chính trị", t:"Phát triển kinh tế nhà nước", q:"Mục tiêu đến 2030: 100% tập đoàn kinh tế, tổng công ty nhà nước áp dụng nguyên tắc quản trị của OECD", u:spO("3. Tap hop VB chi dao OECD cac cap/TW/Nghị quyết 79-NQ.TW về phát triển kinh tế NN.pdf"), hl:true},
- {lane:"pvn", date:"10/01/2026", ref:"Nghị quyết 01/NQ-CNNL — HĐTV Petrovietnam", t:"Nhiệm vụ, giải pháp trọng tâm Kế hoạch 2026", q:"Áp dụng chuẩn OECD là mục tiêu trung — dài hạn; đồng bộ phương thức quản trị hiện đại: chuỗi giá trị, quản trị số, quản trị rủi ro và tuân thủ", u:spO("3. Tap hop VB chi dao OECD cac cap/PVN/20260110_01.NQ-CNNL_ve nhiem vu giai phap trong tam thuc hien Ke hoach nam 2026.pdf")},
- {lane:"pvn", date:"30/01/2026", ref:"Kế hoạch 12-KH/ĐU — Đảng ủy Petrovietnam", t:"Chương trình 2: Hoàn thiện thể chế, cơ chế", q:"Tiếp cận có chọn lọc thông lệ, mô hình quản trị tiên tiến của OECD, gắn với xây dựng các đề án, nghị quyết về mô hình phát triển mới", u:spO("3. Tap hop VB chi dao OECD cac cap/PVN/20260130_12-KH.DU thực hiện CT2 - Hoàn thiện thể chế. cơ chế tạo điều kiện cho DN chủ động và phát triển.pdf")},
- {lane:"hdtv", date:"10/02/2026", ref:"CTHĐ 119/TDKT-HĐTV — HĐTV PVEP", t:"Chương trình hành động nhiệm vụ trọng tâm 2026", q:"Từng bước hoàn thiện mô hình quản trị doanh nghiệp tiệm cận theo chuẩn OECD trong năm 2026–2027", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260210_119.TDKT-HĐTV_Chuong trinh hanh dong Thuc hien cac nhiem vu trong tam nam 2026 cua Tong cong ty Tham do Khai thac Dau khi.pdf")},
- {lane:"du", date:"11/02/2026", ref:"Kế hoạch 10-KH/ĐU — Đảng ủy PVEP", t:"Triển khai Chương trình hành động 03-CTr/ĐU", q:"Phấn đấu hoàn thành Bộ quy chế quản trị nội bộ áp dụng nguyên tắc quản trị doanh nghiệp của OECD; tăng phân quyền kèm cơ chế kiểm tra giám sát", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/260211_10-KH-DU Trien khai thuc hien CTr-03 va KH trien khai cac chuong trinh thanh phan thuc hien NQ Dang bo PVN 2025-2030.pdf")},
- {lane:"hdtv", date:"12/02/2026", ref:"TBKL 130/TB-TDKT — HĐTV PVEP", t:"Kết luận Giao ban HĐTV – Ban TGĐ tháng 02/2026", q:"Nâng cao năng lực quản trị dựa trên dữ liệu, bổ sung đánh giá hiệu quả, minh bạch và quản trị rủi ro, hướng tới quản trị theo tiêu chuẩn OECD", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260212_130.TB-TDKT_Thong bao ket luan cua HDTV tai cuoc hop giao ban Hoi dong Thanh vien va Ban Tong giam doc ky hop thang 02.2026.pdf")},
- {lane:"du", date:"25/02/2026", ref:"CTHĐ 09-CTr/ĐU — Đảng ủy PVEP", t:"Thực hiện Nghị quyết Đại hội Đảng bộ PVEP lần IV", q:"Tối ưu hóa hệ thống quản trị, từng bước hướng tới quản trị theo tiêu chuẩn OECD", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260225_09.CTr-ĐU_Chuong trinh hanh dong NQ Dai hoi Dang bo TCT lan thu IV 2025-2030.pdf")},
- {lane:"hdtv", date:"01/04/2026", ref:"TBKL 257/TB-TDKT — HĐTV PVEP", t:"Cuộc họp về công tác quản trị và quản lý doanh nghiệp", q:"Ban CL&QTRR phối hợp Petrovietnam xây dựng lộ trình triển khai cụ thể áp dụng mô hình OECD trong tháng 4/2026", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260401_257.TB-TDKT_Cuoc hop ve cong tac quan tri va quan ly doanh nghiep tai PVEP.pdf")},
- {lane:"pvn", date:"16/04/2026", ref:"CV 2971/CNNL-HĐTV — HĐTV Petrovietnam", t:"Triển khai áp dụng nguyên tắc quản trị công ty OECD", q:"Người đại diện tại PVEP tổ chức rà soát, đánh giá thực trạng quản trị doanh nghiệp theo nguyên tắc OECD, hoàn thiện và thực hành tại doanh nghiệp", u:spO("3. Tap hop VB chi dao OECD cac cap/PVN/20260416_2971.CNNL-HĐTV_Trien khai ap dung cac nguyen tac quan tri cong ty cua OECD tai doanh nghiep.pdf")},
- {lane:"hdtv", date:"12/05/2026", ref:"CV 1076/TDKT-HĐTV — HĐTV PVEP", t:"Báo cáo Petrovietnam kết quả rà soát theo OECD", q:"Báo cáo kết quả tự rà soát, đánh giá thực trạng quản trị doanh nghiệp theo bộ tiêu chí OECD", u:spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260512_1076.TDKT-HĐTV_Trien khai ap dung cac nguyen tac quan tri doanh nghiep OECD tai PVEP.pdf")},
- {lane:"pvn", date:"30/06/2026", ref:"Nghị quyết 5432/NQ-CNNL — HĐTV Petrovietnam", t:"Kế hoạch triển khai áp dụng quản trị OECD tại PVN & ĐVTV", q:"Ban hành Kế hoạch triển khai áp dụng nguyên tắc quản trị công ty của OECD tại Petrovietnam và các đơn vị thành viên", u:spO("8. KH trien khai ap dung OECD tai PVEP/20260630_5432.NQ-CNNL_KH trien khai ap dung nguyen tac quan tri cong ty OECD.pdf"), hl:true},
- {lane:"hdtv", date:"08/07/2026", ref:"Biên bản 566/BB-TDKT — HĐTV PVEP", t:"Họp HĐTV về Kế hoạch triển khai OECD", q:"Thống nhất nội dung Kế hoạch triển khai áp dụng nguyên tắc quản trị công ty OECD tại PVEP theo NQ 5432", u:spO("8. KH trien khai ap dung OECD tai PVEP/20260708_566.BB-TDKT_Hop HDTV 07.7.2026_trien khai ap dung nguyen tac quan tri OECD.pdf")},
- {lane:"hdtv", date:"10/07/2026", ref:"Quyết định 1017/QĐ-TDKT — HĐTV PVEP", t:"Ban hành Kế hoạch triển khai OECD tại PVEP", q:"Kế hoạch 21 nhiệm vụ, 8 nhóm — phân công TV HĐTV/Ban TGĐ chỉ đạo, các Ban chủ trì, thời hạn đến 2027", u:spO("8. KH trien khai ap dung OECD tai PVEP/260710_QD 1017_HDTV_KH ttrien khai OECD tai PVEP.pdf"), hl:true},
+ {id:"nq79", lane:"tw", date:"06/01/2026", ref:"Nghị quyết 79-NQ/TW — Bộ Chính trị", t:"Phát triển kinh tế nhà nước", q:"Mục tiêu đến 2030: 100% tập đoàn kinh tế, tổng công ty nhà nước áp dụng nguyên tắc quản trị của OECD", u:spO("3. Tap hop VB chi dao OECD cac cap/TW/Nghị quyết 79-NQ.TW về phát triển kinh tế NN.pdf"), hl:true,
+  kp:["Nghị quyết của Bộ Chính trị về phát triển kinh tế nhà nước — văn bản gốc khởi nguồn toàn bộ chương trình OECD.","Mục tiêu cụ thể đến 2030: 100% tập đoàn kinh tế, tổng công ty nhà nước áp dụng nguyên tắc quản trị của OECD (Mục II.2, trang 4).","Là căn cứ để Petrovietnam và PVEP xây dựng toàn bộ hệ thống kế hoạch triển khai phía dưới."]},
+ {id:"nq01", lane:"pvn", date:"10/01/2026", ref:"Nghị quyết 01/NQ-CNNL — HĐTV Petrovietnam", t:"Nhiệm vụ, giải pháp trọng tâm Kế hoạch 2026", q:"Áp dụng chuẩn OECD là mục tiêu trung — dài hạn; đồng bộ phương thức quản trị hiện đại: chuỗi giá trị, quản trị số, quản trị rủi ro và tuân thủ", u:spO("3. Tap hop VB chi dao OECD cac cap/PVN/20260110_01.NQ-CNNL_ve nhiem vu giai phap trong tam thuc hien Ke hoach nam 2026.pdf"), impl:["nq79"],
+  kp:["Xác định áp dụng chuẩn OECD là mục tiêu trung hạn và dài hạn của Tập đoàn (Mục II.2.iv).","Đồng bộ phương thức quản trị hiện đại theo chuẩn OECD: quản trị theo chuỗi giá trị, quản trị số, quản trị rủi ro và tuân thủ.","Chuẩn hóa hệ thống quy trình, phân cấp — phân quyền gắn với nâng cao hiệu quả kiểm soát trong thực thi."]},
+ {id:"kh12", lane:"pvn", date:"30/01/2026", ref:"Kế hoạch 12-KH/ĐU — Đảng ủy Petrovietnam", t:"Chương trình 2: Hoàn thiện thể chế, cơ chế", q:"Tiếp cận có chọn lọc thông lệ, mô hình quản trị tiên tiến của OECD, gắn với xây dựng các đề án, nghị quyết về mô hình phát triển mới", u:spO("3. Tap hop VB chi dao OECD cac cap/PVN/20260130_12-KH.DU thực hiện CT2 - Hoàn thiện thể chế. cơ chế tạo điều kiện cho DN chủ động và phát triển.pdf"), impl:["nq79"],
+  kp:["Kế hoạch của Đảng ủy Petrovietnam thực hiện Chương trình 2 — hoàn thiện thể chế, cơ chế cho doanh nghiệp chủ động phát triển.","Yêu cầu cụ thể hóa thành nhiệm vụ có tính hành động cao, bám sát và thể chế hóa kịp thời các nghị quyết của Trung ương, Bộ Chính trị.","Tiếp cận có chọn lọc thông lệ, mô hình quản trị tiên tiến của OECD trong xây dựng đề án, nghị quyết về mô hình phát triển mới."]},
+ {id:"cthd119", lane:"hdtv", date:"10/02/2026", ref:"CTHĐ 119/TDKT-HĐTV — HĐTV PVEP", t:"Chương trình hành động nhiệm vụ trọng tâm 2026", q:"Từng bước hoàn thiện mô hình quản trị doanh nghiệp tiệm cận theo chuẩn OECD trong năm 2026–2027", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260210_119.TDKT-HĐTV_Chuong trinh hanh dong Thuc hien cac nhiem vu trong tam nam 2026 cua Tong cong ty Tham do Khai thac Dau khi.pdf"), impl:["nq01"],
+  kp:["Quan điểm trọng tâm chỉ đạo điều hành 2026: tối ưu hóa hệ thống quản trị, từng bước hướng tới quản trị theo tiêu chuẩn OECD (Mục II.2.iv).","Giải pháp tổ chức bộ máy: hoàn thiện mô hình quản trị doanh nghiệp tiệm cận chuẩn OECD trong 2026–2027 (Mục IV.6).","Phân công cụ thể: Chủ tịch HĐTV và TGĐ chỉ đạo, Ban QTNNL và CL&QTRR thực hiện đánh giá, đề xuất chuyển đổi mô hình quản trị trong năm 2026."]},
+ {id:"kh10", lane:"du", date:"11/02/2026", ref:"Kế hoạch 10-KH/ĐU — Đảng ủy PVEP", t:"Triển khai Chương trình hành động 03-CTr/ĐU", q:"Phấn đấu hoàn thành Bộ quy chế quản trị nội bộ áp dụng nguyên tắc quản trị doanh nghiệp của OECD; tăng phân quyền kèm cơ chế kiểm tra giám sát", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/260211_10-KH-DU Trien khai thuc hien CTr-03 va KH trien khai cac chuong trinh thanh phan thuc hien NQ Dang bo PVN 2025-2030.pdf"), impl:["kh12"],
+  kp:["Kế hoạch của Đảng ủy PVEP triển khai CTr-03 và các chương trình thành phần thực hiện Nghị quyết Đảng bộ Petrovietnam 2025–2030.","Yêu cầu hiện đại hóa quản trị, phấn đấu hoàn thành Bộ quy chế quản trị nội bộ áp dụng nguyên tắc OECD (Mục II.2.2).","Thúc đẩy tăng phân quyền chủ động cho PVEP kèm cơ chế kiểm tra giám sát và quản trị rủi ro theo nguyên tắc OECD.","Giao Chi bộ CL&QTRR hoàn thiện hệ thống quy chế, quy trình phù hợp ngành nghề mới và nguyên tắc OECD."]},
+ {id:"tb130", lane:"hdtv", date:"12/02/2026", ref:"TBKL 130/TB-TDKT — HĐTV PVEP", t:"Kết luận Giao ban HĐTV – Ban TGĐ tháng 02/2026", q:"Nâng cao năng lực quản trị dựa trên dữ liệu, bổ sung đánh giá hiệu quả, minh bạch và quản trị rủi ro, hướng tới quản trị theo tiêu chuẩn OECD", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260212_130.TB-TDKT_Thong bao ket luan cua HDTV tai cuoc hop giao ban Hoi dong Thanh vien va Ban Tong giam doc ky hop thang 02.2026.pdf"), implTxt:["Kết luận giao ban định kỳ HĐTV–BTGĐ"],
+  kp:["Kết luận của HĐTV tại giao ban HĐTV – Ban TGĐ kỳ họp tháng 02/2026 (Mục 1).","Tiếp tục nâng cao năng lực quản trị hệ thống dựa trên dữ liệu, bổ sung hệ thống đánh giá hiệu quả.","Nâng cao minh bạch, tăng cường quản trị rủi ro để hướng tới quản trị theo tiêu chuẩn OECD."]},
+ {id:"ctr09", lane:"du", date:"25/02/2026", ref:"CTHĐ 09-CTr/ĐU — Đảng ủy PVEP", t:"Thực hiện Nghị quyết Đại hội Đảng bộ PVEP lần IV", q:"Tối ưu hóa hệ thống quản trị, từng bước hướng tới quản trị theo tiêu chuẩn OECD", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260225_09.CTr-ĐU_Chuong trinh hanh dong NQ Dai hoi Dang bo TCT lan thu IV 2025-2030.pdf"), implTxt:["NQ Đại hội Đảng bộ PVEP lần IV (2025–2030)"],
+  kp:["Chương trình hành động của Đảng ủy PVEP thực hiện Nghị quyết Đại hội Đảng bộ Tổng công ty lần thứ IV, nhiệm kỳ 2025–2030.","Định hướng tối ưu hóa hệ thống quản trị, từng bước hướng tới quản trị theo tiêu chuẩn OECD (Mục II.8 — Phụ lục 2.11)."]},
+ {id:"tb257", lane:"hdtv", date:"01/04/2026", ref:"TBKL 257/TB-TDKT — HĐTV PVEP", t:"Cuộc họp về công tác quản trị và quản lý doanh nghiệp", q:"Ban CL&QTRR phối hợp Petrovietnam xây dựng lộ trình triển khai cụ thể áp dụng mô hình OECD trong tháng 4/2026", u:spO("3. Tap hop VB chi dao OECD cac cap/PVEP/20260401_257.TB-TDKT_Cuoc hop ve cong tac quan tri va quan ly doanh nghiep tai PVEP.pdf"), impl:["nq01"],
+  kp:["Kết luận cuộc họp chuyên đề của HĐTV về công tác quản trị và quản lý doanh nghiệp tại PVEP.","Giao Ban CL&QTRR phối hợp chặt chẽ với Petrovietnam xây dựng lộ trình triển khai cụ thể áp dụng mô hình OECD, hoàn thành trong tháng 4/2026.","Yêu cầu lộ trình phù hợp định hướng quản trị của Tập đoàn và đáp ứng các nguyên tắc quản trị doanh nghiệp của OECD."]},
+ {id:"cv2971", lane:"pvn", date:"16/04/2026", ref:"CV 2971/CNNL-HĐTV — HĐTV Petrovietnam", t:"Triển khai áp dụng nguyên tắc quản trị công ty OECD", q:"Người đại diện tại PVEP tổ chức rà soát, đánh giá thực trạng quản trị doanh nghiệp theo nguyên tắc OECD, hoàn thiện và thực hành tại doanh nghiệp", u:spO("3. Tap hop VB chi dao OECD cac cap/PVN/20260416_2971.CNNL-HĐTV_Trien khai ap dung cac nguyen tac quan tri cong ty cua OECD tai doanh nghiep.pdf"), impl:["nq79"],
+  kp:["Chỉ đạo trực tiếp của HĐTV Petrovietnam tới Người đại diện vốn tại PVEP về triển khai OECD.","Yêu cầu tổ chức rà soát, đánh giá thực trạng quản trị doanh nghiệp theo nguyên tắc OECD.","Là căn cứ trực tiếp để PVEP thực hiện bộ khảo sát ACGS 152 câu và báo cáo kết quả (CV 1076 ngày 12/05/2026)."]},
+ {id:"cv1076", lane:"hdtv", date:"12/05/2026", ref:"CV 1076/TDKT-HĐTV — HĐTV PVEP", t:"Báo cáo Petrovietnam kết quả rà soát theo OECD", q:"Báo cáo kết quả tự rà soát, đánh giá thực trạng quản trị doanh nghiệp theo bộ tiêu chí OECD", u:spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260512_1076.TDKT-HĐTV_Trien khai ap dung cac nguyen tac quan tri doanh nghiep OECD tai PVEP.pdf"), impl:["cv2971"],
+  kp:["Văn bản của HĐTV PVEP báo cáo Petrovietnam kết quả tự rà soát theo yêu cầu tại CV 2971/CNNL-HĐTV.","Kèm kết quả bộ khảo sát ACGS: 407/456 điểm — 89,25%, tương đương Hạng A.","Kết quả sau đó được hoàn thiện theo ý kiến HĐTV và gửi chính thức Petrovietnam tại CV 1152 ngày 20/05/2026."]},
+ {id:"nq5432", lane:"pvn", date:"30/06/2026", ref:"Nghị quyết 5432/NQ-CNNL — HĐTV Petrovietnam", t:"Kế hoạch triển khai áp dụng quản trị OECD tại PVN & ĐVTV", q:"Ban hành Kế hoạch triển khai áp dụng nguyên tắc quản trị công ty của OECD tại Petrovietnam và các đơn vị thành viên", u:spO("8. KH trien khai ap dung OECD tai PVEP/20260630_5432.NQ-CNNL_KH trien khai ap dung nguyen tac quan tri cong ty OECD.pdf"), hl:true, impl:["nq79","cv2971"],
+  kp:["Nghị quyết của HĐTV Petrovietnam ban hành Kế hoạch triển khai áp dụng nguyên tắc quản trị công ty OECD tại Tập đoàn và các đơn vị thành viên.","Là căn cứ trực tiếp để PVEP xây dựng kế hoạch cấp Tổng công ty (QĐ 1017 ngày 10/07/2026).","PVEP báo cáo kết quả triển khai về Petrovietnam theo hệ thống kế hoạch này."]},
+ {id:"bb566", lane:"hdtv", date:"08/07/2026", ref:"Biên bản 566/BB-TDKT — HĐTV PVEP", t:"Họp HĐTV về Kế hoạch triển khai OECD", q:"Thống nhất nội dung Kế hoạch triển khai áp dụng nguyên tắc quản trị công ty OECD tại PVEP theo NQ 5432", u:spO("8. KH trien khai ap dung OECD tai PVEP/20260708_566.BB-TDKT_Hop HDTV 07.7.2026_trien khai ap dung nguyen tac quan tri OECD.pdf"), impl:["nq5432"],
+  kp:["Biên bản họp HĐTV ngày 07/07/2026 về Kế hoạch triển khai OECD tại PVEP.","Thống nhất nội dung kế hoạch theo NQ 5432, trên cơ sở tờ trình của Ban KSNB.","Hai ngày sau, HĐTV ký ban hành QĐ 1017/QĐ-TDKT."]},
+ {id:"qd1017", lane:"hdtv", date:"10/07/2026", ref:"Quyết định 1017/QĐ-TDKT — HĐTV PVEP", t:"Ban hành Kế hoạch triển khai OECD tại PVEP", q:"Kế hoạch 21 nhiệm vụ, 8 nhóm — phân công TV HĐTV/Ban TGĐ chỉ đạo, các Ban chủ trì, thời hạn đến 2027", u:spO("8. KH trien khai ap dung OECD tai PVEP/260710_QD 1017_HDTV_KH ttrien khai OECD tai PVEP.pdf"), hl:true, impl:["nq5432","bb566"], implTxt:["Tờ trình 99/NB-KSNB ngày 08/07/2026 của Ban KSNB"],
+  kp:["Mục tiêu: hoàn thiện phương thức quản trị của PVEP theo tiêu chuẩn OECD vào năm 2026, đạt mức quản trị công ty hàng đầu quốc gia giai đoạn 2026–2030.","Chuyển đổi sang mô hình quản trị chiến lược, kiểm soát chủ động, giám sát phòng ngừa và quản trị bằng dữ liệu.","Phụ lục phân công 21 nhiệm vụ / 8 nhóm: từng nhiệm vụ có TV HĐTV và Lãnh đạo Ban TGĐ phụ trách, Ban chủ trì, Ban phối hợp, sản phẩm đầu ra và thời hạn.","Chế độ báo cáo: TGĐ báo cáo HĐTV kết quả thực hiện định kỳ hằng tháng và đột xuất khi có yêu cầu (Mục II.3)."]},
 ];
 const QD1017_URL = spO("8. KH trien khai ap dung OECD tai PVEP/260710_QD 1017_HDTV_KH ttrien khai OECD tai PVEP.pdf");
 
@@ -537,35 +730,73 @@ const GROUPS = [
 ];
 
 /* --- Module 4: sản phẩm --- */
+/* Nguyên tắc: chỉ đặt link mở file với văn bản có số, đã ban hành và ký;
+   tài liệu nội bộ (memo, slide, bản working) chỉ xem Điểm chính trong HUB. */
 const PRODUCTS = [
- {d:"26/01/2026", cat:"memo", cl:"Memo KSNB", t:"OECD Level 2 — phân tích chuyên sâu", p:"Memo nghiên cứu cấp độ 2 về nội dung quản trị OECD áp dụng cho nhà nước và doanh nghiệp.", links:[["Mở memo", spO("4. Memo Ban KSNB/260126 OECD Level 2.docx")]]},
- {d:"02/02/2026", cat:"memo", cl:"Memo KSNB", t:"OECD Level 3 — phân tích chi tiết", p:"Đào sâu từng nguyên tắc OECD ở cấp độ 3, chuẩn bị cơ sở cho gap analysis.", links:[["Mở memo", spO("4. Memo Ban KSNB/260202 OECD Level 3.docx")]]},
- {d:"10/02/2026", cat:"memo", cl:"Memo KSNB", t:"OECD Level 3 & Gap Analysis", p:"Đối chiếu hiện trạng PVEP với từng nguyên tắc OECD, nhận diện khoảng cách cần thu hẹp.", links:[["Mở memo", spO("4. Memo Ban KSNB/260210 OECD Level 3 & Gap analysis.docx")], ["Slide gap analysis", spO("4. Memo Ban KSNB/Slide_Gap analysis giua PVEP - OECD.pptx")]]},
- {d:"24/03/2026", cat:"memo", cl:"Memo KSNB", t:"Báo cáo sơ bộ áp dụng OECD tại PVEP — gửi Chủ tịch HĐTV", p:"Tổng hợp chỉ đạo các cấp, nội dung OECD, đối chiếu hiện trạng và đánh giá khả năng đáp ứng của PVEP.", links:[["Bản PDF gửi CT HĐTV", spO("4. Memo Ban KSNB/260324_Bao cao so bo ve ap dung OECD tai PVEP_file gui CT HDTV.pdf")], ["Bản phân tích đầy đủ", spO("4. Memo Ban KSNB/260324 OECD Level 3, Gap analysis, Chi dao Viet Nam.docx")]]},
- {d:"02/04/2026", cat:"memo", cl:"Memo KSNB", t:"Cập nhật chỉ đạo các cấp về OECD", p:"Bản cập nhật liên tục hệ thống chỉ đạo của Chính phủ, Petrovietnam và PVEP về OECD.", links:[["Mở memo", spO("4. Memo Ban KSNB/260402 OECD_Tiep tuc cap nhat chi dao cac cap.docx")]]},
- {d:"30/04/2026", cat:"ban", cl:"Các Ban", t:"CV 140/CVNB-HNT — Hệ thống VBQLNB theo OECD", p:"Rà soát hệ thống 79 văn bản quản lý nội bộ PVEP theo quy định pháp luật và nguyên tắc quản trị OECD.", links:[["Công văn 140", spO("3. Tap hop VB chi dao OECD cac cap/PVEP/BC cap Ban/20260430_140.CVNB-HNT_Hệ thống VBQLNB PVEP theo quy định pháp luật và nguyên tắc quản trị doanh nghiệp OECD.pdf")], ["Danh mục 79 VBQLNB", spO("3. Tap hop VB chi dao OECD cac cap/PVEP/BC cap Ban/20260430_Dinh kem 140.CVNB-HNT_Danh muc he thong 79 VBQLNB PVEP cap nhat den 29.4.2026.pdf")]]},
- {d:"14–20/05/2026", cat:"acgs-c", cl:"Bộ ACGS", t:"Bộ câu hỏi khảo sát & chấm điểm ACGS — 152 tiêu chí", p:"Khung Hybrid Scoring qua 4 vòng hoàn thiện: phối hợp CL&QTRR → trình HĐTV → tiếp thu ý kiến → gửi Petrovietnam. Kết quả: 89,25% — Hạng A.", links:[["Bộ chấm điểm (bản chốt)", spO("5. Bo cau hoi khao sat cham diem/260520 Trinh PVN/260519_ACGS_Hybrid_Scoring_Framework_Petrovietnam_PVEP_Gui Petrovietnam.xlsx")], ["CV 1152 báo cáo PVN", spO("5. Bo cau hoi khao sat cham diem/260520 Trinh PVN/260520_CV 1152_Bao cao ve ket qua ra soat OECD tai PVEP.pdf")]]},
- {d:"18/05/2026", cat:"ban", cl:"Các Ban", t:"CV 169/CVNB-HNT — Báo cáo rà soát thực trạng quản trị", p:"Báo cáo kết quả rà soát, đánh giá thực trạng quản trị doanh nghiệp theo OECD trình Ban TGĐ.", links:[["Mở báo cáo", spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260518_169.CVNB-HNT_Bao cao Ra soat danh gia thuc trang quan tri doanh nghiep theo OECD.pdf")]]},
- {d:"06/2026", cat:"hn", cl:"Hội nghị NĐD", t:"Báo cáo OECD tại Hội nghị Người đại diện PVN 2026", p:"Bộ slide và tham luận của PVEP về kết quả triển khai OECD, trình bày tại Hội nghị Người đại diện vốn Petrovietnam.", links:[["Slide báo cáo (v4)", spO("7. Hội nghị NĐD 2026/2. Ban KSNB_BC OECD tại HN NĐD 2026_v4.pptx")], ["Tham luận PVEP", spO("7. Hội nghị NĐD 2026/Hoi nghi NDD PVN 2026_Tham luan cua PVEP ve OECD.docx")]]},
- {d:"07/2026", cat:"memo", cl:"KSNB", t:"Tracker & Masterplan KH 1017", p:"Bộ công cụ theo dõi kế hoạch triển khai: dữ liệu nhiệm vụ, masterplan HTML và tracker cập nhật định kỳ.", links:[["Thư mục theo dõi", spO("9. Theo dõi triển khai")]]},
+ {d:"26/01/2026", cat:"memo", cl:"Memo KSNB", nb:true, t:"OECD Level 2 — phân tích chuyên sâu", p:"Memo nghiên cứu cấp độ 2 về nội dung quản trị OECD áp dụng cho nhà nước và doanh nghiệp.",
+  kp:["Hệ thống hóa nguyên tắc OECD ở cấp độ 2: yêu cầu đối với nhà nước — chủ sở hữu và đối với doanh nghiệp.","Xác định phạm vi các nguyên tắc liên quan trực tiếp đến mô hình PVEP (công ty TNHH MTV, 100% vốn Petrovietnam).","Nền tảng nghiên cứu cho chuỗi memo Level 3 và Gap analysis tiếp theo."]},
+ {d:"02/02/2026", cat:"memo", cl:"Memo KSNB", nb:true, t:"OECD Level 3 — phân tích chi tiết", p:"Đào sâu từng nguyên tắc OECD ở cấp độ 3, chuẩn bị cơ sở cho gap analysis.",
+  kp:["Chi tiết hóa từng nguyên tắc OECD xuống cấp độ 3 — mức khuyến nghị thực hành cụ thể.","Chuẩn bị khung đối chiếu để đánh giá hiện trạng PVEP theo từng tiêu chí."]},
+ {d:"10/02/2026", cat:"memo", cl:"Memo KSNB", nb:true, t:"OECD Level 3 & Gap Analysis", p:"Đối chiếu hiện trạng PVEP với từng nguyên tắc OECD, nhận diện khoảng cách cần thu hẹp.",
+  kp:["Đối chiếu hiện trạng quản trị PVEP với từng nguyên tắc OECD cấp độ 3.","Nhận diện các khoảng cách (gap) chính cần thu hẹp: mô hình ủy ban HĐTV, công bố thông tin, ESG, quản trị Người đại diện.","Kèm bộ slide Gap analysis phục vụ báo cáo Lãnh đạo."]},
+ {d:"24/03/2026", cat:"memo", cl:"Memo KSNB", nb:true, t:"Báo cáo sơ bộ áp dụng OECD tại PVEP — gửi Chủ tịch HĐTV", p:"Tổng hợp chỉ đạo các cấp, nội dung OECD, đối chiếu hiện trạng và đánh giá khả năng đáp ứng của PVEP.",
+  kp:["Báo cáo HĐTV theo 4 nội dung: (i) chỉ đạo của Đảng, Chính phủ, Petrovietnam; (ii) nội dung chính của quản trị OECD đối với nhà nước và doanh nghiệp; (iii) đối chiếu hiện trạng PVEP; (iv) đánh giá khả năng đáp ứng chuẩn mực OECD.","Gửi Chủ tịch HĐTV qua email Lãnh đạo Ban ngày 25/03/2026.","Là sản phẩm mở đường cho các chỉ đạo tiếp theo của HĐTV về lộ trình OECD (TBKL 257 ngày 01/04/2026)."]},
+ {d:"02/04/2026", cat:"memo", cl:"Memo KSNB", nb:true, t:"Cập nhật chỉ đạo các cấp về OECD", p:"Bản cập nhật liên tục hệ thống chỉ đạo của Chính phủ, Petrovietnam và PVEP về OECD.",
+  kp:["Tổng hợp liên tục hệ thống chỉ đạo về OECD của Bộ Chính trị, Petrovietnam, Đảng ủy và HĐTV PVEP.","Là nguồn dữ liệu gốc cho timeline \"Chỉ đạo các cấp\" (module 02) của HUB này."]},
+ {d:"30/04/2026", cat:"ban", cl:"Các Ban", t:"CV 140/CVNB-HNT — Hệ thống VBQLNB theo OECD", p:"Rà soát hệ thống 79 văn bản quản lý nội bộ PVEP theo quy định pháp luật và nguyên tắc quản trị OECD.",
+  kp:["Rà soát toàn bộ hệ thống văn bản quản lý nội bộ PVEP theo quy định pháp luật và nguyên tắc quản trị OECD.","Kèm danh mục 79 VBQLNB cập nhật đến 29/04/2026.","Đầu vào trực tiếp cho nhiệm vụ 2.1 của KH 1017 (rà soát, sửa đổi VBQLNB — hạn tháng 8/2026)."],
+  links:[["Công văn 140", spO("3. Tap hop VB chi dao OECD cac cap/PVEP/BC cap Ban/20260430_140.CVNB-HNT_Hệ thống VBQLNB PVEP theo quy định pháp luật và nguyên tắc quản trị doanh nghiệp OECD.pdf")], ["Danh mục 79 VBQLNB", spO("3. Tap hop VB chi dao OECD cac cap/PVEP/BC cap Ban/20260430_Dinh kem 140.CVNB-HNT_Danh muc he thong 79 VBQLNB PVEP cap nhat den 29.4.2026.pdf")]]},
+ {d:"14–20/05/2026", cat:"acgs-c", cl:"Bộ ACGS", t:"Bộ câu hỏi khảo sát & chấm điểm ACGS — 152 tiêu chí", p:"Khung Hybrid Scoring qua 4 vòng hoàn thiện: phối hợp CL&QTRR → trình HĐTV → tiếp thu ý kiến → gửi Petrovietnam. Kết quả: 89,25% — Hạng A.",
+  kp:["152 câu hỏi theo ASEAN Corporate Governance Scorecard, chấm theo phương pháp Hybrid: nhóm Có/Không (0 hoặc 3 điểm) và nhóm thang 0–3 theo 4 rubric.","Level 2: 18 câu điểm thưởng (+1) và 26 câu điểm phạt (−1/−2) — PVEP đạt 4 điểm thưởng, không có điểm phạt.","Kết quả cuối: 407/456 điểm = 89,25%, phân hạng A (tiệm cận thông lệ OECD 2023).","Hoàn thiện qua 4 vòng: phối hợp Ban CL&QTRR (14/05) → trình HĐTV (15/05) → tiếp thu ý kiến HĐTV (19/05) → gửi Petrovietnam kèm CV 1152 (20/05)."],
+  links:[["CV 1152 báo cáo Petrovietnam", spO("5. Bo cau hoi khao sat cham diem/260520 Trinh PVN/260520_CV 1152_Bao cao ve ket qua ra soat OECD tai PVEP.pdf")]]},
+ {d:"18/05/2026", cat:"ban", cl:"Các Ban", t:"CV 169/CVNB-HNT — Báo cáo rà soát thực trạng quản trị", p:"Báo cáo kết quả rà soát, đánh giá thực trạng quản trị doanh nghiệp theo OECD trình Ban TGĐ.",
+  kp:["Báo cáo kết quả rà soát, đánh giá thực trạng quản trị doanh nghiệp theo OECD.","Cùng chuỗi văn bản trình kết quả tự đánh giá lên HĐTV trước khi gửi Petrovietnam."],
+  links:[["Mở báo cáo", spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260518_169.CVNB-HNT_Bao cao Ra soat danh gia thuc trang quan tri doanh nghiep theo OECD.pdf")]]},
+ {d:"06/2026", cat:"hn", cl:"Hội nghị NĐD", nb:true, t:"Báo cáo OECD tại Hội nghị Người đại diện PVN 2026", p:"Bộ slide và tham luận của PVEP về kết quả triển khai OECD, trình bày tại Hội nghị Người đại diện vốn Petrovietnam.",
+  kp:["Bộ slide của Ban KSNB báo cáo kết quả triển khai OECD tại PVEP, trình bày tại Hội nghị Người đại diện vốn Petrovietnam 2026.","Kèm tham luận của PVEP về kinh nghiệm tự đánh giá theo ACGS và xây dựng kế hoạch triển khai.","PVEP là một trong những đơn vị đầu tiên của Tập đoàn hoàn thành tự đánh giá đạt Hạng A."]},
 ];
 
-/* --- Module 5: báo cáo tháng 2026 --- */
+/* --- Module 5: báo cáo định kỳ --- */
 const MONTHS_DONE = 7;   // đã có báo cáo T1..T7
 const MONTHS_PATH = "04_BÁO CÁO/4.0_BAO CAO/03_Ban KSNB/Giao ban HĐTV-BTGĐ/2026/Thang ";
+const REQS = [
+ {ref:"QĐ 1017/QĐ-TDKT · Mục II.3", who:"TGĐ báo cáo HĐTV PVEP", what:"Tổng giám đốc báo cáo Hội đồng Thành viên <b>kết quả thực hiện Kế hoạch OECD định kỳ hằng tháng</b> và đột xuất khi có yêu cầu.", link:["Xem QĐ 1017", "QD1017"]},
+ {ref:"NQ 5432/NQ-CNNL · QĐ 1017 (nơi nhận)", who:"PVEP báo cáo Petrovietnam", what:"Kết quả triển khai được gửi <b>HĐTV, TGĐ Petrovietnam để báo cáo</b> theo hệ thống Kế hoạch của Tập đoàn tại NQ 5432.", link:["Xem NQ 5432", spO("8. KH trien khai ap dung OECD tai PVEP/20260630_5432.NQ-CNNL_KH trien khai ap dung nguyen tac quan tri cong ty OECD.pdf")]},
+ {ref:"Giao ban HĐTV – Ban TGĐ hằng tháng", who:"Ban KSNB chuẩn bị báo cáo", what:"Báo cáo chuẩn bị giao ban hằng tháng kèm <b>phụ lục danh mục chỉ đạo PVN / HĐTV PVEP</b> — trong đó theo dõi các chỉ đạo về OECD.", link:["Mở thư mục 2026", sp("04_BÁO CÁO/4.0_BAO CAO/03_Ban KSNB/Giao ban HĐTV-BTGĐ/2026")]},
+];
+const REPORTS = [
+ {n:"Báo cáo kết quả thực hiện Kế hoạch OECD (TGĐ → HĐTV)", cad:"Hằng tháng", own:"Ban TGĐ · các Ban chủ trì cập nhật", cc:"QĐ 1017 · Mục II.3", st:["wait","Kỳ đầu: T8/2026"]},
+ {n:"Báo cáo chuẩn bị Giao ban HĐTV – Ban TGĐ (kèm PL danh mục chỉ đạo)", cad:"Hằng tháng", own:"Ban KSNB", cc:"Thông lệ giao ban", st:["ok","Đã có T1–T7/2026"]},
+ {n:"Báo cáo trạng thái thực hiện NQ, QĐ, chỉ đạo Lãnh đạo PVEP (NV 1.3)", cad:"Hằng tháng", own:"KSNB (HĐTV) · CL&QTRR (BTGĐ)", cc:"QĐ 1017 · NV 1.3", st:["run","Đang xây dashboard (Q3/2026)"]},
+ {n:"Dashboard quản trị giám sát chiến lược / kế hoạch (NV 3.2)", cad:"Hằng tháng", own:"CL&QTRR", cc:"QĐ 1017 · NV 3.2", st:["wait","Hạn thiết lập: Q4/2026"]},
+ {n:"Báo cáo & hồ sơ rủi ro chuẩn hóa (NV 4.2)", cad:"Định kỳ", own:"CL&QTRR · các Ban chủ sở hữu rủi ro", cc:"QĐ 1017 · NV 4.2", st:["run","Đang thực hiện (Q3/2026)"]},
+ {n:"Báo cáo tình hình thực hiện kiến nghị KTGS/KTNB (NV 5.2 – 5.3)", cad:"Hằng quý", own:"KSNB · các Ban chủ trì KTGS", cc:"QĐ 1017 · NV 5.2–5.3", st:["wait","Hạn nền tảng: Q4/2026"]},
+ {n:"Báo cáo thường niên song ngữ Việt – Anh (NV 7.1)", cad:"Tháng 4 hằng năm", own:"Văn phòng", cc:"QĐ 1017 · NV 7.1", st:["wait","Kỳ đầu: T4/2027"]},
+];
 
 /* ===== RENDER ===== */
 const $  = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-function bookCard(b){
-  return `<a class="book rv" href="${b.u}" target="_blank" rel="noopener" data-q="${esc((b.t+' '+b.org+' '+b.d).toLowerCase())}">
+const LIB_ALL = [...DOCS_ORIGINAL, ...DOCS_TRAINING];
+function bookCard(b, idx){
+  return `<div class="book rv" data-i="${idx}" data-q="${esc((b.t+' '+b.org+' '+b.d).toLowerCase())}" role="button" tabindex="0" style="cursor:pointer" title="Bấm để xem điểm chính">
     <div class="cover${b.vn ? ' vn':''}"><span class="yr">${esc(b.yr)}</span><span class="org">${esc(b.org)}</span><h3>${esc(b.t)}</h3></div>
     <div class="body"><div class="desc">${esc(b.d)}</div>
-    <div class="foot"><span class="ftype">${esc(b.f)}</span><span class="open">Mở tài liệu</span></div></div></a>`;
+    <div class="foot"><button class="bkp">Điểm chính</button><a class="open" href="${b.u}" target="_blank" rel="noopener">Mở ${esc(b.f)}</a></div></div></div>`;
 }
-$("#books-orig").innerHTML  = DOCS_ORIGINAL.map(bookCard).join("");
-$("#books-train").innerHTML = DOCS_TRAINING.map(bookCard).join("");
+$("#books-orig").innerHTML  = DOCS_ORIGINAL.map((b,i)=>bookCard(b,i)).join("");
+$("#books-train").innerHTML = DOCS_TRAINING.map((b,i)=>bookCard(b,i+DOCS_ORIGINAL.length)).join("");
+document.querySelectorAll(".book").forEach(el=>{
+  const show = ()=>{
+    const b = LIB_ALL[+el.dataset.i];
+    openModal({cat:"Nghiên cứu tài liệu · "+b.org, title:b.t, meta:"Ấn bản "+b.yr+" · định dạng "+b.f, kp:b.kp,
+      note:"Điểm chính do Ban KSNB tóm lược phục vụ tra cứu nhanh — nội dung đầy đủ xem bản gốc.",
+      links:[["Mở tài liệu gốc", b.u]]});
+  };
+  el.addEventListener("click", e=>{ if(e.target.closest("a")) return; show(); });
+  el.addEventListener("keydown", e=>{ if(e.key==="Enter") show(); });
+});
 
 $("#libsearch").addEventListener("input", e=>{
   const q = e.target.value.trim().toLowerCase();
@@ -574,35 +805,41 @@ $("#libsearch").addEventListener("input", e=>{
   });
 });
 
-/* flow strip */
-$("#flow").innerHTML = Object.entries(LANES).map(([k,l])=>{
-  const n = DIRECTIVES.filter(d=>d.lane===k).length;
-  return `<div class="fnode"><i style="background:${l.c}"></i><div class="cnt" style="color:${l.c}">${n}</div>
-    <div class="lb">${esc(l.name)}</div><div class="sb">văn bản chỉ đạo</div></div>`;
-}).join("");
-
-/* filters + timeline */
-$("#lanefilters").innerHTML =
-  `<button class="fchip on" data-lane="all">Tất cả (${DIRECTIVES.length})</button>` +
-  Object.entries(LANES).map(([k,l])=>`<button class="fchip" data-lane="${k}"><span class="dot" style="background:${l.c}"></span>${esc(l.short)}</button>`).join("");
-
-const toKey = d => d.split("/").reverse().join("");
-$("#timeline").innerHTML = [...DIRECTIVES].sort((a,b)=>toKey(a.date).localeCompare(toKey(b.date))).map(d=>{
-  const l = LANES[d.lane];
-  return `<div class="ti rv${d.hl?' hl':''}" data-lane="${d.lane}" style="--lane-c:${l.c}">
-    <div class="card">
-      <div class="top"><span class="date">${esc(d.date)}</span><span class="lchip">${esc(l.short)}</span><span class="ref">${esc(d.ref)}</span></div>
-      <h3>${esc(d.t)}</h3>
-      <div class="quote">${esc(d.q)}</div>
-      <div class="act"><a href="${d.u}" target="_blank" rel="noopener">Mở văn bản gốc</a></div>
-    </div></div>`;
-}).join("");
-
-document.querySelectorAll(".fchip").forEach(ch=>ch.addEventListener("click",()=>{
-  document.querySelectorAll(".fchip").forEach(x=>x.classList.remove("on"));
-  ch.classList.add("on");
-  const lane = ch.dataset.lane;
-  document.querySelectorAll(".ti").forEach(t=>t.classList.toggle("hide", lane!=="all" && t.dataset.lane!==lane));
+/* ===== MODULE 2: MA TRẬN CẤP × THÁNG ===== */
+const shortRef = r => r.split(" — ")[0];
+const dirMonth = d => parseInt(d.date.split("/")[1], 10);
+const MX_MONTHS = Math.max(...DIRECTIVES.map(dirMonth));
+(function renderMatrix(){
+  let html = `<div class="mx-h corner">Cấp ban hành</div>`;
+  for(let m=1; m<=MX_MONTHS; m++) html += `<div class="mx-h">Th${m}/2026</div>`;
+  Object.entries(LANES).forEach(([k,l], ri)=>{
+    const docs = DIRECTIVES.filter(d=>d.lane===k);
+    html += `<div class="mx-lane" style="--lc:${l.c}"><span class="nm">${esc(l.name)}</span><span class="ct">${docs.length} văn bản</span></div>`;
+    for(let m=1; m<=MX_MONTHS; m++){
+      const cell = docs.filter(d=>dirMonth(d)===m)
+        .sort((a,b)=>a.date.localeCompare(b.date))
+        .map(d=>`<button class="mchip${d.hl?' hl':''}" data-id="${d.id}" style="--lc:${l.c}">
+          <span class="dd">${esc(d.date.slice(0,5))}</span>
+          <span class="rr">${esc(shortRef(d.ref))}</span>
+          <span class="tt">${esc(d.t)}</span></button>`).join("");
+      html += `<div class="mx-cell" style="--cellbg:${ri%2 ? 'transparent' : '#fbfcfd'}">${cell}</div>`;
+    }
+  });
+  $("#matrix").innerHTML = html;
+  $("#mxlegend").innerHTML =
+    Object.values(LANES).map(l=>`<span><i style="background:${l.c}"></i>${esc(l.short)}</span>`).join("") +
+    `<span><span class="star">★</span> Mốc then chốt</span><span>Bấm vào văn bản để xem điểm chính &amp; bản gốc</span>`;
+})();
+document.querySelectorAll(".mchip").forEach(ch=>ch.addEventListener("click",()=>{
+  const d = DIRECTIVES.find(x=>x.id===ch.dataset.id);
+  const parents = [
+    ...(d.impl||[]).map(pid=>{const p=DIRECTIVES.find(x=>x.id===pid); return p ? shortRef(p.ref)+" ("+LANES[p.lane].short+")" : "";}),
+    ...(d.implTxt||[])
+  ].filter(Boolean);
+  const kp = [...(d.kp||[])];
+  if(parents.length) kp.push("Gắn với / cụ thể hóa: " + parents.join(" · "));
+  openModal({cat:"Chỉ đạo · "+LANES[d.lane].name, title:d.ref, meta:d.t+" · ngày "+d.date, kp,
+    note:"Tóm lược của Ban KSNB — nội dung đầy đủ xem văn bản gốc.", links:[["Mở văn bản gốc", d.u]]});
 }));
 
 /* module 3 bars */
@@ -616,11 +853,26 @@ const cc = $("#cc-link");
 if (COMMAND_CENTER_URL){ cc.href = COMMAND_CENTER_URL; }
 else { cc.addEventListener("click", e=>{ e.preventDefault(); alert("Chưa cấu hình link Command Center.\nMở index.html và điền hằng COMMAND_CENTER_URL."); }); }
 
-/* module 4 products */
-$("#prods").innerHTML = PRODUCTS.map(p=>
- `<div class="prod rv"><div class="meta"><span class="pd">${esc(p.d)}</span><span class="pcat ${p.cat}">${esc(p.cl)}</span></div>
+/* module 4 products — chỉ link văn bản đã ban hành có ký; còn lại xem Điểm chính */
+$("#prods").innerHTML = PRODUCTS.map((p,i)=>
+ `<div class="prod rv"><div class="meta"><span class="pd">${esc(p.d)}</span><span class="pcat ${p.cat}">${esc(p.cl)}</span>${p.nb?'<span class="pcat nb">Nội bộ</span>':''}</div>
   <h3>${esc(p.t)}</h3><p>${esc(p.p)}</p>
-  <div class="act">${p.links.map(([lb,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(lb)}</a>`).join("")}</div></div>`).join("");
+  <div class="act" style="align-items:center"><button class="bkp" data-prod="${i}">Điểm chính</button>${(p.links||[]).map(([lb,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(lb)}</a>`).join("")}</div></div>`).join("");
+document.querySelectorAll(".bkp[data-prod]").forEach(b=>b.addEventListener("click",()=>{
+  const p = PRODUCTS[+b.dataset.prod];
+  openModal({cat:"Sản phẩm · "+p.cl+(p.nb?" (tài liệu nội bộ)":""), title:p.t, meta:p.d, kp:p.kp,
+    note:p.nb?"Tài liệu làm việc nội bộ của Ban — không phát hành bản mở, liên hệ Ban KSNB khi cần bản đầy đủ.":"",
+    links:p.links||[]});
+}));
+
+/* module 5: căn cứ & danh mục báo cáo định kỳ */
+$("#reqcards").innerHTML = REQS.map(r=>{
+  const href = r.link[1]==="QD1017" ? QD1017_URL : r.link[1];
+  return `<div class="req rv"><span class="rref">${esc(r.ref)}</span><span class="rwho">${esc(r.who)}</span>
+    <span class="rwhat">${r.what}</span><a href="${href}" target="_blank" rel="noopener">${esc(r.link[0])}</a></div>`;
+}).join("");
+$("#reptbody").innerHTML = REPORTS.map(r=>
+ `<tr><td class="rn2">${esc(r.n)}</td><td class="cad">${esc(r.cad)}</td><td>${esc(r.own)}</td><td>${esc(r.cc)}</td><td><span class="stb ${r.st[0]}">${esc(r.st[1])}</span></td></tr>`).join("");
 
 /* module 5 months */
 $("#months").innerHTML = Array.from({length:12},(_,i)=>{
@@ -679,6 +931,77 @@ setTimeout(()=>{
   if(!seen.has("acgs")){ seen.add("acgs"); runDonut(); runBars($(".acgs")); }
   if(!seen.has("gb")){ seen.add("gb"); runBars($("#groupbars").parentElement); }
 }, 2000);
+
+/* ===== MODAL ===== */
+function openModal(o){
+  $("#mcat").textContent = o.cat||"";
+  $("#mtitle").textContent = o.title||"";
+  $("#mmeta").textContent = o.meta||"";
+  $("#mkp").innerHTML = (o.kp||[]).map(k=>`<li>${esc(k)}</li>`).join("");
+  $("#mnote").textContent = o.note||"";
+  $("#mnote").style.display = o.note ? "" : "none";
+  $("#mact").innerHTML = (o.links||[]).map(([lb,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(lb)}</a>`).join("");
+  $("#modal").hidden = false;
+  document.body.style.overflow = "hidden";
+}
+function closeModal(){ $("#modal").hidden = true; document.body.style.overflow = ""; }
+$("#mclose").addEventListener("click", closeModal);
+$("#modal").addEventListener("click", e=>{ if(e.target.id==="modal") closeModal(); });
+addEventListener("keydown", e=>{ if(e.key==="Escape") closeModal(); });
+
+/* ===== FAB: chuyển xuống mục tiếp theo ===== */
+const fabSecs = [document.querySelector(".hero"), ...document.querySelectorAll("section.mod")];
+$("#fab").addEventListener("click", ()=>{
+  const next = fabSecs.find(s=>s.offsetTop > scrollY + 90);
+  if(next) next.scrollIntoView({behavior:"smooth"});
+  else scrollTo({top:0, behavior:"smooth"});
+});
+function fabState(){
+  const atEnd = scrollY + innerHeight >= document.body.scrollHeight - 180;
+  $("#fabarrow").textContent = atEnd ? "↑" : "↓";
+  $("#fablabel").textContent = atEnd ? "Về đầu trang" : "Mục tiếp theo";
+}
+window.addEventListener("scroll", fabState, {passive:true});
+fabState();
+
+/* Bàn phím: mũi tên xuống/lên (hoặc PageDown/PageUp) chuyển giữa các mục */
+function gotoSection(dir){
+  if(dir > 0){
+    const next = fabSecs.find(s=>s.offsetTop > scrollY + 90);
+    if(next) next.scrollIntoView({behavior:"smooth"});
+    else document.querySelector("footer").scrollIntoView({behavior:"smooth"});
+  } else {
+    const prevs = fabSecs.filter(s=>s.offsetTop < scrollY - 90);
+    if(prevs.length) prevs[prevs.length-1].scrollIntoView({behavior:"smooth"});
+    else scrollTo({top:0, behavior:"smooth"});
+  }
+}
+addEventListener("keydown", e=>{
+  if(!$("#modal").hidden) return;                                   // đang mở modal thì thôi
+  const t = e.target;
+  if(t && (t.tagName==="INPUT" || t.tagName==="TEXTAREA" || t.isContentEditable)) return;
+  if(e.key==="ArrowDown" || e.key==="PageDown"){ e.preventDefault(); gotoSection(1); }
+  if(e.key==="ArrowUp"   || e.key==="PageUp")  { e.preventDefault(); gotoSection(-1); }
+});
+
+/* ===== PWA: manifest động để cài như app trên điện thoại ===== */
+(function(){
+  try{
+    if(!location.protocol.startsWith("http")) return;
+    const logo = new URL("assets/pvep-logo.png", location.href).href;
+    const mani = {
+      name:"PVEP OECD Governance HUB", short_name:"OECD HUB",
+      start_url:".", scope:".", display:"standalone", orientation:"any",
+      background_color:"#006838", theme_color:"#006838",
+      icons:[{src:logo,sizes:"192x192",type:"image/png",purpose:"any maskable"},
+             {src:logo,sizes:"512x512",type:"image/png",purpose:"any maskable"}]
+    };
+    const l = document.createElement("link");
+    l.rel = "manifest";
+    l.href = URL.createObjectURL(new Blob([JSON.stringify(mani)],{type:"application/json"}));
+    document.head.appendChild(l);
+  }catch(e){}
+})();
 
 /* nav active state */
 const navLinks = document.querySelectorAll(".modnav a");
