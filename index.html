@@ -15,13 +15,13 @@
 <style>
 /* ================= TOKENS ================= */
 :root{
-  --navy:#23286b; --navy-2:#2e3192; --navy-3:#262d7a;
-  --cobalt:#2e3192; --cobalt-d:#20256e; --sky:#cfe8d8; --ice:#e3f4e8;
+  --navy:#0A3A70; --navy-2:#0E4C93; --navy-3:#093360;
+  --cobalt:#0E5AA6; --cobalt-d:#083A73; --sky:#cfe8d8; --ice:#e3f4e8;
   --paper:#eef3f1; --card:#FFFFFF; --line:#e4e8ef; --line-d:#c9d6cf;
   --ink:#16203a; --muted:#5b6577; --faint:#94a3b8;
   --gold:#00a651; --gold-d:#006838;
   --green:#006838; --green2:#00a651; --amber:#E0982A;
-  --lane-tw:#d8584e; --lane-pvn:#2e3192; --lane-du:#E0982A; --lane-hdtv:#006838;
+  --lane-tw:#d8584e; --lane-pvn:#0E5AA6; --lane-du:#E0982A; --lane-hdtv:#006838;
   --ok:#1E8E5A; --warn:#C4731A; --bad:#C0392B;
   --ff-body:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
   --ff-disp:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
@@ -40,7 +40,7 @@ img{max-width:100%}
 /* ================= TOPBAR (nổi trên hero, không nền trắng) ================= */
 .topbar{position:absolute;top:0;left:0;right:0;background:transparent;z-index:6}
 .topbar .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.16)}
-.topbar img{height:48px;filter:drop-shadow(0 0 5px rgba(255,255,255,.95)) drop-shadow(0 0 14px rgba(255,255,255,.65)) drop-shadow(0 0 30px rgba(180,255,215,.45)) drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+.topbar img{height:44px;background:#fff;border-radius:11px;padding:6px 12px;box-shadow:0 4px 16px rgba(0,0,0,.22),0 0 0 1px rgba(255,255,255,.5)}
 .topbar .who{line-height:1.25}
 .topbar .who b{font-size:14px;letter-spacing:.2px;display:block;color:#fff}
 .topbar .who span{font-size:11.5px;color:#cfe8d8;text-transform:uppercase;letter-spacing:1.2px}
@@ -49,10 +49,10 @@ img{max-width:100%}
 .topbar .stamp b{color:#fff}
 
 /* ================= HERO ================= */
-.hero{background:linear-gradient(115deg,#00843d 0%,#006838 30%,#0a5a52 55%,#262d7a 100%);color:#fff;position:relative;overflow:hidden;border-bottom:3px solid #00a651;display:flex;min-height:100svh}
+.hero{background:linear-gradient(115deg,#00843d 0%,#006838 28%,#0a5a52 52%,#0A3A70 100%);color:#fff;position:relative;overflow:hidden;border-bottom:3px solid #00a651;display:flex;min-height:100svh}
 .hero::before{content:"";position:absolute;inset:0;
   background:
-   radial-gradient(900px 420px at 85% -10%, rgba(46,49,146,.5), transparent 62%),
+   radial-gradient(900px 420px at 85% -10%, rgba(14,90,166,.5), transparent 62%),
    radial-gradient(700px 380px at -5% 110%, rgba(0,166,81,.35), transparent 60%);
 }
 .hero .globe{position:absolute;right:-140px;top:-160px;width:760px;height:760px;opacity:.5;pointer-events:none}
@@ -257,7 +257,7 @@ footer b{color:#fff}
 footer .sig{text-align:right}
 
 /* ================= HERO LAUNCHER ================= */
-.launch{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:30px}
+.launch{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:26px}
 .lc{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-top:3px solid var(--ac);border-radius:14px;padding:16px 16px 14px;color:#fff;display:flex;flex-direction:column;gap:8px;transition:.2s;position:relative;overflow:hidden}
 .lc::after{content:"";position:absolute;inset:0;background:radial-gradient(220px 120px at 85% -30%, color-mix(in srgb, var(--ac) 26%, transparent), transparent 70%);pointer-events:none}
 .lc:hover{background:rgba(255,255,255,.14);border-color:var(--ac);transform:translateY(-5px);text-decoration:none;box-shadow:0 14px 34px rgba(0,0,0,.3)}
@@ -324,6 +324,35 @@ footer .sig{text-align:right}
 .stb.ok{background:#E3F4E9;color:#1E8E5A}
 .stb.run{background:#FBF1DC;color:#A8861B}
 .stb.wait{background:#EEF2F7;color:#8E9CB3}
+/* ================= MODULE 6 : KH SXKD 2026 ================= */
+.sxk{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
+.sxkc{background:#fff;border:1px solid var(--line);border-top:3px solid var(--sc,var(--navy));border-radius:12px;box-shadow:var(--shadow);padding:16px 18px}
+.sxkc .v{font-size:clamp(28px,3vw,38px);font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1}
+.sxkc .v small{font-size:14px;color:var(--faint);font-weight:700}
+.sxkc .t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:7px}
+.sxtotbar{display:flex;height:16px;border-radius:9px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:9px}
+.sxtotbar span{display:block;height:100%}
+.sxleg{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.sxleg i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
+.sxobj{display:grid;grid-template-columns:220px 1fr 150px;gap:16px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
+.sxobj:first-of-type{border-top:none}
+.sxobj .on{font-weight:700;color:var(--navy);line-height:1.3}
+.sxobj .seg{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--ice)}
+.sxobj .seg span{display:block;height:100%;width:0;transition:width 1.1s cubic-bezier(.2,.7,.3,1)}
+.sxobj .num{text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sxobj .num b{color:var(--ok);font-weight:800}
+.sxitems{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.sxi{background:#fff;border:1px solid var(--line);border-left:4px solid var(--sc);border-radius:12px;box-shadow:var(--shadow);padding:15px 17px;display:flex;flex-direction:column;gap:8px}
+.sxi .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sxi .st{font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:#fff;background:var(--sc);padding:2.5px 9px;border-radius:11px}
+.sxi .lo{font-size:12px;font-weight:800;color:var(--navy)}
+.sxi .ban{font-size:10px;font-weight:700;color:var(--faint);border:1px solid var(--line-d);padding:1.5px 8px;border-radius:10px;margin-left:auto}
+.sxi h4{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.4}
+.sxi .why{font-size:12.5px;color:var(--muted);line-height:1.55;border-top:1px dashed var(--line);padding-top:8px}
+.sxi .why b{color:var(--muted);font-weight:700;text-transform:uppercase;font-size:10.5px;letter-spacing:.5px;display:block;margin-bottom:3px}
+.sxsrc{font-size:12px;color:var(--faint);margin-top:20px;font-style:italic}
+.fchip .b{display:inline-block;min-width:18px;text-align:center;background:var(--ice);color:var(--navy);border-radius:9px;padding:0 6px;margin-left:6px;font-size:11px}
+.fchip.on .b{background:rgba(255,255,255,.2);color:#fff}
 /* ================= FAB NEXT ================= */
 #fab{position:fixed;right:24px;bottom:24px;z-index:80;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--gold);background:var(--navy);color:var(--gold);font-size:19px;cursor:pointer;box-shadow:var(--shadow-lg);transition:.2s;display:flex;align-items:center;justify-content:center}
 #fab:hover{background:var(--navy-3);transform:translateY(-3px)}
@@ -351,6 +380,8 @@ footer .sig{text-align:right}
   .flow{grid-template-columns:repeat(2,1fr)}
   .fnode:nth-child(2)::after{display:none}
   .fnode:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .launch{grid-template-columns:repeat(3,1fr)}
+  .sxk{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:640px){
   .wrap{padding:0 18px}
@@ -393,6 +424,9 @@ footer .sig{text-align:right}
   .pillar .track{grid-column:1/3;order:3}
   .mhead .num{font-size:38px}
   .topbar .stamp{display:none}
+  .sxk{grid-template-columns:repeat(2,1fr)}
+  .sxobj{grid-template-columns:1fr;gap:7px;padding:12px 0}
+  .sxobj .num{text-align:left}
 }
 
 /* Điện thoại xoay ngang / màn thấp: không ép hero cao hết màn hình */
@@ -488,6 +522,9 @@ footer .sig{text-align:right}
       <a class="lc" href="#m5" style="--ac:#ff9d8a"><span class="ln">05</span>
         <span class="lic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4m8-4v4M8 14.5h4m-4 3.5h7"/></svg></span>
         <b>Báo cáo định kỳ tháng</b><span class="ld">Quy định báo cáo, danh mục báo cáo phải gửi &amp; tiến độ 2026</span><span class="go">Vào module</span></a>
+      <a class="lc" href="#m6" style="--ac:#f0a742"><span class="ln">06</span>
+        <span class="lic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="4" width="3" height="14"/></svg></span>
+        <b>Quản trị KH SXKD 2026</b><span class="ld">283 nhiệm vụ mục tiêu A–E: tiến độ &amp; mục chưa xong kèm lý do</span><span class="go">Vào module</span></a>
     </div>
 
     <div class="narr">
@@ -505,6 +542,7 @@ footer .sig{text-align:right}
     <a href="#m3"><span class="n">03</span>Kế hoạch 1017</a>
     <a href="#m4"><span class="n">04</span>Sản phẩm KSNB & các Ban</a>
     <a href="#m5"><span class="n">05</span>Báo cáo định kỳ tháng</a>
+    <a href="#m6"><span class="n">06</span>Quản trị KH SXKD 2026</a>
   </div>
 </nav>
 
@@ -612,6 +650,30 @@ footer .sig{text-align:right}
     <div class="repwrap rv"><table class="reptable"><thead><tr><th>Báo cáo</th><th>Định kỳ</th><th>Chủ trì</th><th>Căn cứ</th><th>Trạng thái</th></tr></thead><tbody id="reptbody"></tbody></table></div>
     <div class="groupttl rv">5.3 · Báo cáo Giao ban HĐTV – Ban TGĐ năm 2026 (mở thư mục theo tháng)</div>
     <div class="months rv" id="months"></div>
+  </div>
+</section>
+
+<!-- ============ MODULE 6: KH SXKD 2026 ============ -->
+<section class="mod alt" id="m6">
+  <div class="wrap">
+    <div class="mhead rv"><span class="num">06</span><h2>Quản trị mục tiêu KH SXKD 2026</h2></div>
+    <p class="msub rv">Cơ sở dữ liệu quản trị Kế hoạch SXKD PVEP 2026 (QĐ 2436) — <b>283 nhiệm vụ</b> gắn với 5 nhóm mục tiêu A–E, cập nhật đến <b id="sx-week">tuần 28 · 11/07/2026</b>. Lọc nhanh các <b>nhiệm vụ chưa hoàn thành kèm lý do</b> ở cuối module.</p>
+
+    <div class="sxk rv" id="sxkpi"></div>
+
+    <div class="pcard rv" style="margin-bottom:22px">
+      <div class="sxleg" id="sxleg"></div>
+      <div class="sxtotbar" id="sxtotbar"></div>
+      <div class="updated" id="sxtotnote"></div>
+    </div>
+
+    <div class="groupttl rv">Tiến độ theo nhóm mục tiêu</div>
+    <div class="pcard rv" id="sxobjcard" style="margin-bottom:22px"></div>
+
+    <div class="groupttl rv">Nhiệm vụ chưa hoàn thành &amp; lý do</div>
+    <div class="filters rv" id="sxfilters"></div>
+    <div class="sxitems rv" id="sxitems"></div>
+    <div class="sxsrc rv" id="sxsrc"></div>
   </div>
 </section>
 
@@ -774,6 +836,9 @@ const REPORTS = [
  {n:"Báo cáo thường niên song ngữ Việt – Anh (NV 7.1)", cad:"Tháng 4 hằng năm", own:"Văn phòng", cc:"QĐ 1017 · NV 7.1", st:["wait","Kỳ đầu: T4/2027"]},
 ];
 
+/* --- Module 6: Quản trị KH SXKD 2026 (nguồn: Quan tri KH SXKD 2026 PVEP_CSDL.xlsx, sheet 04) --- */
+const SXKD = {"meta":{"total":283,"done":73,"progress":146,"cham":22,"notstart":42,"updated":"2026-07-11","week":"W28","source":"Quan tri KH SXKD 2026 PVEP_CSDL.xlsx — sheet 04_Cập nhật thông tin W (QĐ 2436)"},"byobj":{"C":{"name":"C · Phát triển mỏ","done":7,"progress":66,"cham":6,"notstart":12,"total":91},"A":{"name":"A · Gia tăng trữ lượng","done":29,"progress":35,"cham":10,"notstart":21,"total":95},"B":{"name":"B · Sản lượng khai thác","done":28,"progress":35,"cham":5,"notstart":8,"total":76},"E":{"name":"E · Pháp lý dự án","done":2,"progress":8,"cham":1,"notstart":1,"total":12},"D":{"name":"D · Phát triển dự án mới","done":7,"progress":2,"cham":0,"notstart":0,"total":9}},"items":[{"ban":"CNM","lo":"05-1(a)","obj":"B","nv":"B6.Kết nối đưa vào khai thác GK DH-32XP","st":"Hoàn thành chậm KH","why":"- Kết quả well test ngày 30/3: giếng đang khai thác ổn định với lưu lượng cao (2340 thùng/ngày, WCT thấp 7%). - Tiếp tục theo dõi giếng và động thái suy giảm áp suất vỉa cũng như khả năng gia tăng WCT nhằm tối SLKT. Trường hợp có biểu hiện suy giảm áp suất vỉa","b":"cham"},{"ban":"TD","lo":"01/97&02/97","obj":"A","nv":"A8.GTTL GK TL-12XP (tr.tấn quy dầu)","st":"NĐH chưa khoan","why":"Bổ sung KH thi công khoan 06 tháng cuối năm 2026 (GK TL-12XP)","b":"notstart"},{"ban":"TD","lo":"09-2","obj":"A","nv":"A1.Thủ tục pháp lý (CT TDDKBS-02_năm 2026)","st":"NĐH chưa có KH","why":"Tiếp tục cập nhật theo KH của NĐH","b":"notstart"},{"ban":"TD","lo":"PM3 CAA","obj":"A","nv":"A8.GTTL GK Bunga Butang -1 (tr.tấn quy dầu)","st":"NĐH chưa khoan","why":"Công việc bổ sung KH 2026","b":"notstart"},{"ban":"CNM","lo":"05-1(a)","obj":"B","nv":"B1.Thủ tục pháp lý (RFDP 2025 mỏ DH Pha 3 - điều chỉnh Capex)","st":"Không cần thực hiện","why":"Dự án đã hoàn thành toàn bộ khối lượng công việc, đưa vào khai thác 12/12 GK. Cập nhật chi phí thực hiện thấp hơn TMĐT 1,79 tr.USD, do vậy không thuộc trường hợp điều chỉnh FDP. Do vậy, chuyển trạng thái \"Không cần thực hiện\" và đóng nhiệm vụ theo dõi từ 10/07","b":"notstart"},{"ban":"TCĐT","lo":"05-1(a)","obj":"B","nv":"B2.Thủ tục pháp lý (BCSDV để thực hiện RFDP 2025 mỏ DH Pha 3 - điều chỉnh Capex)","st":"Không cần thực hiện","why":"Dự án đã hoàn thành toàn bộ khối lượng công việc, đưa vào khai thác 12/12 GK. Cập nhật chi phí thực hiện thấp hơn TMĐT 1,79 tr.USD, do vậy không thuộc trường hợp điều chỉnh FDP. Do vậy, chuyển trạng thái \"Không cần thực hiện\" và đóng nhiệm vụ theo dõi từ 10/07","b":"notstart"},{"ban":"PTKT","lo":"01/97&02/97","obj":"C","nv":"C9.Triển khai EPCI (Pipelines kết nối 06 GK Khai thác)","st":"NĐH đang LCNT, chưa ký HĐ","why":"Bổ sung KH triển khai công việc sớm cuối năm 2026","b":"notstart"},{"ban":"TD","lo":"15-1/05","obj":"C","nv":"C10.Thi công khoan PTM GK LDV-A1","st":"Treo giếng","why":"Hoàn thiện giếng sau khi lắp đặt Topside.","b":"notstart"},{"ban":"QLDA","lo":"01/97&02/97","obj":"A","nv":"A4.Đấu thầu Giàn khoan thi công GK TDTL TL-12XP","st":"NĐH đang triển khai LCNT","why":"Bổ sung KH thi công khoan 06 tháng cuối năm 2026 (GK TL-12XP)","b":"progress"},{"ban":"QLDA","lo":"01/97&02/97","obj":"A","nv":"A5.Đấu thầu LLIs GK TDTL TL-12XP","st":"NĐH đang triển khai LCNT","why":"Bổ sung KH thi công khoan 06 tháng cuối năm 2026 (GK TL-12XP)","b":"progress"},{"ban":"TCĐT","lo":"PM3 CAA","obj":"A","nv":"A2.Thủ tục pháp lý (BCSDV để thực hiện CT TDDKBS-03_GK Bunga Butang -1)","st":"TGĐ đang xây dựng","why":"Công việc bổ sung KH 2026","b":"progress"},{"ban":"TD","lo":"01/97&02/97","obj":"A","nv":"A7.Thi công khoan TDTL TL-12XP","st":"NĐH đang chuẩn bị","why":"Bổ sung KH thi công khoan 06 tháng cuối năm 2026 (GK TL-12XP)","b":"progress"},{"ban":"TD","lo":"09-2","obj":"A","nv":"A7.Thi công khoan TDTL GK CNV-5X Leg1","st":"NĐH đang thi công","why":"Tiếp tục khoan sidetrack công đoạn 8-1/2”","b":"progress"},{"ban":"TD","lo":"PM3 CAA","obj":"A","nv":"A7.Thi công khoan TD Bunga Butang -1","st":"NĐH đang chuẩn bị","why":"Công việc bổ sung KH 2026","b":"progress"},{"ban":"CL&QTRR","lo":"11-2","obj":"B","nv":"B8.Thỏa thuận kết nối (TIA) với Lô 12/11","st":"NĐH đang đàm phán","why":"Tiếp tục làm rõ phương án tính chi phí, đàm phán thỏa thuận Tie-in","b":"progress"},{"ban":"CNM","lo":"09-2","obj":"B","nv":"B6.Kết nối đưa vào khai thác GK CNV-8P","st":"Chậm tiến độ","why":"Từ ngày 08/4: Đã kick-off và mở các SSD#, giếng đang trong quá trình unloading nước.","b":"progress"},{"ban":"CNM","lo":"09-3/12","obj":"B","nv":"B7.SLKT (tr.tấn quy dầu)","st":"Thấp hơn KH quản trị","why":"Sản lượng dầu thấp hơn KH PĐ do (i) Các giếng có lưu lượng thấp hơn dự kiến; (ii) Tần suất xử lý parafin cao, làm tăng thời gian downtime","b":"progress"},{"ban":"CNM","lo":"102&106","obj":"B","nv":"B7.SLKT (tr.tấn quy dầu)","st":"Thấp hơn KH quản trị","why":"Sản lượng khí xuất thấp hơn KH PĐ do nhận khí của PV Gas thấp hơn dự kiến","b":"progress"},{"ban":"CNM","lo":"15-1","obj":"B","nv":"B7.SLKT (tr.tấn quy dầu)","st":"Thấp hơn KH quản trị","why":"Sản lượng dầu thấp hơn KH PĐ do (i) Đóng giếng SV-6P do lỗi hệ thống điện của máy bơm ESP, giảm 150 bopd; (ii) Chiến dịch CTG không được như kỳ vọng","b":"progress"},{"ban":"CNM","lo":"15-1","obj":"B","nv":"B1.Thủ tục pháp lý (RFDP SN 2026)","st":"Chậm tiến độ","why":"PVEP đang tiến hành thẩm định","b":"progress"},{"ban":"CNM","lo":"15-2","obj":"B","nv":"B7.SLKT (tr.tấn quy dầu)","st":"Thấp hơn KH quản trị","why":"Sản lượng khí xuất thấp hơn KH PĐ do lưu lượng bơm ép khí HCG EOR cao hơn dự kiến.","b":"progress"},{"ban":"CNM","lo":"PM3 CAA","obj":"B","nv":"B7.SLKT (tr.tấn quy dầu)","st":"Thấp hơn KH quản trị","why":"Sản lượng dầu thấp hơn KH PĐ do các giếng có lưu lượng thấp hơn dự kiến","b":"progress"},{"ban":"QLDA","lo":"01/97&02/97","obj":"B","nv":"B3.Đấu thầu Giàn khoan 06 GK PTM TL-DD","st":"NĐH đang triển khai LCNT","why":"Bổ sung KH thi công khoan 06 tháng cuối năm 2026 (GK TL-11P)","b":"progress"},{"ban":"QLDA","lo":"01/97&02/97","obj":"B","nv":"B4.Đấu thầu LLIs khoan 06 GK PTM TL-DD","st":"NĐH đang triển khai LCNT","why":"Bổ sung KH thi công khoan 06 tháng cuối năm 2026 (GK TL-11P)","b":"progress"},{"ban":"TCĐT","lo":"15-1","obj":"B","nv":"B2.Thủ tục pháp lý (BCSDV để thực hiện RFDP SN 2026)","st":"TGĐ đang xây dựng","why":"NĐH chưa trình PVEP","b":"progress"},{"ban":"TD","lo":"01/97&02/97","obj":"B","nv":"B5.Thi công khoan GK PTM (TL-11P)","st":"NĐH đang chuẩn bị","why":"Bổ sung KH thi công khoan 06 tháng cuối năm 2026 (GK TL-11P)","b":"progress"},{"ban":"TD","lo":"09-2/09","obj":"B","nv":"B5.Thi công khoan GK KTN-P3","st":"NĐH đang thi công","why":"Khoan công đoạn 8-1/2\"","b":"progress"},{"ban":"TD","lo":"09-3/12","obj":"B","nv":"B5.Thi công khoan GK CT-210","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do chậm kế hoạch giàn khoan.","b":"progress"},{"ban":"TD","lo":"15-2/01","obj":"B","nv":"B5.Thi công khoan GK HSD-8P","st":"NĐH đang thi công","why":"Khoan công đoạn 8-1/2\"","b":"progress"},{"ban":"CL&QTRR","lo":"01/10&02/10","obj":"C","nv":"C4.Thủ tục pháp lý (Thỏa thuận TIA kết nối Lô 01/97&02/97)","st":"NĐH đang đàm phán","why":"Ban Chủ trì và các BCM đang xem xét, có ý kiến đối với Đề xuất của NĐH.","b":"progress"},{"ban":"CL&QTRR","lo":"117-119","obj":"C","nv":"C4.Thủ tục pháp lý (Gia hạn HOA GSA/đàm phán GSA)","st":"NĐH đang đàm phán","why":"Tiếp tục trao đổi để thống nhất dự thảo KPA","b":"progress"},{"ban":"CL&QTRR","lo":"15-1/05","obj":"C","nv":"C4.Thủ tục pháp lý (Các thỏa thuận TM TSA và AGGA)","st":"NĐH đang đàm phán","why":"Các Bên đàm phán thỏa thuận thương mại (AGGA, LA, JMA)","b":"progress"},{"ban":"CL&QTRR","lo":"46/13","obj":"C","nv":"C4.Thủ tục pháp lý (Các Thỏa thuận TIE-IN/GSPA/PHA)","st":"NĐH đang đàm phán","why":"Tiếp tục phối hợp với NĐH đàm phán để ký CTIA/GSPA/PHA","b":"progress"},{"ban":"CNM","lo":"10/11 và 10&11-1","obj":"C","nv":"C1.Thủ tục pháp lý (ODP_Cụm Gấu Chúa/Cá Chó/Gấu Ngựa)","st":"TGĐ đang xem xét","why":"Công việc bổ sung KH 2026","b":"progress"},{"ban":"PTKT","lo":"05-1(a)","obj":"C","nv":"C9.Triển khai HĐ EPCI WHP-DHN","st":"NĐH đang triển khai HĐ","why":"- Tiến độ chế tạo chân đế và topside đang chậm chủ yếu do VSP đang trong giai đoạn cao điểm triển khai nhiều dự án, khiến bố trí thiết bị cẩu kéo bị thiếu hụt so với kế hoạch dự kiến, đồng thời diện tích bãi không còn nhiều để triển khai thi công đồng loạt các","b":"progress"},{"ban":"PTKT","lo":"433a&416b","obj":"C","nv":"C9.Triển khai EPC#6 (kết nối bổ sung 3/5 GK gồm BRS-29/30/32)","st":"NĐH đang triển khai","why":"* Các giếng đã Oil-in: BRS-28 & BRS-31 * KH oil-in: -Tháng 7/2026: Oil-in giếng BRS-29 (sử dụng vật tư giếng BRS-10); -Tháng 12/2026:Oil-in giếng BRS-30 (sử dụng vật tư giếng BRS-27); - Tháng 10/2027: Oil-in giếng BRS-32; BRS-33 - Tháng 11/2027: Oil-in giếng B","b":"progress"},{"ban":"QLDA","lo":"01/97&02/97","obj":"C","nv":"C5.Đấu thầu EPCI (Pipelines kết nối 06 GK Khai thác)","st":"NĐH đang triển khai LCNT","why":"Bổ sung KH triển khai công việc sớm cuối năm 2026","b":"progress"},{"ban":"TCĐT","lo":"10/11 và 10&11-1","obj":"C","nv":"C2.Thủ tục pháp lý (BCSDV để thực hiện ODP_Cụm Gấu Chúa/Cá Chó/Gấu Ngựa)","st":"TGĐ đang xây dựng","why":"Công việc bổ sung KH 2026","b":"progress"},{"ban":"TD","lo":"15-1","obj":"C","nv":"C10.Thi công khoan PTM GK ST-10P","st":"NĐH đang thi công","why":"Khoan 8-1/2\".","b":"progress"},{"ban":"TD","lo":"15-1/05","obj":"C","nv":"C10.Thi công khoan PTM GK LDV-A4","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do thời gian thi công các GK dài hơn dự kiến.","b":"progress"},{"ban":"TD","lo":"B48/95 & 52/97","obj":"C","nv":"C10.Thi công khoan PTM Slimhole (AQD-15)","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do tiến độ khoan các GK thẩm định kéo dài","b":"progress"},{"ban":"TD","lo":"B48/95 & 52/97","obj":"C","nv":"C10.Thi công khoan PTM Slimhole (AQD-16)","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do tiến độ khoan các GK thẩm định kéo dài","b":"progress"},{"ban":"TD","lo":"B48/95 & 52/97","obj":"C","nv":"C10.Thi công khoan PTM Slimhole (AQD-17)","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do tiến độ khoan các GK thẩm định kéo dài","b":"progress"},{"ban":"TD","lo":"B48/95 & 52/97","obj":"C","nv":"C10.Thi công khoan PTM Slimhole (AQD-WI01)","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do tiến độ khoan các GK thẩm định kéo dài","b":"progress"},{"ban":"TD","lo":"B48/95 & 52/97","obj":"C","nv":"C10.Thi công khoan PTM Slimhole (AQD-WI02)","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do tiến độ khoan các GK thẩm định kéo dài","b":"progress"},{"ban":"TD","lo":"B48/95 & 52/97","obj":"C","nv":"C10.Thi công khoan PTM Slimhole (AQD-WI03)","st":"NĐH đang chuẩn bị","why":"Có khả năng chậm thi công năm 2026, chuyển sang 2027 do tiến độ khoan các GK thẩm định kéo dài","b":"progress"},{"ban":"CL&QTRR","lo":"04-3/16 và 05-1b&c/17","obj":"D","nv":"D4.Thủ tục pháp lý (Đàm phán ký PSC Lô 04-3/16 và 05-1b&c/17)","st":"Đang triển khai","why":"Các Bên tiếp tục đàm phán để thống nhất.","b":"progress"},{"ban":"CL&QTRR","lo":"PM3 CAA","obj":"E","nv":"E7. Ký PSC điều chỉnh lần 2 (gia hạn PSC 20 năm)","st":"Đang triển khai","why":"PVEP phối hợp với PVN hỗ trợ về việc sửa đổi Addendum 2 và cho ý kiến dưới vai nhà thầu khi nhận dự thảo Add2","b":"progress"}]};
+
 /* ===== RENDER ===== */
 const $  = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -886,6 +951,50 @@ $("#months").innerHTML = Array.from({length:12},(_,i)=>{
   }
   return `<div class="mth wait"><div class="mn">T${m}<small> / 2026</small></div><span class="st">Chưa đến kỳ</span></div>`;
 }).join("");
+
+/* ===== MODULE 6: KH SXKD 2026 ===== */
+const SX_SC = {done:'#1E8E5A', progress:'#0E5AA6', cham:'#C4731A', notstart:'#C0392B'};
+const SX_LB = {done:'Hoàn thành', progress:'Đang triển khai', cham:'Chậm KH / dưới KH', notstart:'Chưa thực hiện'};
+(function renderSXKD(){
+  const m = SXKD.meta, SC = SX_SC, LB = SX_LB;
+  const parts = [['done',m.done],['progress',m.progress],['cham',m.cham],['notstart',m.notstart]];
+  $("#sx-week").textContent = "tuần " + m.week.replace("W","") + " · 11/07/2026";
+  $("#sxkpi").innerHTML = [
+    ['#0A3A70', m.total, 'Tổng nhiệm vụ KH'],
+    [SC.done, m.done, LB.done], [SC.progress, m.progress, LB.progress],
+    [SC.cham, m.cham, LB.cham], [SC.notstart, m.notstart, LB.notstart]
+  ].map(([c,v,t])=>`<div class="sxkc" style="--sc:${c}"><div class="v"><span class="cnt" data-to="${v}">0</span></div><div class="t">${esc(t)}</div></div>`).join("");
+  $("#sxtotbar").innerHTML = parts.map(([k,v])=>`<span style="width:${(v/m.total*100).toFixed(2)}%;background:${SC[k]}" title="${LB[k]}: ${v}"></span>`).join("");
+  $("#sxleg").innerHTML = parts.map(([k,v])=>`<span><i style="background:${SC[k]}"></i>${LB[k]} · <b>${v}</b></span>`).join("");
+  $("#sxtotnote").innerHTML = `Đã hoàn thành <b>${m.done}</b>/${m.total} nhiệm vụ (${Math.round(m.done/m.total*100)}%) · còn <b>${m.total-m.done}</b> nhiệm vụ đang tiếp tục theo dõi, trong đó ${m.cham} chậm/dưới KH và ${m.notstart} chưa thực hiện.`;
+  const objs = Object.entries(SXKD.byobj).sort((a,b)=>a[0].localeCompare(b[0]));
+  $("#sxobjcard").innerHTML = objs.map(([k,o])=>{
+    const seg = parts.map(([bk])=>`<span style="background:${SC[bk]}" data-w="${(o[bk]/o.total*100).toFixed(2)}"></span>`).join("");
+    return `<div class="sxobj"><span class="on">${esc(o.name)}</span><span class="seg">${seg}</span>
+      <span class="num"><b>${o.done}</b>/${o.total} xong · ${o.cham+o.notstart} chưa xong</span></div>`;
+  }).join("");
+  const cnt = {all:SXKD.items.length, cham:0, notstart:0, progress:0};
+  SXKD.items.forEach(it=>cnt[it.b]++);
+  const F = [['all','Tất cả chưa xong'],['cham','Chậm KH / dưới KH'],['notstart','Chưa thực hiện'],['progress','Đang triển khai']];
+  $("#sxfilters").innerHTML = F.map(([k,l],i)=>`<button class="fchip${i?'':' on'}" data-f="${k}">${k!=='all'?`<span class="dot" style="background:${SC[k]}"></span>`:''}${l}<span class="b">${cnt[k]}</span></button>`).join("");
+  function draw(f){
+    const list = SXKD.items.filter(it=>f==='all'||it.b===f);
+    $("#sxitems").innerHTML = list.map(it=>`<div class="sxi" style="--sc:${SC[it.b]}">
+      <div class="top"><span class="st">${esc(it.st)}</span><span class="lo">Lô ${esc(it.lo)}</span><span class="ban">${esc(it.ban)}</span></div>
+      <h4>${esc(it.nv)}</h4>
+      <div class="why"><b>Lý do / kế hoạch tiếp theo</b>${esc(it.why)}${it.why.length>=250?'…':''}</div></div>`).join("");
+  }
+  draw('all');
+  $("#sxfilters").addEventListener("click", e=>{
+    const b = e.target.closest(".fchip"); if(!b) return;
+    document.querySelectorAll("#sxfilters .fchip").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); draw(b.dataset.f);
+  });
+  $("#sxsrc").textContent = "Nguồn: " + m.source + " · thống kê 48 nhiệm vụ chưa hoàn thành có ghi lý do/kế hoạch cụ thể.";
+  function setSxBars(){ document.querySelectorAll("#sxobjcard .seg span[data-w]").forEach(s=>{ s.style.width = s.dataset.w+"%"; }); }
+  requestAnimationFrame(()=>requestAnimationFrame(setSxBars));
+  setTimeout(setSxBars, 700);
+})();
 
 /* ===== MOTION ===== */
 /* counters */
