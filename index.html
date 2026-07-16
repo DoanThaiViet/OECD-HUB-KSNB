@@ -34,7 +34,7 @@ html{overflow-x:clip}
 body{font-family:var(--ff-body);background:var(--paper);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
 a{color:var(--cobalt);text-decoration:none}
 a:hover{text-decoration:underline}
-.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.wrap{max-width:none;margin:0 auto;padding:0 46px}
 img{max-width:100%}
 
 /* ================= TOPBAR (nổi trên hero, không nền trắng) ================= */
@@ -308,6 +308,63 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
 footer b{color:#fff}
 footer .sig{text-align:right}
 
+/* ================= HERO SLIDESHOW (3 giai đoạn) ================= */
+.hero .slides{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease;transform:scale(1.04)}
+.hero .slide.on{opacity:1}
+.heroshade{position:absolute;inset:0;background:linear-gradient(115deg,rgba(0,100,48,.88) 0%,rgba(2,82,62,.76) 40%,rgba(12,58,66,.66) 62%,rgba(31,36,96,.82) 100%)}
+.herostage{position:absolute;right:26px;bottom:16px;z-index:3;display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#d7ecdc;background:rgba(0,28,18,.4);border:1px solid rgba(255,255,255,.22);padding:6px 13px;border-radius:16px;pointer-events:none}
+.herostage .dots i{display:inline-block;width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);margin-left:5px;transition:background .3s}
+.herostage .dots i.on{background:#F5C64F}
+.hero::before{z-index:1;pointer-events:none}
+.hero .globe{z-index:1;opacity:.35}
+@media (prefers-reduced-motion: no-preference){
+  .hero .slide.on{animation:kburns 10s ease-out forwards}
+  @keyframes kburns{from{transform:scale(1.04)}to{transform:scale(1.12)}}
+  .hero .globe{animation:globespin 120s linear infinite}
+  @keyframes globespin{to{transform:rotate(360deg)}}
+}
+/* ================= EXECUTIVE SNAPSHOT + BENTO + COCKPIT ================= */
+.snapshot,.bento,.navcock{display:none}
+#drawerbar{display:none}
+.navprog{position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:#F5C64F;transform:scaleX(0);transform-origin:left;pointer-events:none}
+@media(min-width:1021px){
+  .navcock{display:inline-flex;align-items:center;margin-left:auto;margin-right:14px;font-family:inherit;font-size:12px;font-weight:700;color:#F5C64F;background:rgba(255,255,255,.1);border:1px solid rgba(245,198,79,.45);border-radius:8px;padding:6px 13px;cursor:pointer;white-space:nowrap;align-self:center}
+  .navcock:hover{background:rgba(255,255,255,.18)}
+  .navcock + .navlogo{margin-left:0}
+  /* --- cockpit mode --- */
+  body.cockpit{overflow:hidden;height:100svh}
+  body.cockpit .hero{min-height:0;height:44svh}
+  body.cockpit .hero .wrap{padding-top:92px;padding-bottom:16px}
+  body.cockpit .hero h1{font-size:clamp(26px,2.6vw,38px);margin:10px 0 6px}
+  body.cockpit .lede,body.cockpit .kpis,body.cockpit .launch,body.cockpit .hero .narr{display:none}
+  body.cockpit .snapshot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+  .snapshot .sn{font-size:13px;color:#cfe3d6;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:7px 16px;white-space:nowrap}
+  .snapshot .sn b{color:#fff;font-weight:800}
+  .snapshot .snbtn{margin-left:auto;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--navy);background:#F5C64F;border:none;border-radius:9px;padding:9px 16px;cursor:pointer;white-space:nowrap}
+  .snapshot .snbtn:hover{background:#ffd35e}
+  body.cockpit .modnav,body.cockpit footer,body.cockpit #fab{display:none}
+  body.cockpit section.mod{display:none}
+  body.cockpit .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1240px;margin:0 auto;padding:20px 28px 22px;height:calc(56svh - 3px);box-sizing:border-box}
+  .btile{font-family:inherit;text-align:left;background:#fff;border:1px solid var(--line);border-top:4px solid var(--ac);border-radius:16px;box-shadow:var(--shadow);padding:22px 22px 18px;cursor:pointer;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+  .btile::after{content:"";position:absolute;inset:0;background:radial-gradient(260px 140px at 88% -20%, color-mix(in srgb, var(--ac) 16%, transparent), transparent 70%);pointer-events:none}
+  .btile:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--ac)}
+  .btile .lic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--ac) 18%, #fff);border:1px solid color-mix(in srgb, var(--ac) 45%, transparent);color:color-mix(in srgb, var(--ac) 70%, #1a3a2a)}
+  .btile .lic svg{width:22px;height:22px}
+  .btile .bnum{position:absolute;top:14px;right:16px;font-size:20px;font-weight:800;color:color-mix(in srgb, var(--ac) 55%, var(--faint));opacity:.85}
+  .btile b{font-size:16.5px;color:var(--navy);line-height:1.3}
+  .btile .bstat{font-size:13.5px;font-weight:800;color:var(--ink)}
+  .btile .bsub{font-size:12px;color:var(--muted);line-height:1.55;flex:1;overflow:hidden}
+  .btile .bgo{font-size:12.5px;font-weight:700;color:color-mix(in srgb, var(--ac) 65%, #14532d)}
+  /* --- drawer --- */
+  body.cockpit section.mod.open{display:block;position:fixed;inset:0;z-index:75;overflow:auto;background:var(--paper);padding-top:54px;overscroll-behavior:contain}
+  body.cockpit #drawerbar:not([hidden]){display:flex;position:fixed;top:0;left:0;right:0;z-index:80;align-items:center;gap:10px;background:linear-gradient(100deg,#015a30 0%,#0a5048 42%,#212666 100%);border-bottom:2px solid rgba(0,166,81,.55);color:#fff;padding:9px 26px}
+  #drawerbar .dbt{font-size:14px;font-weight:800;letter-spacing:.3px;margin-right:auto}
+  #drawerbar .dbtn{font-family:inherit;font-size:12px;font-weight:700;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+  #drawerbar .dbtn:hover{background:rgba(255,255,255,.22)}
+  #drawerbar .dbtn.primary{background:#F5C64F;color:var(--navy);border-color:#F5C64F}
+  #drawerbar .dbtn.primary:hover{background:#ffd35e}
+}
 /* ================= HERO LAUNCHER ================= */
 .launch{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
 .lc{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-top:3px solid var(--ac);border-radius:14px;padding:16px 16px 14px;color:#fff;display:flex;flex-direction:column;gap:8px;transition:.2s;position:relative;overflow:hidden}
@@ -458,7 +515,12 @@ footer .sig{text-align:right}
 @media print{
   @page{size:A4 landscape;margin:10mm}
   body{background:#fff;font-size:11px}
-  .modnav,.lib-tools,.filters,.btn,.cta-cc .btns,#fab,#modal,.bkp{display:none !important}
+  .modnav,.lib-tools,.filters,.btn,.cta-cc .btns,#fab,#modal,.bkp,.bento,.snapshot,#drawerbar,.navcock,.slides,.herostage{display:none !important}
+  body.cockpit{overflow:visible !important;height:auto !important}
+  body.cockpit .hero{height:auto !important;min-height:0 !important}
+  body.cockpit section.mod{display:block !important;position:static !important;padding-top:0 !important}
+  body.cockpit .kpis{display:grid !important}
+  body.cockpit .lede,body.cockpit .hero .narr{display:block !important}
   .hero,.acgs,.cta-cc,footer{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   section.mod{padding:18px 0;page-break-before:always}
   .topbar{position:static;background:linear-gradient(115deg,#00843d 0%,#006838 60%,#0a5a52 100%)}
@@ -479,14 +541,18 @@ footer .sig{text-align:right}
       <span>Tổng công ty Thăm dò Khai thác Dầu khí</span>
       <b>Ban Kiểm soát Nội bộ</b>
     </div>
-    <div class="right">
-      <div class="stamp">Cập nhật: <b id="stamp-date">14/07/2026</b></div>
-    </div>
   </div>
 </div>
 
 <!-- ============ HERO ============ -->
 <header class="hero">
+  <div class="slides" aria-hidden="true">
+    <img class="slide" data-cap="Dầu khí ngoài khơi" src="assets/hero-oil.webp" alt="" fetchpriority="high">
+    <img class="slide" data-cap="Điện gió ngoài khơi" src="assets/hero-wind.webp" alt="">
+    <img class="slide" data-cap="Khai khoáng đáy biển" src="assets/hero-subsea.webp" alt="">
+    <div class="heroshade"></div>
+  </div>
+  <div class="herostage" id="herostage"><span id="stagecap">Dầu khí ngoài khơi</span><span class="dots" id="stagedots"></span></div>
   <svg class="globe" viewBox="0 0 600 600" fill="none" aria-hidden="true">
     <g stroke="#ffffff" stroke-opacity=".28" stroke-width="1">
       <circle cx="300" cy="300" r="250"/><circle cx="300" cy="300" r="190"/><circle cx="300" cy="300" r="130"/>
@@ -555,6 +621,7 @@ footer .sig{text-align:right}
     <a href="#m5"><span class="n">04</span>Báo cáo định kỳ tháng</a>
     <img class="navlogo" src="assets/pvep-logo.png" alt="">
   </div>
+  <span class="navprog" id="navprog"></span>
 </nav>
 
 <!-- ============ MODULE 1 ============ -->
@@ -716,28 +783,25 @@ const DOCS_TRAINING = [
   kp:["Tờ trình ngày 08/07/2026, xây dựng trên cơ sở NQ 5432/NQ-CNNL và kết luận họp HĐTV (BB 566/BB-TDKT).","Đề xuất kế hoạch 21 nhiệm vụ / 8 nhóm kèm phân công lãnh đạo, Ban chủ trì – phối hợp và thời hạn.","Được HĐTV chấp thuận, ban hành thành QĐ 1017/QĐ-TDKT ngày 10/07/2026."]},
 ];
 
-/* --- Module 1.2: VBQLNB liên quan OECD ---
-   ★★★ DỮ LIỆU MẪU — NAM CẦN THAY BẰNG DATA THẬT ★★★
-   Nguồn gợi ý: Danh mục 79 VBQLNB kèm CV 140/CVNB-HNT (30/04/2026).
-   Mỗi dòng: so (số/ký hiệu, để "" nếu chưa có) · ten · loai (nhóm) · ban (Ban chủ trì)
-   · trangthai: "chua" (Chưa rà soát) | "dangsua" (Đang rà soát/sửa đổi) | "dacapnhat" (Đã cập nhật theo OECD)
-   · u: link SharePoint qua sp()/spO(), để "" nếu chưa đính kèm file
-   · kp: các gạch đầu dòng điểm chính (hiện trong modal) */
+/* --- Module 1.2: VBQLNB liên quan trực tiếp OECD ---
+   Danh mục khởi tạo từ SẢN PHẨM ĐẦU RA của KH 1017 (QĐ 1017/QĐ-TDKT) — nội dung thật,
+   nhưng ★ NAM CẦN CẬP NHẬT: số/ký hiệu (so) và link file (u) khi từng văn bản được ban hành,
+   đồng thời chỉnh trangthai: "chua" | "dangsua" | "dacapnhat" theo tiến độ thực tế. */
 const VBQLNB = [
  {so:"", ten:"Bộ quy chế quản trị nội bộ áp dụng nguyên tắc OECD", loai:"Quản trị & điều hành", ban:"CL&QTRR", trangthai:"chua", u:"",
-  kp:["[MẪU — thay bằng data thật] Sản phẩm tổng thể theo yêu cầu của Đảng ủy PVEP tại KH 10-KH/ĐU (hoàn thành Bộ quy chế quản trị nội bộ theo OECD).","Tổng hợp từ kết quả rà soát VBQLNB — nhiệm vụ 2.1 KH 1017 (hạn tháng 8/2026)."]},
+  kp:["Sản phẩm tổng thể theo yêu cầu của Đảng ủy PVEP tại KH 10-KH/ĐU (hoàn thành Bộ quy chế quản trị nội bộ theo OECD).","Tổng hợp từ kết quả rà soát VBQLNB — nhiệm vụ 2.1 KH 1017 (hạn tháng 8/2026)."]},
  {so:"", ten:"Quy chế Quản trị rủi ro (sửa đổi, bổ sung theo OECD)", loai:"Kiểm soát – rủi ro", ban:"CL&QTRR", trangthai:"dangsua", u:"",
-  kp:["[MẪU] Bổ sung rủi ro tài chính, vận hành, ESG, chuỗi cung ứng, an ninh mạng, địa chính trị và đầu tư nước ngoài.","Kèm danh mục rủi ro trọng yếu cấp PVEP + bộ KRI, ngưỡng cảnh báo sớm — nhiệm vụ 4.1 KH 1017 (hạn Quý IV/2026)."]},
+  kp:["Bổ sung rủi ro tài chính, vận hành, ESG, chuỗi cung ứng, an ninh mạng, địa chính trị và đầu tư nước ngoài.","Kèm danh mục rủi ro trọng yếu cấp PVEP + bộ KRI, ngưỡng cảnh báo sớm — nhiệm vụ 4.1 KH 1017 (hạn Quý IV/2026)."]},
  {so:"", ten:"Quy định về quản trị ESG của PVEP (xây mới)", loai:"Phát triển bền vững", ban:"CL&QTRR", trangthai:"chua", u:"",
-  kp:["[MẪU] Xây mới theo nhiệm vụ 6.1 KH 1017 — tích hợp ESG, rủi ro khí hậu và lộ trình chuyển dịch năng lượng vào chiến lược, đầu tư, tài chính, QTRR (hạn Quý IV/2026)."]},
+  kp:["Xây mới theo nhiệm vụ 6.1 KH 1017 — tích hợp ESG, rủi ro khí hậu và lộ trình chuyển dịch năng lượng vào chiến lược, đầu tư, tài chính, QTRR (hạn Quý IV/2026)."]},
  {so:"", ten:"Quy định mới về công bố thông tin, minh bạch", loai:"Minh bạch – CBTT", ban:"VP", trangthai:"dangsua", u:"",
-  kp:["[MẪU] Thay quy chế CBTT hiện hành — thống nhất danh mục thông tin công bố, quy trình chuẩn hóa, báo cáo thường niên song ngữ tháng 4 hằng năm — nhiệm vụ 7.1 KH 1017 (hạn Quý III/2026)."]},
+  kp:["Thay quy chế CBTT hiện hành — thống nhất danh mục thông tin công bố, quy trình chuẩn hóa, báo cáo thường niên song ngữ tháng 4 hằng năm — nhiệm vụ 7.1 KH 1017 (hạn Quý III/2026)."]},
  {so:"", ten:"Quy trình KTGS & KTNB chuẩn hóa theo chuẩn mực IIA", loai:"Kiểm soát – rủi ro", ban:"KSNB", trangthai:"dangsua", u:"",
-  kp:["[MẪU] Chuẩn hóa và số hóa quy trình kiểm tra giám sát, kiểm toán nội bộ theo chuẩn mực quốc tế IIA — nhiệm vụ 5.1 KH 1017 (hạn Quý III/2026)."]},
+  kp:["Chuẩn hóa và số hóa quy trình kiểm tra giám sát, kiểm toán nội bộ theo chuẩn mực quốc tế IIA — nhiệm vụ 5.1 KH 1017 (hạn Quý III/2026)."]},
  {so:"", ten:"Quy định CNTT, an toàn mạng (sửa đổi — rủi ro số, SCADA)", loai:"Kiểm soát – rủi ro", ban:"CN-CĐS", trangthai:"chua", u:"",
-  kp:["[MẪU] Tích hợp rủi ro số, an ninh mạng, SCADA/công nghệ vận hành vào hồ sơ rủi ro và khung QTRR — nhiệm vụ 4.3 KH 1017 (hạn Quý III/2026)."]},
+  kp:["Tích hợp rủi ro số, an ninh mạng, SCADA/công nghệ vận hành vào hồ sơ rủi ro và khung QTRR — nhiệm vụ 4.3 KH 1017 (hạn Quý III/2026)."]},
  {so:"", ten:"Quy chế quản lý Người đại diện (hợp nhất, hoàn thiện)", loai:"Người đại diện", ban:"QTNNL", trangthai:"chua", u:"",
-  kp:["[MẪU] Hợp nhất khung quản trị Người đại diện vốn và Người đại diện tại dự án dầu khí; ma trận năng lực, khung KPI gắn kết quả quản trị — nhiệm vụ 8.1 KH 1017 (hạn Quý IV/2026)."]},
+  kp:["Hợp nhất khung quản trị Người đại diện vốn và Người đại diện tại dự án dầu khí; ma trận năng lực, khung KPI gắn kết quả quản trị — nhiệm vụ 8.1 KH 1017 (hạn Quý IV/2026)."]},
 ];
 const VB_STATUS = {chua:["wait","Chưa rà soát"], dangsua:["run","Đang rà soát/sửa đổi"], dacapnhat:["ok","Đã cập nhật theo OECD"]};
 
@@ -1081,6 +1145,46 @@ addEventListener("keydown", e=>{
   if(t && (t.tagName==="INPUT" || t.tagName==="TEXTAREA" || t.isContentEditable)) return;
   if(e.key==="ArrowDown" || e.key==="PageDown"){ e.preventDefault(); gotoSection(1); }
   if(e.key==="ArrowUp"   || e.key==="PageUp")  { e.preventDefault(); gotoSection(-1); }
+});
+
+/* ===== HERO SLIDESHOW: 3 giai đoạn, crossfade + Ken Burns ===== */
+(function(){
+  const slides = [...document.querySelectorAll(".hero .slide")];
+  if(!slides.length) return;
+  slides.forEach(im=>im.addEventListener("error", ()=>im.remove()));
+  const dotsEl = $("#stagedots"), capEl = $("#stagecap");
+  dotsEl.innerHTML = slides.map(()=>"<i></i>").join("");
+  const dots = [...dotsEl.children];
+  let cur = 0;
+  function show(i){
+    slides.forEach((s,j)=>s.classList.toggle("on", j===i));
+    dots.forEach((d,j)=>d.classList.toggle("on", j===i));
+    capEl.textContent = slides[i] ? slides[i].dataset.cap : "";
+  }
+  show(0);
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+    setInterval(()=>{ if(document.hidden) return; cur=(cur+1)%slides.length; show(cur); }, 5200);
+  } else {
+    $("#herostage").style.display = "none";   // giảm chuyển động: đứng yên ở ảnh 1
+  }
+})();
+
+/* ===== Thanh tiến trình cuộn ===== */
+(function(){
+  const prog = $("#navprog");
+  if(!prog) return;
+  let docH = 1;
+  const meas = ()=>{ docH = Math.max(1, document.documentElement.scrollHeight - innerHeight); };
+  addEventListener("resize", meas, {passive:true});
+  setTimeout(meas, 600);
+  addEventListener("scroll", ()=>{
+    prog.style.transform = "scaleX(" + Math.min(1, scrollY/docH) + ")";
+  }, {passive:true});
+})();
+
+/* ===== Stagger: thẻ trong lưới hiện lệch nhau 70ms ===== */
+document.querySelectorAll(".books,.reqgrid").forEach(g=>{
+  [...g.children].forEach((c,i)=>{ if(c.classList.contains("rv")) c.style.transitionDelay = ((i%6)*70)+"ms"; });
 });
 
 /* ===== PWA: manifest động để cài như app trên điện thoại ===== */
