@@ -78,21 +78,41 @@ a.node:hover{text-decoration:none}
 .mr .v{font-family:var(--ff-head);font-size:31px;font-weight:800;color:var(--ink);line-height:1.05;letter-spacing:-.5px}
 .mr .v.red{color:var(--red)}.mr .v.amber{color:var(--amber)}.mr .v.gold{color:var(--amber)}.mr .v.ok{color:var(--pvep-deep)}
 .mr .l{font-size:10px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;color:var(--faint);margin-top:5px}
-/* fallback menu */
-.menulist{position:relative;z-index:2;max-width:920px;margin:0 auto;padding:0 20px 26px;width:100%}
-.menulist h2{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:12px}
-.menulist a,.menulist .noln{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;background:rgba(255,255,255,.92);border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:13px;padding:14px 20px;margin-bottom:10px;color:var(--ink);box-shadow:var(--shadow-card)}
-.menulist a:hover{text-decoration:none;border-color:var(--ac);box-shadow:var(--shadow-hover)}
-.menulist .ph{font-family:var(--ff-head);font-size:16px;font-weight:800;color:var(--ac)}
-.menulist .nm{font-weight:800;font-size:14.5px;color:var(--ink)}
-.menulist .kv{font-size:12px;color:var(--muted)}
-.menulist .kv b{color:var(--ink)}
-.menulist .arr{color:var(--ac);font-weight:800;font-size:16px}
-@media(max-width:980px){ .stage{display:none} .moneyrow{padding-top:16px} }
+/* ---------- vòng dọc: mobile + chế độ Danh sách ---------- */
+.menulist{position:relative;z-index:2;max-width:520px;margin:0 auto;padding:0 20px 26px;width:100%}
+.menulist h2{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:14px}
+/* lõi điểm ACGS dạng thẻ ngang */
+.mcore{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border:2px solid var(--pvep);border-radius:18px;padding:14px 18px;box-shadow:0 0 0 7px rgba(0,166,81,.07),var(--shadow-card)}
+.mcore img{height:44px;flex:none}
+.mcore .mv{font-family:var(--ff-head);font-size:34px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-1px}
+.mcore .mv small{font-size:16px;color:var(--pvep-deep)}
+.mcore .ml{font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--pvep-deep);margin-top:4px}
+.mcore .mu{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--faint);margin-top:2px}
+/* node ở dạng xếp dọc — dùng lại đúng thẻ của chòm sao */
+.node.mob{position:static;transform:none;width:100%;margin:0 auto}
+a.node.mob:hover .box{transform:none}
+/* nối giữa các thẻ */
+.conn{height:26px;position:relative}
+.conn::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:linear-gradient(180deg,rgba(0,166,81,.55),rgba(0,166,81,.18))}
+.conn::after{content:"▾";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);color:var(--pvep);font-size:11px;line-height:1}
+.conn.loop::before{background:repeating-linear-gradient(180deg,rgba(0,166,81,.45) 0 4px,transparent 4px 8px)}
+.conn.loop::after{content:"↻ khép vòng về Kiến thức";position:static;display:block;text-align:center;padding-top:26px;font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--pvep-deep);transform:none}
+.conn.loop{height:auto}
+@media(max-width:980px){
+  .stage{display:none}
+  .moneyrow{padding-top:16px}
+  #togglelist{display:none}          /* dưới 980px không có chòm sao để chuyển */
+  .hubhead h1{font-size:clamp(24px,7vw,34px)}
+  .loopline{font-size:10.5px;gap:5px}
+  .mr{padding:10px 18px;min-width:calc(50% - 7px);flex:1}
+  .mr .v{font-size:26px}
+}
 @media(min-width:981px){ .menulist{display:none} body.showlist .menulist{display:block} body.showlist .stage{display:none} }
 @media print{
   .stage,.cinema,.moneyrow{display:none !important}
-  .menulist{display:block !important}
+  .menulist{display:block !important;max-width:none}
+  .conn{height:14px}
+  .node.mob{break-inside:avoid}
 }
 </style>
 </head>
@@ -201,9 +221,11 @@ const fit = document.getElementById("stagefit");
 const svg = document.getElementById("linksvg");
 const DW = 1440, NW = 362, CORE = 250;
 let DH = 660;
-const els = NODES.map(n=>{
+/* 1 thẻ node dùng cho cả chòm sao (desktop) lẫn vòng dọc (mobile/danh sách) */
+function makeNode(n, cls){
   const el = document.createElement(n.href ? "a" : "div");
-  el.className = "node"; if(n.href) el.href = n.href;
+  el.className = "node" + (cls ? " " + cls : "");
+  if(n.href) el.href = n.href;
   el.style.setProperty("--ac", n.ac);
   el.innerHTML = `<div class="box">
     <span class="ph">${n.ph} · ${n.verb}<span class="tier">${n.tier}</span></span>
@@ -211,13 +233,17 @@ const els = NODES.map(n=>{
     <div class="ndonut">${nodeDonut(n.ring, n.ac)}</div>
     <div class="kv">${n.kv}</div>
     <span class="go ${n.href?'':'off'}">${n.href ? "Mở phân hệ" : "Sẽ kết nối hệ thống riêng"}</span></div>`;
-  fit.appendChild(el);
   return el;
-});
+}
+const els = NODES.map(n=>{ const el = makeNode(n); fit.appendChild(el); return el; });
+let placedH = 0;                       /* chiều cao thẻ tại lần xếp gần nhất */
 function place(){
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   /* đo chiều cao node thật (chữ xuống dòng tùy nội dung + font đã tải) */
-  const halfH = Math.max(...els.map(e=>e.offsetHeight))/2;
+  const maxH = Math.max(...els.map(e=>e.offsetHeight));
+  if(!maxH) return;                    /* stage đang ẩn (mobile) — xếp lại khi hiện lại */
+  placedH = maxH;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const halfH = maxH/2;
   /* bán kính ellipse: node trên/dưới không chạm lõi, không tràn canvas */
   const ry = CORE/2 + halfH + 12;
   DH = Math.ceil(2*(ry + halfH) + 16);
@@ -250,13 +276,21 @@ function place(){
   });
 }
 function fitScale(){
+  if(!stage.clientWidth || !stage.clientHeight) return;   /* stage đang ẩn */
   const k = Math.min(1, stage.clientWidth/DW, stage.clientHeight/DH);
   fit.style.setProperty("--k", k>0 ? k.toFixed(4) : 1);
 }
-place(); fitScale();
-if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>{ place(); fitScale(); });
-addEventListener("resize", fitScale, {passive:true});
-if(window.ResizeObserver) new ResizeObserver(fitScale).observe(stage);
+/* xếp lại khi thẻ đổi chiều cao thật: font vừa tải xong, hoặc stage vừa hiện lại
+   sau khi bị ẩn ở mobile (<981px) — lúc ẩn mọi phép đo đều bằng 0 */
+function refresh(){
+  const maxH = Math.max(...els.map(e=>e.offsetHeight));
+  if(maxH && maxH !== placedH) place();
+  fitScale();
+}
+refresh();
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+addEventListener("resize", refresh, {passive:true});
+if(window.ResizeObserver) new ResizeObserver(refresh).observe(stage);
 
 /* ------- money row ------- */
 document.getElementById("moneyrow").innerHTML = `
@@ -266,15 +300,24 @@ document.getElementById("moneyrow").innerHTML = `
   <div class="mr"><div class="v ok">${st.done}</div><div class="l">Hoàn thành</div></div>
   <div class="mr"><div class="v gold">${st.decide}</div><div class="l">Việc cần HĐTV quyết</div></div>`;
 
-/* ------- fallback menu ------- */
-document.getElementById("menulist").innerHTML += NODES.map(n=>{
-  const inner = `<span class="ph">${n.ph}</span>
-   <span><span class="nm">${n.nm}</span><br><span class="kv">${n.kv} · Tầng ${n.tier==="PORTAL"?"A — đọc":"B — giao dịch"}</span></span>
-   <span class="arr">${n.href ? "→" : "…"}</span>`;
-  return n.href
-    ? `<a href="${n.href}" style="--ac:${n.ac}">${inner}</a>`
-    : `<div class="noln" style="--ac:${n.ac}" title="Sẽ kết nối hệ thống riêng">${inner}</div>`;
-}).join("");
+/* ------- vòng dọc (mobile + chế độ Danh sách): dùng lại đúng thẻ của chòm sao ------- */
+(function(){
+  const box = document.getElementById("menulist");
+  box.innerHTML = `<h2>Vòng quản trị · 5 phân hệ</h2>
+    <div class="mcore">
+      <img src="assets/pvep-logo.png" alt="">
+      <div>
+        <div class="mv">${vn(D.SCORES.find(s=>s.real).v)}<small>%</small></div>
+        <div class="ml">ACGS 2026 · Hạng A</div>
+        <div class="mu">Cập nhật ${D.META.updated}</div>
+      </div>
+    </div>`;
+  NODES.forEach(n=>{
+    box.insertAdjacentHTML("beforeend", `<div class="conn"></div>`);
+    box.appendChild(makeNode(n, "mob"));
+  });
+  box.insertAdjacentHTML("beforeend", `<div class="conn loop"></div>`);
+})();
 document.getElementById("togglelist").addEventListener("click", ()=>{
   document.body.classList.toggle("showlist");
   document.getElementById("togglelist").textContent = document.body.classList.contains("showlist") ? "✦ Chòm sao" : "☰ Danh sách";
