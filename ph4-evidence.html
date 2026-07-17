@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PH4 · Document & Reporting Center — OECD PVEP</title>
+<meta name="theme-color" content="#0D9488">
+<link rel="icon" href="assets/pvep-logo.png">
+<link rel="stylesheet" href="command.css">
+<style>
+.wrap{padding-top:18px;padding-bottom:8px}
+/* ---------- 4.1 dải tổng quan dòng chảy ---------- */
+.flowband{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface-solid);box-shadow:var(--shadow-card);margin-bottom:16px}
+.fnode{padding:16px 20px;position:relative;border-right:1px solid var(--line);background:linear-gradient(180deg,color-mix(in srgb,var(--lc,#0D9488) 8%,#fff),#fff 62%);transition:background .2s}
+.fnode:hover{background:linear-gradient(180deg,color-mix(in srgb,var(--lc,#0D9488) 14%,#fff),#fff 75%)}
+.fnode:last-child{border-right:none}
+.fnode::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:2;background:#fff;border:1px solid var(--line-strong);border-radius:50%;width:24px;height:24px;font-size:12px;display:flex;align-items:center;justify-content:center;color:var(--faint)}
+.fnode:last-child::after{display:none}
+.fnode i.bar{display:block;width:34px;height:4px;border-radius:2px;margin-bottom:10px}
+.fnode .cnt{font-family:var(--ff-head);font-size:35px;font-weight:800;line-height:1;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.fnode .lb{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-top:5px;color:var(--muted)}
+.fnode .sb{font-size:11px;color:var(--faint);margin-top:2px}
+.fnode .sb b{color:var(--ok)}
+@media(max-width:900px){.flowband{grid-template-columns:repeat(2,1fr)}.fnode:nth-child(2)::after{display:none}.fnode:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+/* ---------- thanh lọc ---------- */
+.mxtools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.mxtools input,.mxtools select{font-family:inherit;font-size:12.5px;padding:8px 12px;border-radius:9px;border:1px solid var(--line-strong);background:#fff;color:var(--ink)}
+.mxtools input[type=search]{min-width:220px}
+/* ---------- 4.2 ma trận ---------- */
+.mxscroll{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface-solid);box-shadow:var(--shadow-card);max-height:70vh}
+.mxg{display:grid;min-width:1020px}
+.mxg .hcell{position:sticky;top:0;z-index:3;background:linear-gradient(180deg,#F8FBF9,#EEF5F0);border-bottom:2px solid var(--line-strong);padding:8px 6px;text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.mxg .hcell.now{background:#E7F5EC;color:var(--pvep-deep)}
+.mxg .hcell.now small{display:block;font-size:8.5px;letter-spacing:.5px;color:var(--pvep)}
+.mxg .hcorner{position:sticky;left:0;top:0;z-index:5;background:#F5F9F7;border-bottom:2px solid var(--line-strong);border-right:1px solid var(--line-strong);padding:8px 12px;font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--pvep-deep);display:flex;align-items:center}
+.mxg .lcell{position:sticky;left:0;z-index:2;background:#fff;border-right:1px solid var(--line-strong);border-top:1px solid var(--line);padding:10px 12px;display:flex;flex-direction:column;justify-content:center;gap:2px;border-left:4px solid var(--lc)}
+.mxg .lcell .nm{font-family:var(--ff-head);font-size:12.5px;font-weight:800;color:var(--ink);line-height:1.25}
+.mxg .lcell .ct{font-size:10.5px;color:var(--faint)}
+.mxg .cell{border-top:1px solid var(--line);border-left:1px dashed #EAF0F6;padding:7px 5px;display:flex;flex-direction:column;gap:6px;justify-content:center;min-height:58px}
+.mxg .cell.now{background:rgba(0,166,81,.05)}
+/* chip văn bản */
+.mchip{font-family:inherit;cursor:pointer;text-align:left;background:#fff;border:1px solid var(--line);border-left:3px solid var(--lc);border-radius:9px;padding:6px 8px 7px;box-shadow:0 1px 3px rgba(15,37,64,.07);transition:transform .15s,box-shadow .15s,opacity .25s;width:100%}
+.mchip:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.mchip.dim{opacity:.18;pointer-events:none}
+.mchip .dd{font-size:9.5px;color:var(--faint);font-weight:700;float:right;margin-top:1px}
+.mchip .rr{font-size:11.5px;font-weight:800;color:var(--ink);line-height:1.3;display:block}
+.mchip .rr .star{color:var(--amber)}
+.mchip .tt{font-size:10px;color:var(--muted);line-height:1.35;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.mchip .rp{display:block;font-size:9px;font-weight:800;color:var(--ok);margin-top:2px}
+/* chú giải */
+.mxlegend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:12px;font-size:11.5px;color:var(--muted)}
+.mxlegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+/* ---------- drawer phả hệ ---------- */
+.gen{border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;background:#FBFDFC}
+.gen .gh{font-size:9.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+.genlink{display:block;width:100%;text-align:left;font-family:inherit;font-size:12px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-left:3px solid var(--lc,#ccc);border-radius:8px;padding:7px 10px;margin-bottom:5px;cursor:pointer;line-height:1.35}
+.genlink:hover{border-color:var(--pvep)}
+.genlink small{display:block;font-weight:500;color:var(--muted);font-size:10.5px}
+.dmeta{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}
+.dmeta .tag{font-size:10px;font-weight:700;background:#F2F6FA;border:1px solid var(--line);border-radius:8px;padding:2px 9px;color:var(--muted)}
+.dmeta .tag.ok{background:#E7F5EC;border-color:#BFE4CC;color:var(--pvep-deep)}
+.dmeta .tag.warn{background:#FEF3E2;border-color:#F1D5A8;color:#92400E}
+/* ---------- kho + tracer giữ lại ---------- */
+.tracer{display:grid;grid-template-columns:280px 1fr;gap:16px}
+@media(max-width:900px){.tracer{grid-template-columns:1fr}}
+.critsel{max-height:360px;overflow:auto;padding-right:4px}
+.csel{width:100%;text-align:left;font-family:inherit;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font-size:12px;color:var(--ink);line-height:1.4}
+.csel:hover{border-color:var(--pvep)}
+.csel.on{border-color:var(--pvep-deep);background:#F0F9F3;box-shadow:0 0 0 1px var(--pvep-deep)}
+.csel b{color:var(--pvep-deep);margin-right:5px}
+.csel .pst{float:right;font-size:9px;font-weight:800;padding:1px 7px;border-radius:8px}
+.csel .pst.dat{background:#E7F5EC;color:#046B39}.csel .pst.dangsua{background:#FEF3E2;color:#92400E}.csel .pst.hut{background:#FDECEA;color:#B91C1C}
+.traceout{border:1px solid var(--line);border-radius:12px;background:#FBFDFC;padding:16px 18px;min-height:280px}
+.traceout .step{display:flex;gap:12px;margin-bottom:14px}
+.traceout .ic{width:34px;height:34px;border-radius:10px;background:var(--pvep-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
+.traceout .ic.n2{background:var(--navy)} .traceout .ic.n3{background:var(--amber)}
+.traceout h4{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.traceout .bd{font-size:13px;color:var(--ink);line-height:1.6}
+.traceout .bd .tag{display:inline-block;font-size:10px;font-weight:800;background:#F2F6FA;border:1px solid var(--line);border-radius:8px;padding:1px 8px;margin:2px 4px 2px 0;color:var(--muted)}
+.ev{display:grid;grid-template-columns:60px 1.7fr 110px 1fr auto;gap:12px;align-items:center;border-top:1px solid var(--line);padding:9px 6px;border-radius:8px;transition:background .15s}
+.ev:hover{background:rgba(13,148,136,.045)}
+.ev .id{font-size:11px;font-weight:800;color:var(--pvep-deep);text-align:center}
+.ev .nm{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.4}
+.ev .note{font-size:10.5px;color:var(--muted);margin-top:2px}
+.ev .ty{font-size:10.5px;color:var(--muted)}
+.ev .links{font-size:10.5px;color:var(--muted);line-height:1.6}
+.ev .links b{color:var(--navy)}
+.lab{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.5px;padding:2px 9px;border-radius:10px}
+.lab.bc{background:#E7F5EC;color:#046B39;border:1px solid #BFE4CC}
+.lab.tc{background:#EDEBFA;color:#4C3D99;border:1px solid #D6D2F0}
+.ev .open{font-size:11.5px;font-weight:700;white-space:nowrap}
+.ev .open::after{content:"↗"}
+@media(max-width:900px){.ev{grid-template-columns:50px 1fr auto}.ev .ty,.ev .links{display:none}}
+.vbrow{display:grid;grid-template-columns:1.5fr 130px 110px auto;gap:12px;align-items:center;border-top:1px solid var(--line);padding:8px 6px;font-size:12.5px;border-radius:8px;transition:background .15s}
+.vbrow:hover{background:rgba(13,148,136,.045)}
+@media(max-width:900px){.vbrow{grid-template-columns:1fr auto}}
+.vbrow .ten{font-weight:600;color:var(--ink)}
+.vbrow .m{font-size:11px;color:var(--muted)}
+.emptyhint{color:var(--faint);font-size:13px;padding:26px 10px;text-align:center}
+</style>
+</head>
+<body class="theme-ph4">
+
+<div class="cbar">
+  <a class="logolink" href="index.html" title="Về Hub"><img class="logo" src="assets/pvep-logo.png" alt="PVEP"></a>
+  <div class="who"><small>OECD Governance Command Center · Tầng A</small><b>PH4 · Document & Reporting Center</b></div>
+  <span class="crumb"><a href="index.html">Hub</a> / <b>PH4 · Tài liệu – Báo cáo</b></span>
+  <div class="sp">
+    <span data-ksnb-badge></span>
+    <a class="cbtn noprint" href="index.html">⌂ Về Hub</a>
+    <button class="cbtn gold noprint" onclick="print()">🖨 In PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="src" style="margin:10px 2px 14px">Nguồn: <span id="srcline"></span> · Ma trận lịch chỉ đạo theo cấp ban hành × tháng — <b>bấm vào văn bản</b> để xem điểm chính, chuỗi phả hệ và bản gốc.</p>
+
+  <!-- 4.1 dải tổng quan -->
+  <div class="flowband fx" id="flowband"></div>
+
+  <!-- thanh lọc -->
+  <div class="mxtools noprint fx">
+    <input type="search" id="q" placeholder="Tìm số hiệu / trích yếu…">
+    <select id="f-lv"><option value="">Mọi cấp ban hành</option></select>
+    <select id="f-st"><option value="">Mọi trạng thái</option><option value="bc">Đã có báo cáo</option><option value="chuabc">Chưa có báo cáo</option><option value="ms">Mốc then chốt ★</option></select>
+    <span class="src" id="mxcnt"></span>
+  </div>
+
+  <!-- 4.2 ma trận -->
+  <div class="mxscroll fx">
+    <div class="mxg" id="mxg"></div>
+  </div>
+  <div class="mxlegend fx" id="mxlegend"></div>
+
+  <!-- tracer tiêu chí (giữ) -->
+  <div class="lpanel fx" style="margin-top:18px">
+    <h3>Truy xuất theo tiêu chí ACGS — tiêu chí → nhiệm vụ → minh chứng <span class="src">"Cơ chế công bố thông tin đâu?" → bấm D1</span></h3>
+    <div class="tracer">
+      <div class="critsel" id="critsel"></div>
+      <div class="traceout" id="traceout"></div>
+    </div>
+  </div>
+
+  <!-- kho hồ sơ -->
+  <div class="lpanel fx">
+    <h3>Kho văn bản & bằng chứng <span class="src" id="evcnt"></span></h3>
+    <div class="mxtools noprint">
+      <input type="search" id="q2" placeholder="Tìm hồ sơ…">
+      <select id="f-lab"><option value="">Tham chiếu + Bằng chứng</option><option>Tham chiếu</option><option>Bằng chứng</option></select>
+      <select id="f-pil"><option value="">Mọi trụ cột</option></select>
+    </div>
+    <div id="evlist"></div>
+  </div>
+
+  <!-- VBQLNB -->
+  <div class="lpanel fx">
+    <h3>Quy định nội bộ liên quan OECD — bằng chứng đang hình thành <span class="src">cập nhật số hiệu/link khi ban hành</span></h3>
+    <div id="vblist"></div>
+  </div>
+</div>
+
+<!-- drawer chi tiết văn bản -->
+<div class="sdrawer" id="ddrawer" hidden>
+  <div class="sbox">
+    <div class="shead"><span class="tt" id="dd-tt"></span><button class="mx2" id="dd-x">✕</button></div>
+    <div class="sbody" id="dd-body"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="shell.js"></script>
+<script>
+"use strict";
+const D = window.OECD;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$("#srcline").textContent = D.META.acgs + " · " + D.META.tracker + " · cập nhật " + D.META.updated;
+
+const NOW_MONTH = 7;                                     // tháng dương lịch hiện tại (2026)
+const N_MONTHS = Math.min(12, NOW_MONTH + 1);            // T1 → tháng hiện tại +1
+
+/* ===== 4.1 dải tổng quan ===== */
+$("#flowband").innerHTML = Object.entries(D.LEVELS).map(([k,l])=>{
+  const ds = D.DIRECTIVES.filter(d=>d.level===k);
+  const bc = ds.filter(d=>d.reportedBy).length;
+  return `<div class="fnode" style="--lc:${l.color}"><i class="bar" style="background:${l.color}"></i>
+    <div class="cnt" style="color:${l.color}">${ds.length}</div>
+    <div class="lb">${esc(l.name)}</div>
+    <div class="sb">văn bản chỉ đạo${bc?` · <b>${bc} đã có báo cáo</b>`:``}</div></div>`;
+}).join("");
+
+/* ===== 4.2 ma trận ===== */
+function buildMatrix(){
+  const g = $("#mxg");
+  g.style.gridTemplateColumns = `188px repeat(${N_MONTHS}, minmax(104px,1fr))`;
+  let html = `<div class="hcorner">Cấp ban hành</div>`;
+  for(let m=1;m<=N_MONTHS;m++){
+    html += `<div class="hcell${m===NOW_MONTH?' now':''}">Th${m}/2026${m===NOW_MONTH?'<small>Tháng này</small>':''}</div>`;
+  }
+  Object.entries(D.LEVELS).forEach(([k,l])=>{
+    const ds = D.DIRECTIVES.filter(d=>d.level===k);
+    html += `<div class="lcell" style="--lc:${l.color}"><span class="nm">${esc(l.name)}</span><span class="ct">${ds.length} văn bản</span></div>`;
+    for(let m=1;m<=N_MONTHS;m++){
+      const cell = ds.filter(d=>d.month===m).sort((a,b)=>a.date.localeCompare(b.date))
+        .map(d=>`<button class="mchip" data-d="${d.id}" style="--lc:${l.color}">
+          <span class="dd">${esc(d.date.slice(0,5))}</span>
+          <span class="rr">${esc(d.ref)}${d.milestone?' <span class="star">★</span>':''}</span>
+          <span class="tt">${esc(d.summary)}</span>
+          ${d.reportedBy?`<span class="rp">✓ Đã BC: ${esc(d.reportedBy.split("(")[0].trim())}</span>`:""}
+        </button>`).join("");
+      html += `<div class="cell${m===NOW_MONTH?' now':''}">${cell}</div>`;
+    }
+  });
+  g.innerHTML = html;
+  document.querySelectorAll(".mchip").forEach(ch=>ch.addEventListener("click", ()=>openDir(ch.dataset.d)));
+}
+buildMatrix();
+$("#mxlegend").innerHTML =
+  Object.values(D.LEVELS).map(l=>`<span><i style="background:${l.color}"></i>${esc(l.name)}</span>`).join("") +
+  `<span><span style="color:var(--amber);font-weight:800">★</span> Mốc then chốt</span>
+   <span><span style="color:var(--ok);font-weight:800">✓</span> Đã có văn bản báo cáo</span>
+   <span>Bấm vào văn bản để xem điểm chính &amp; bản gốc</span>`;
+
+/* ===== lọc: làm mờ chip không khớp (giữ vị trí) ===== */
+$("#f-lv").innerHTML += Object.entries(D.LEVELS).map(([k,l])=>`<option value="${k}">${l.name}</option>`).join("");
+function applyFilter(){
+  const q = $("#q").value.trim().toLowerCase();
+  const lv = $("#f-lv").value, st = $("#f-st").value;
+  let n = 0;
+  document.querySelectorAll(".mchip").forEach(ch=>{
+    const d = D.dirById(ch.dataset.d);
+    let ok = true;
+    if(lv && d.level !== lv) ok = false;
+    if(st === "bc" && !d.reportedBy) ok = false;
+    if(st === "chuabc" && d.reportedBy) ok = false;
+    if(st === "ms" && !d.milestone) ok = false;
+    if(q && !(d.ref+" "+d.summary+" "+d.org).toLowerCase().includes(q)) ok = false;
+    ch.classList.toggle("dim", !ok);
+    if(ok) n++;
+  });
+  $("#mxcnt").textContent = n + "/" + D.DIRECTIVES.length + " văn bản";
+}
+["q","f-lv","f-st"].forEach(id=>$("#"+id).addEventListener("input", applyFilter));
+applyFilter();
+
+/* ===== drawer phả hệ ===== */
+function dirBtn(d){
+  const l = D.LEVELS[d.level];
+  return `<button class="genlink" data-d="${d.id}" style="--lc:${l.color}">${esc(d.ref)} · ${esc(l.name)}<small>${esc(d.date)} — ${esc(d.summary)}</small></button>`;
+}
+function openDir(id){
+  const d = D.dirById(id); if(!d) return;
+  const l = D.LEVELS[d.level];
+  $("#dd-tt").textContent = d.ref + " — " + d.org;
+  const parent = d.parentId ? D.dirById(d.parentId) : null;
+  const children = D.dirChildren(d.id);
+  $("#dd-body").innerHTML = `
+    <div class="dmeta">
+      <span class="tag" style="border-left:3px solid ${l.color}">${esc(l.name)}</span>
+      <span class="tag">Ngày ${esc(d.date)}</span>
+      ${d.milestone?'<span class="tag warn">★ Mốc then chốt</span>':""}
+      ${d.reportedBy?`<span class="tag ok">✓ Đã báo cáo: ${esc(d.reportedBy)}</span>`:'<span class="tag">Chưa có văn bản báo cáo</span>'}
+    </div>
+    <p style="font-size:13px;line-height:1.6;margin-bottom:12px">${esc(d.summary)}.</p>
+    <div class="gen"><div class="gh">Điểm chính</div>
+      <ul class="mkp">${(d.kp||[]).map(k=>`<li>${esc(k)}</li>`).join("")}</ul></div>
+    <div class="gen"><div class="gh">↑ Cụ thể hóa văn bản cấp trên</div>
+      ${parent ? dirBtn(parent) : '<span class="src">Văn bản gốc — không có cấp trên.</span>'}</div>
+    <div class="gen"><div class="gh">↓ Văn bản cấp dưới triển khai</div>
+      ${children.length ? children.map(dirBtn).join("") : '<span class="src">Chưa có văn bản triển khai trực tiếp.</span>'}</div>
+    <div class="mact">${d.fileUrl?`<a href="${d.fileUrl}" target="_blank" rel="noopener">Mở văn bản gốc</a>`:""}</div>`;
+  $("#dd-body").querySelectorAll(".genlink").forEach(b=>b.addEventListener("click", ()=>openDir(b.dataset.d)));
+  $("#ddrawer").hidden = false;
+}
+$("#dd-x").addEventListener("click", ()=>$("#ddrawer").hidden = true);
+$("#ddrawer").addEventListener("click", e=>{ if(e.target.id==="ddrawer") $("#ddrawer").hidden = true; });
+addEventListener("keydown", e=>{ if(e.key==="Escape") $("#ddrawer").hidden = true; });
+
+/* ===== tracer tiêu chí (giữ nguyên logic, theme sáng) ===== */
+const STNAME = {dat:"Đạt", dangsua:"Đang sửa", hut:"Hụt"};
+$("#critsel").innerHTML = D.CRITERIA.map(c=>{
+  const stx = D.critStatus(c);
+  return `<button class="csel" data-c="${c.id}"><b>${c.id}</b>${esc(c.name)}<span class="pst ${stx}">${STNAME[stx]} · ${c.score}/5</span></button>`;
+}).join("");
+function trace(cid){
+  const c = D.critById(cid);
+  document.querySelectorAll(".csel").forEach(b=>b.classList.toggle("on", b.dataset.c===cid));
+  const tks = D.tasksForCriterion(cid), evs = D.evidenceForCriterion(cid);
+  $("#traceout").innerHTML = `
+    <div class="step"><div class="ic">①</div><div style="flex:1">
+      <h4>Tiêu chí ${c.id} · Trụ cột ${c.pillar} — ${STNAME[D.critStatus(c)]} (${c.score}/5 · trọng số ${c.w})</h4>
+      <div class="bd">${esc(c.name)}<br><span class="tag">Ban: ${esc(c.ban)}</span><span class="tag">Hạn: ${esc(c.dl)}</span>${c.score<4?`<span class="tag">Biện pháp: ${esc(c.action)}</span>`:""}</div></div></div>
+    <div class="step"><div class="ic n2">②</div><div style="flex:1">
+      <h4>Nhiệm vụ KH 1017 gắn với tiêu chí (${tks.length})</h4>
+      <div class="bd">${tks.length ? tks.map(t=>`▸ <b>NV ${t.id}</b> — ${esc(t.t)} <span class="tag">${esc(t.own)}</span><span class="tag">${esc(t.dl)}</span><span class="tag">${String(t.p).replace(".",",")}%</span>`).join("<br>") : "Không gắn nhiệm vụ (tiêu chí duy trì)."}</div></div></div>
+    <div class="step"><div class="ic n3">③</div><div style="flex:1">
+      <h4>Minh chứng (${evs.length})</h4>
+      <div class="bd">${evs.length ? evs.map(e=>`▸ <span class="lab ${e.label==="Bằng chứng"?"bc":"tc"}">${e.label}</span> ${e.link?`<a href="${e.link}" target="_blank" rel="noopener">${esc(e.name)}</a>`:esc(e.name)}`).join("<br>") : "Chưa có minh chứng — bổ sung khi nhiệm vụ hoàn thành."}</div></div></div>`;
+}
+document.querySelectorAll(".csel").forEach(b=>b.addEventListener("click", ()=>trace(b.dataset.c)));
+trace("D1");
+
+/* ===== kho hồ sơ ===== */
+$("#f-pil").innerHTML += Object.entries(D.PILLARS).map(([k,p])=>`<option value="${k}">Trụ ${k} — ${p.name}</option>`).join("");
+function renderEv(){
+  const q = $("#q2").value.trim().toLowerCase();
+  const fl = $("#f-lab").value, fp = $("#f-pil").value;
+  let n = 0;
+  $("#evlist").innerHTML = D.EVIDENCE.filter(e=>{
+    if(fl && e.label !== fl) return false;
+    if(fp && !(e.criteria||[]).some(c => (D.critById(c)||{}).pillar === fp)) return false;
+    if(q && !(e.id+" "+e.name+" "+e.note).toLowerCase().includes(q)) return false;
+    n++; return true;
+  }).map(e=>`
+    <div class="ev"><span class="id">${e.id}</span>
+      <span><span class="nm">${esc(e.name)}</span><br><span class="note">${esc(e.note||"")}</span></span>
+      <span><span class="lab ${e.label==="Bằng chứng"?"bc":"tc"}">${e.label}</span><br><span class="ty">${esc(e.type)}</span></span>
+      <span class="links">Tiêu chí: <b>${(e.criteria||[]).join(", ")||"—"}</b><br>Nhiệm vụ: <b>${(e.tasks||[]).length ? "NV "+e.tasks.join(", ") : "—"}</b></span>
+      <span style="text-align:right">${e.link?`<a class="open" href="${e.link}" target="_blank" rel="noopener">Mở</a>`:'<span class="src">chưa đính kèm</span>'}${e.link2?`<br><a class="open" href="${e.link2}" target="_blank" rel="noopener">Phụ lục</a>`:""}</span>
+    </div>`).join("") || '<div class="emptyhint">Không có hồ sơ khớp bộ lọc.</div>';
+  $("#evcnt").textContent = "Nguồn: kho OECD trên M365-KSNB · " + n + "/" + D.EVIDENCE.length + " hồ sơ · cập nhật " + D.META.updated;
+}
+["q2","f-lab","f-pil"].forEach(id=>$("#"+id).addEventListener("input", renderEv));
+renderEv();
+
+/* ===== VBQLNB ===== */
+const VBST = {chua:["Chưa rà soát","tc"], dangsua:["Đang rà soát/sửa","warn"], dacapnhat:["Đã cập nhật OECD","bc"]};
+$("#vblist").innerHTML = D.DOCS.vbqlnb.map(v=>{
+  const [lb, cls] = VBST[v.trangthai];
+  return `<div class="vbrow">
+    <span><span class="ten">${esc(v.ten)}</span><br><span class="m">${esc(v.kp[0]||"")}</span></span>
+    <span class="m">Ban: <b>${esc(v.ban)}</b></span>
+    <span class="m">Gắn NV <b>${esc(v.task)}</b></span>
+    <span><span class="lab ${cls==="warn"?"":cls}" style="${cls==="warn"?"background:#FEF3E2;color:#92400E;border:1px solid #F1D5A8":""}">${lb}</span> ${v.u?`<a class="open" href="${v.u}" target="_blank">Mở</a>`:'<span class="src">chưa ban hành</span>'}</span>
+  </div>`;
+}).join("");
+</script>
+</body>
+</html>

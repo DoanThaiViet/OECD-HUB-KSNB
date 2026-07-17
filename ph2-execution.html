@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PH2 · Governance Execution Hub — OECD PVEP</title>
+<meta name="theme-color" content="#081120">
+<link rel="icon" href="assets/pvep-logo.png">
+<link rel="stylesheet" href="command.css">
+<style>
+.wrap{padding-top:16px;padding-bottom:40px}
+/* cảnh báo strip */
+.alerts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:13px}
+.al{flex:1;min-width:200px;border-radius:12px;padding:11px 15px;border:1px solid var(--dline);background:var(--panel);display:flex;align-items:center;gap:12px}
+.al .n{font-size:26px;font-weight:800;line-height:1}
+.al .t{font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--dmute)}
+.al .d{font-size:10.5px;color:var(--dfaint)}
+.al.red{border-color:rgba(220,38,38,.5)} .al.red .n{color:var(--red)}
+.al.amber{border-color:rgba(217,119,6,.5)} .al.amber .n{color:#B45309}
+.al.gold .n{color:var(--amber)}
+.al.green .n{color:var(--ok)}
+/* bộ lọc */
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.toolbar input,.toolbar select{font-family:inherit;font-size:12.5px;padding:8px 12px;border-radius:9px;border:1px solid var(--dline);background:#fff;color:var(--dink)}
+.toolbar input::placeholder{color:var(--dfaint)}
+.toolbar input[type=search]{min-width:230px}
+/* bảng nhiệm vụ */
+.tk{display:grid;grid-template-columns:44px 1.7fr 130px 120px 150px 92px auto;gap:11px;align-items:center;border-top:1px solid rgba(15,37,64,.05);padding:9px 4px;cursor:pointer}
+.tk:hover{background:rgba(15,37,64,.03)}
+.tk.hd{cursor:default;border-top:none;padding-bottom:5px}
+.tk.hd span{font-size:9.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--dmute)}
+.tk .no{font-size:13px;font-weight:800;color:var(--mint);text-align:center}
+.tk .tt{font-size:12.5px;color:var(--dink);line-height:1.4}
+.tk .sub{font-size:10px;color:var(--dfaint)}
+.tk .cell{font-size:11px;color:var(--dmute);line-height:1.4}
+.tk .prg{display:flex;align-items:center;gap:7px}
+.tk .prg b{font-size:11.5px;color:var(--ink);min-width:38px;text-align:right;font-variant-numeric:tabular-nums}
+.gline{border-top:1px solid var(--dline);margin-top:8px;padding:8px 4px 2px;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--amber)}
+.updbtn{font-family:inherit;font-size:10.5px;font-weight:800;padding:5px 12px;border-radius:8px;border:1px solid rgba(217,119,6,.45);background:rgba(217,119,6,.1);color:#B45309;cursor:pointer;white-space:nowrap}
+.updbtn:hover{background:rgba(217,119,6,.2)}
+.flagchip{font-size:9px;font-weight:800;padding:1.5px 7px;border-radius:9px;margin-left:5px;vertical-align:1px}
+.flagchip.iss{background:rgba(220,38,38,.18);color:var(--red);border:1px solid rgba(220,38,38,.4)}
+.flagchip.req{background:rgba(217,119,6,.16);color:#B45309;border:1px solid rgba(217,119,6,.4)}
+@media(max-width:1000px){
+  .tk{grid-template-columns:40px 1fr 90px auto}
+  .tk .cell.hide-m,.tk.hd span.hide-m{display:none}
+}
+/* drawer cập nhật */
+#drawer{position:fixed;inset:0;z-index:95;background:rgba(15,37,64,.45);display:flex;justify-content:flex-end}
+#drawer[hidden]{display:none}
+.dbox{width:min(560px,100vw);height:100%;background:#fff;border-left:1px solid var(--dline);display:flex;flex-direction:column}
+.dhead{padding:16px 22px;border-bottom:1px solid var(--dline);display:flex;align-items:flex-start;gap:10px}
+.dhead .no{font-size:20px;font-weight:800;color:var(--mint)}
+.dhead .tt{font-size:15px;font-weight:800;color:var(--ink);line-height:1.35;flex:1}
+.dhead .mx2{border:none;background:#EDF2F7;color:var(--dmute);width:30px;height:30px;border-radius:50%;font-size:15px;cursor:pointer}
+.dbody{flex:1;overflow:auto;padding:16px 22px;font-size:12.5px}
+.fld{margin-bottom:13px}
+.fld label{display:block;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dmute);margin-bottom:4px}
+.fld .val{color:var(--dink);line-height:1.55}
+.fld input[type=range]{width:100%;accent-color:#00a651}
+.fld input[type=text],.fld textarea{width:100%;font-family:inherit;font-size:12.5px;padding:9px 12px;border-radius:9px;border:1px solid var(--dline);background:#fff;color:var(--dink);resize:vertical}
+.fld .pnow{font-size:22px;font-weight:800;color:var(--ink)}
+.hist{border-left:2px solid var(--dline);padding-left:14px}
+.hist .h1{position:relative;padding-bottom:10px}
+.hist .h1::before{content:"";position:absolute;left:-19px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--green2)}
+.hist .hd2{font-size:10.5px;font-weight:800;color:var(--mint)}
+.hist .hn{color:var(--dmute);line-height:1.5}
+.dfoot{padding:14px 22px;border-top:1px solid var(--dline);display:flex;gap:9px;justify-content:flex-end;background:#F7FAF8}
+.dfoot .save{font-family:inherit;font-size:13px;font-weight:800;padding:10px 22px;border:none;border-radius:10px;background:var(--green2);color:var(--ink);cursor:pointer}
+.dfoot .save:hover{background:#00934a}
+.dfoot .cancel{font-family:inherit;font-size:12.5px;font-weight:700;padding:10px 16px;border:1px solid var(--dline);border-radius:10px;background:none;color:var(--dmute);cursor:pointer}
+.protonote{font-size:10.5px;color:var(--dfaint);font-style:italic}
+</style>
+</head>
+<body class="theme-ph2">
+
+<div class="cbar">
+  <a class="logolink" href="index.html" title="Về Hub"><img class="logo" src="assets/pvep-logo.png" alt="PVEP"></a>
+  <div class="who"><small>OECD Governance Command Center · Tầng B</small><b>PH2 · Governance Execution Hub</b></div>
+  <span class="crumb"><a href="index.html">Hub</a> / <b>PH2 · Thực thi</b></span>
+  <div class="sp">
+    <span data-ksnb-badge></span>
+    <a class="cbtn noprint" href="index.html">⌂ Về Hub</a>
+    <a class="cbtn noprint" href="ph3-dashboard.html">📊 Dashboard</a>
+    <button class="cbtn gold noprint" onclick="print()">🖨 In PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="src" style="margin:10px 2px 12px">Nguồn: <span id="srcline"></span> · <b style="color:#B45309">Prototype</b>: cập nhật lưu trong biến JS của phiên làm việc — bản vận hành sẽ thay lớp này bằng SharePoint List, giao diện giữ nguyên. PH3/PH5 đọc chung dữ liệu tại đây.</p>
+
+  <!-- cảnh báo tự động -->
+  <div class="alerts" id="alerts"></div>
+
+  <!-- bộ lọc -->
+  <div class="toolbar noprint">
+    <input type="search" id="q" placeholder="Tìm nhiệm vụ, sản phẩm, Ban…">
+    <select id="f-g"><option value="">Tất cả nhóm</option></select>
+    <select id="f-ban"><option value="">Tất cả Ban chủ trì</option></select>
+    <select id="f-st"><option value="">Mọi trạng thái</option><option value="red">Quá hạn</option><option value="amber">Nguy cơ/sắp hạn</option><option value="green">Đúng hướng</option><option value="done">Hoàn thành</option></select>
+    <span class="src" id="cnt"></span>
+  </div>
+
+  <!-- danh mục nhiệm vụ -->
+  <div class="panel">
+    <div class="tk hd">
+      <span>Mã</span><span>Nhiệm vụ · sản phẩm đầu ra</span><span class="hide-m">Chủ trì / phối hợp</span>
+      <span class="hide-m">Lãnh đạo</span><span class="hide-m">Mốc thời gian</span><span>Tiến độ</span><span></span>
+    </div>
+    <div id="tklist"></div>
+  </div>
+</div>
+
+<!-- drawer chi tiết + cập nhật -->
+<div id="drawer" hidden>
+  <div class="dbox">
+    <div class="dhead"><span class="no" id="d-no"></span><span class="tt" id="d-tt"></span><button class="mx2" id="d-x">✕</button></div>
+    <div class="dbody">
+      <div class="fld"><label>Sản phẩm đầu ra</label><div class="val" id="d-out"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="fld"><label>Ban chủ trì</label><div class="val" id="d-own"></div></div>
+        <div class="fld"><label>Ban phối hợp</label><div class="val" id="d-co"></div></div>
+        <div class="fld"><label>Lãnh đạo phụ trách</label><div class="val" id="d-lead"></div></div>
+        <div class="fld"><label>Mốc thời gian</label><div class="val" id="d-dl"></div></div>
+      </div>
+      <div class="fld" id="d-pre-w"><label>Điều kiện tiên quyết</label><div class="val" id="d-pre"></div></div>
+
+      <div class="gline" style="margin-top:2px">Cập nhật của Ban chủ trì <span class="protonote">(prototype — lưu trong phiên)</span></div>
+      <div class="fld" style="margin-top:10px"><label>Tiến độ: <span class="pnow" id="d-pv"></span></label>
+        <input type="range" id="d-p" min="0" max="100" step="5"></div>
+      <div class="fld"><label>Khó khăn – vướng mắc</label><textarea id="d-iss" rows="2" placeholder="Mô tả vướng mắc (nếu có)…"></textarea></div>
+      <div class="fld"><label>Kiến nghị xin ý kiến Lãnh đạo</label><textarea id="d-req" rows="2" placeholder="Nội dung cần HĐTV/TGĐ quyết (nếu có)…"></textarea></div>
+      <div class="fld"><label>Ghi chú cập nhật (bắt buộc khi lưu)</label><input type="text" id="d-note" placeholder="VD: Hoàn thành dự thảo, gửi lấy ý kiến các Ban"></div>
+
+      <div class="fld"><label>Lịch sử cập nhật</label><div class="hist" id="d-hist"></div></div>
+      <div class="fld"><label>Tiêu chí ACGS liên quan (PH5) · Bằng chứng (PH4)</label><div class="val" id="d-links"></div></div>
+    </div>
+    <div class="dfoot">
+      <button class="cancel" id="d-cancel">Đóng</button>
+      <button class="save" id="d-save">💾 Lưu cập nhật</button>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="shell.js"></script>
+<script>
+"use strict";
+const D = window.OECD;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const vn = n => String(n).replace(".", ",");
+$("#srcline").textContent = D.META.tracker + " · cập nhật " + D.META.updated;
+
+/* ===== cảnh báo tự động ===== */
+function renderAlerts(){
+  const st = D.stats();
+  const dueSoon = D.TASKS.filter(t=>!t.cont && t.p<100 && (t.e - D.NOW_IDX) <= 1 && t.e >= D.NOW_IDX).length;
+  $("#alerts").innerHTML = `
+    <div class="al red"><div class="n">${st.red}</div><div><div class="t">Quá hạn</div><div class="d">cần xử lý ngay</div></div></div>
+    <div class="al amber"><div class="n">${dueSoon}</div><div><div class="t">Sắp đến hạn</div><div class="d">hạn trong ≤ 1 tháng</div></div></div>
+    <div class="al amber"><div class="n">${st.amber}</div><div><div class="t">Nguy cơ chậm</div><div class="d">tiến độ thấp so mốc</div></div></div>
+    <div class="al gold"><div class="n">${st.decide}</div><div><div class="t">Kiến nghị chờ LĐ</div><div class="d">hiển thị trên PH3</div></div></div>
+    <div class="al green"><div class="n">${vn(st.avg)}%</div><div><div class="t">Tiến độ chung</div><div class="d">${st.done}/${st.total} hoàn thành</div></div></div>`;
+}
+
+/* ===== bộ lọc ===== */
+$("#f-g").innerHTML += Object.keys(D.GROUPS).map(g=>`<option value="${g}">Nhóm ${g} — ${D.GROUPS[g]}</option>`).join("");
+const bans = [...new Set(D.TASKS.map(t=>t.own.split("·")[0].split("(")[0].trim()))];
+$("#f-ban").innerHTML += bans.map(b=>`<option>${b}</option>`).join("");
+
+/* ===== danh mục ===== */
+function renderList(){
+  const q = $("#q").value.trim().toLowerCase();
+  const fg = $("#f-g").value, fb = $("#f-ban").value, fs = $("#f-st").value;
+  let lastG = "", n = 0, html = "";
+  D.TASKS.forEach(t=>{
+    const s = D.taskStatus(t);
+    if(fg && t.g !== fg) return;
+    if(fb && !t.own.startsWith(fb)) return;
+    if(fs && s.cls !== fs) return;
+    if(q && !(t.id+" "+t.t+" "+t.out+" "+t.own+" "+t.co).toLowerCase().includes(q)) return;
+    n++;
+    if(t.g !== lastG){ lastG = t.g; html += `<div class="gline">Nhóm ${t.g} · ${esc(D.GROUPS[t.g])}</div>`; }
+    html += `<div class="tk" data-id="${t.id}">
+      <span class="no">${t.id}</span>
+      <span><span class="tt">${esc(t.t)}${t.issues?'<span class="flagchip iss">VƯỚNG MẮC</span>':''}${(t.requests||"").trim()?'<span class="flagchip req">KIẾN NGHỊ</span>':''}</span><br><span class="sub">SP: ${esc(t.out).slice(0,90)}${t.out.length>90?"…":""}</span></span>
+      <span class="cell hide-m">${esc(t.own)}${t.co && t.co!=="—" ? "<br><span style='color:var(--dfaint)'>PH: "+esc(t.co)+"</span>":""}</span>
+      <span class="cell hide-m">${esc(t.lead)}</span>
+      <span class="cell hide-m">${esc(t.dl)}</span>
+      <span class="prg"><span class="mtrack" style="flex:1"><i style="width:${t.p}%"></i></span><b>${vn(t.p)}%</b></span>
+      <span style="text-align:right"><span class="st ${s.cls}">${s.label}</span><br><button class="updbtn noprint" data-open="${t.id}" style="margin-top:4px">✎ Cập nhật</button></span>
+    </div>`;
+  });
+  $("#tklist").innerHTML = html || '<div class="tk"><span></span><span class="tt">Không có nhiệm vụ khớp bộ lọc.</span></div>';
+  $("#cnt").textContent = n + "/" + D.TASKS.length + " nhiệm vụ";
+  document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click", e=>{ e.stopPropagation(); openDrawer(b.dataset.open); }));
+  document.querySelectorAll(".tk[data-id]").forEach(r=>r.addEventListener("click", ()=>openDrawer(r.dataset.id)));
+}
+["q","f-g","f-ban","f-st"].forEach(id=>$("#"+id).addEventListener("input", renderList));
+
+/* ===== drawer chi tiết + cập nhật (ghi vào lớp dữ liệu chung) ===== */
+let CUR = null;
+function openDrawer(id){
+  CUR = D.taskById(id); if(!CUR) return;
+  $("#d-no").textContent = CUR.id;
+  $("#d-tt").textContent = CUR.t;
+  $("#d-out").textContent = CUR.out;
+  $("#d-own").textContent = CUR.own;
+  $("#d-co").textContent = CUR.co || "—";
+  $("#d-lead").textContent = CUR.lead;
+  $("#d-dl").textContent = CUR.dl + " (trục: " + D.GMONTHS[CUR.s-1] + " → " + D.GMONTHS[CUR.e-1] + ")";
+  $("#d-pre-w").style.display = CUR.prereq ? "" : "none";
+  $("#d-pre").textContent = CUR.prereq || "";
+  $("#d-p").value = CUR.p; $("#d-pv").textContent = vn(CUR.p) + "%";
+  $("#d-iss").value = CUR.issues || "";
+  $("#d-req").value = CUR.requests || "";
+  $("#d-note").value = "";
+  $("#d-hist").innerHTML = [...CUR.history].reverse().map(h=>`<div class="h1"><div class="hd2">${esc(h.d)}</div><div class="hn">${esc(h.note)}</div></div>`).join("");
+  const crits = (CUR.criteria||[]).map(c=>{const x=D.critById(c); return x? `${c} (${x.name.slice(0,40)}…)`:c;}).join(" · ") || "—";
+  const evs = D.evidenceForTask(CUR.id).map(e=>e.id).join(", ") || "—";
+  $("#d-links").innerHTML = "Tiêu chí: <b>"+esc(crits)+"</b><br>Bằng chứng: <b>"+esc(evs)+"</b>";
+  $("#drawer").hidden = false;
+}
+$("#d-p").addEventListener("input", ()=>{ $("#d-pv").textContent = $("#d-p").value + "%"; });
+function closeDrawer(){ $("#drawer").hidden = true; CUR = null; }
+$("#d-x").addEventListener("click", closeDrawer);
+$("#d-cancel").addEventListener("click", closeDrawer);
+$("#drawer").addEventListener("click", e=>{ if(e.target.id==="drawer") closeDrawer(); });
+addEventListener("keydown", e=>{ if(e.key==="Escape") closeDrawer(); });
+
+$("#d-save").addEventListener("click", ()=>{
+  if(!CUR) return;
+  const note = $("#d-note").value.trim();
+  if(!note){ $("#d-note").focus(); $("#d-note").placeholder = "⚠ Bắt buộc nhập ghi chú để lưu lịch sử"; return; }
+  const newP = +$("#d-p").value;
+  const parts = [];
+  if(newP !== CUR.p) parts.push("Tiến độ " + vn(CUR.p) + "% → " + vn(newP) + "%");
+  CUR.p = newP;
+  CUR.issues = $("#d-iss").value.trim();
+  CUR.requests = $("#d-req").value.trim();
+  const today = new Date();
+  const dstr = String(today.getDate()).padStart(2,"0") + "/" + String(today.getMonth()+1).padStart(2,"0") + "/" + today.getFullYear();
+  CUR.history.push({d: dstr, note: (parts.length ? parts.join("; ") + " — " : "") + note});
+  closeDrawer();
+  renderAlerts(); renderList();
+});
+
+renderAlerts(); renderList();
+</script>
+</body>
+</html>

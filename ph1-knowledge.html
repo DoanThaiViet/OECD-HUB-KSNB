@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PH1 · OECD Knowledge Hub — PVEP</title>
+<meta name="theme-color" content="#006838">
+<link rel="icon" href="assets/pvep-logo.png">
+<link rel="stylesheet" href="command.css">
+<style>
+body{background:var(--paper)}
+.wrap{padding-top:18px;padding-bottom:44px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.toolbar input{font-family:inherit;font-size:13px;padding:9px 14px;border-radius:10px;border:1px solid #ccd6cf;background:#fff;min-width:260px;color:var(--ink)}
+.fch{font-family:inherit;font-size:12px;font-weight:700;padding:7px 14px;border-radius:18px;border:1px solid #ccd6cf;background:#fff;color:var(--muted);cursor:pointer}
+.fch:hover{border-color:var(--green2);color:var(--green)}
+.fch.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.books{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px}
+.book{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(20,40,60,.06),0 8px 24px rgba(20,40,60,.07);overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;cursor:pointer}
+.book:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(20,40,60,.15)}
+.cover{min-height:112px;padding:14px 16px 13px 20px;position:relative;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(135deg,#23286b 0%,#262d7a 70%,#20256e 100%)}
+.cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--green2)}
+.cover.vn{background:linear-gradient(135deg,#5A1010 0%,#8C2B1A 75%,#B5121B 100%)}
+.cover.vn::before{background:#F0C24B}
+.cover .yr{position:absolute;top:11px;right:13px;font-size:10.5px;font-weight:800;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:2px 9px;border-radius:12px}
+.cover .org{font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;opacity:.78}
+.cover h3{font-size:15.5px;font-weight:700;line-height:1.3;margin-top:3px}
+.book .body{padding:13px 17px 15px;display:flex;flex-direction:column;gap:9px;flex:1}
+.book .desc{font-size:12.5px;color:var(--muted);line-height:1.55;flex:1}
+.book .foot{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bkp{font-family:inherit;font-size:12px;font-weight:700;color:var(--navy);background:#e9f5ee;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.bkp:hover{background:#d5ecdf}
+.bkp::before{content:"◈ ";color:var(--green)}
+.open{font-size:12px;font-weight:700;white-space:nowrap}
+.open::after{content:"↗";margin-left:4px}
+.miss{font-size:11px;color:var(--faint);font-style:italic}
+.catlbl{position:absolute;top:11px;left:14px;font-size:8.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.75)}
+</style>
+</head>
+<body class="theme-ph1">
+
+<div class="cbar">
+  <a class="logolink" href="index.html" title="Về Hub"><img class="logo" src="assets/pvep-logo.png" alt="PVEP"></a>
+  <div class="who"><small>OECD Governance Command Center · Tầng A — kho tri thức</small><b>PH1 · OECD Knowledge Hub</b></div>
+  <span class="crumb"><a href="index.html">Hub</a> / <b>PH1 · Kiến thức</b></span>
+  <div class="sp">
+    <span data-ksnb-badge></span>
+    <a class="cbtn noprint" href="index.html">⌂ Về Hub</a>
+    <a class="cbtn noprint" href="ph4-evidence.html">🗂 Tài liệu – Báo cáo</a>
+    <button class="cbtn gold noprint" onclick="print()">🖨 In PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="src" style="margin:10px 2px 14px">Nguồn: kho OECD trên M365-KSNB · cập nhật <span id="upd"></span> · Bấm thẻ để nghiên cứu <b>điểm chính</b>; nút "Mở PDF" mở bản gốc trên SharePoint (yêu cầu tài khoản PVEP).</p>
+
+  <div class="toolbar noprint">
+    <input type="search" id="q" placeholder="Tìm tài liệu… (SOE, Factbook, ACGS, King IV…)">
+    <span id="fchips"></span>
+    <span class="src" id="cnt"></span>
+  </div>
+
+  <div class="books" id="books"></div>
+</div>
+
+<div id="modal" hidden>
+  <div class="mbox">
+    <button class="mx" id="mclose">✕</button>
+    <span class="mcat" id="mcat"></span>
+    <h3 id="mtitle"></h3>
+    <div class="mmeta" id="mmeta"></div>
+    <ul class="mkp" id="mkp"></ul>
+    <div class="mnote">Điểm chính do Ban KSNB tóm lược phục vụ tra cứu nhanh — nội dung đầy đủ xem bản gốc.</div>
+    <div class="mact" id="mact"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="shell.js"></script>
+<script>
+"use strict";
+const D = window.OECD;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$("#upd").textContent = D.META.updated;
+
+/* Phân nhóm tri thức (đọc từ DOCS chung — không lặp dữ liệu) */
+function catOf(b){
+  const t = b.t.toLowerCase();
+  if(/acgs|king iv/.test(t)) return "Bộ tiêu chí & chuẩn khác";
+  if(/việt nam 2026|vn cg/.test(t)) return "QTCT Việt Nam";
+  if(/memo|hội nghị|tờ trình/.test(t)) return "Nghiên cứu & sản phẩm PVEP";
+  if(/hội thảo|cgs/.test(t)) return "Đào tạo & hội thảo";
+  return "Tài liệu gốc OECD/G20";
+}
+const ALL = [...D.DOCS.original, ...D.DOCS.training].map(b=>({ ...b, cat: D.DOCS.original.includes(b) ? "Tài liệu gốc OECD/G20" : catOf(b) }));
+const CATS = ["Tài liệu gốc OECD/G20","QTCT Việt Nam","Bộ tiêu chí & chuẩn khác","Đào tạo & hội thảo","Nghiên cứu & sản phẩm PVEP"];
+let cat = "";
+$("#fchips").innerHTML = `<button class="fch on" data-c="">Tất cả (${ALL.length})</button>` +
+  CATS.map(c=>`<button class="fch" data-c="${c}">${c} (${ALL.filter(b=>b.cat===c).length})</button>`).join(" ");
+
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  let n = 0;
+  $("#books").innerHTML = ALL.filter(b=>{
+    if(cat && b.cat !== cat) return false;
+    if(q && !(b.t+" "+b.org+" "+b.d).toLowerCase().includes(q)) return false;
+    n++; return true;
+  }).map((b)=>{
+    const i = ALL.indexOf(b);
+    const open = b.u ? `<a class="open" href="${b.u}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Mở ${esc(b.f)}</a>` : `<span class="miss">Chưa đính kèm</span>`;
+    return `<div class="book" data-i="${i}">
+      <div class="cover${b.vn?' vn':''}"><span class="catlbl">${esc(b.cat)}</span><span class="yr">${esc(b.yr)}</span><span class="org">${esc(b.org)}</span><h3>${esc(b.t)}</h3></div>
+      <div class="body"><div class="desc">${esc(b.d)}</div>
+      <div class="foot"><button class="bkp">Điểm chính</button>${open}</div></div></div>`;
+  }).join("");
+  $("#cnt").textContent = n + "/" + ALL.length + " tài liệu";
+  document.querySelectorAll(".book").forEach(el=>el.addEventListener("click", e=>{
+    if(e.target.closest("a")) return;
+    const b = ALL[+el.dataset.i];
+    $("#mcat").textContent = b.cat + " · " + b.org;
+    $("#mtitle").textContent = b.t;
+    $("#mmeta").textContent = "Ấn bản " + b.yr + " · định dạng " + b.f;
+    $("#mkp").innerHTML = (b.kp||[]).map(k=>`<li>${esc(k)}</li>`).join("");
+    $("#mact").innerHTML = b.u ? `<a href="${b.u}" target="_blank" rel="noopener">Mở tài liệu gốc</a>` : "";
+    $("#modal").hidden = false;
+  }));
+}
+document.querySelectorAll(".fch").forEach(b=>b.addEventListener("click", ()=>{
+  document.querySelectorAll(".fch").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); cat = b.dataset.c; render();
+}));
+$("#q").addEventListener("input", render);
+$("#mclose").addEventListener("click", ()=>$("#modal").hidden = true);
+$("#modal").addEventListener("click", e=>{ if(e.target.id==="modal") $("#modal").hidden = true; });
+addEventListener("keydown", e=>{ if(e.key==="Escape") $("#modal").hidden = true; });
+render();
+</script>
+</body>
+</html>

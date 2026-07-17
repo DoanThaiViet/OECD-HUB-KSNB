@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PH3 · Executive Dashboard — OECD PVEP</title>
+<meta name="theme-color" content="#081120">
+<link rel="icon" href="assets/pvep-logo.png">
+<link rel="stylesheet" href="command.css">
+<style>
+.wrap{padding-top:16px;padding-bottom:40px}
+/* ---------- money row ---------- */
+.money{display:grid;grid-template-columns:1.35fr repeat(4,1fr) 1.15fr;gap:12px;margin-bottom:14px}
+@media(max-width:1150px){.money{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.money{grid-template-columns:repeat(2,1fr)}}
+.mtile{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--dline);border-top:3px solid var(--pvep);border-radius:13px;padding:14px 16px;position:relative;box-shadow:var(--shadow-card);transition:transform .18s,box-shadow .18s}
+.mtile:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.mtile .l{font-size:9.5px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;color:var(--dmute)}
+.mtile .v{font-family:var(--ff-head);font-size:34px;font-weight:800;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums;margin-top:4px;letter-spacing:-.5px}
+.mtile .v small{font-size:14px;color:var(--dmute);font-weight:700}
+.mtile .d{font-size:10.5px;color:var(--dfaint);margin-top:4px;line-height:1.45}
+.mtile.hot{border-color:rgba(220,38,38,.5);border-top-color:var(--red);background:linear-gradient(180deg,#FDECEA,#fff)}
+.mtile.hot .v{color:var(--red)}
+.mtile.warn{border-top-color:#D97706}
+.mtile.warn .v{color:#B45309}
+.mtile.good{border-top-color:var(--ok)}
+.mtile.good .v{color:var(--ok)}
+.mtile.gold{border-color:rgba(217,119,6,.55);border-top-color:var(--amber);background:linear-gradient(180deg,#FEF3E2,#fff)}
+.mtile.gold .v{color:var(--amber)}
+.mtile .plan{display:flex;align-items:center;gap:8px;margin-top:8px}
+.mtile .plan .bar{flex:1;height:9px;background:#E9EEF4;border-radius:5px;position:relative;overflow:visible}
+.mtile .plan .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,var(--green),var(--green2))}
+.mtile .plan .bar b{position:absolute;top:-3px;bottom:-3px;width:2.5px;background:var(--amber);border-radius:2px}
+.mtile .plan span{font-size:10px;color:var(--dfaint);white-space:nowrap}
+/* ---------- lưới chính ---------- */
+.grid2{display:grid;grid-template-columns:1.45fr 1fr;gap:14px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:1150px){.grid2,.grid3{grid-template-columns:1fr}}
+.lista{max-height:330px;overflow:auto;padding-right:4px}
+.panel.acc-red{border-top:4px solid var(--red)}
+.panel.acc-gold{border-top:4px solid var(--amber)}
+.exc{display:grid;grid-template-columns:46px 1fr auto;gap:11px;align-items:center;border-top:1px solid rgba(15,37,64,.05);border-left:3px solid transparent;border-radius:9px;padding:8px 8px 8px 6px;transition:background .15s}
+.exc:first-child{border-top:none}
+.exc:hover{background:rgba(15,37,64,.035)}
+.exc.red{border-left-color:var(--red);background:linear-gradient(90deg,rgba(220,38,38,.055),transparent 60%)}
+.exc.amber{border-left-color:#E9A23B;background:linear-gradient(90deg,rgba(217,119,6,.05),transparent 60%)}
+.exc .no{font-size:12.5px;font-weight:800;color:var(--pvep-deep);text-align:center;background:#EDF4EF;border:1px solid #D9E8DE;border-radius:9px;padding:5px 0}
+.exc .bar{width:66px;height:5px;background:#E9EEF4;border-radius:3px;margin:5px 0 0 auto;overflow:hidden}
+.exc .bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--green2))}
+.exc.red .bar i{background:var(--red)} .exc.amber .bar i{background:#E9A23B}
+.exc .tt{font-size:12.5px;color:var(--dink);line-height:1.4}
+.exc .mm{font-size:10.5px;color:var(--dfaint);margin-top:2px}
+.exc .mm b{color:var(--dmute)}
+.exc .right{text-align:right}
+.exc .pv{font-size:12px;font-weight:800;color:var(--ink);margin-top:3px}
+.decide{border:1px solid rgba(217,119,6,.4);border-left:4px solid var(--amber);background:linear-gradient(180deg,rgba(217,119,6,.08),rgba(217,119,6,.03));border-radius:11px;padding:11px 13px;margin-bottom:9px;transition:box-shadow .18s,transform .18s}
+.decide:hover{box-shadow:var(--shadow-card);transform:translateY(-1px)}
+.decide .dt{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.45}
+.decide .dm{font-size:11px;color:var(--dmute);margin-top:4px;line-height:1.5}
+.decide .dm b{color:var(--amber)}
+/* SVG chart chung */
+.chart svg{width:100%;display:block}
+.gridln{stroke:rgba(15,37,64,.07);stroke-width:1}
+.gridtx{font-size:8px;fill:var(--dfaint);font-weight:700}
+.axis{font-size:9.5px;fill:var(--dfaint);font-weight:700}
+.blabel{font-size:10.5px;fill:var(--ink);font-weight:800}
+.bban{font-size:10px;fill:var(--dmute);font-weight:700}
+/* donut nhỏ */
+.donutbox{display:flex;align-items:center;gap:16px}
+.dleg{font-size:11.5px;color:var(--dmute);line-height:2}
+.dleg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px}
+.dleg b{color:var(--ink)}
+/* thu gọn nhóm ổn */
+details.okz{border:1px solid var(--dline);border-radius:12px;background:rgba(5,150,105,.04);padding:0 16px}
+details.okz summary{cursor:pointer;padding:13px 0;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ok);list-style:none}
+details.okz summary::before{content:"▸ ";}
+details.okz[open] summary::before{content:"▾ "}
+details.okz .exc .tt{color:var(--dmute)}
+body.present{font-size:17px;--zoom:1}
+body.present .mtile .v{font-size:44px}
+body.present .exc .tt{font-size:14.5px}
+@media print{.lista{max-height:none;overflow:visible}}
+</style>
+</head>
+<body class="theme-ph3">
+
+<div class="cbar">
+  <a class="logolink" href="index.html" title="Về Hub"><img class="logo" src="assets/pvep-logo.png" alt="PVEP"></a>
+  <div class="who"><small>OECD Governance Command Center · Tầng B — chỉ đọc</small><b>PH3 · Executive Dashboard</b></div>
+  <span class="crumb"><a href="index.html">Hub</a> / <b>PH3 · Theo dõi</b></span>
+  <div class="sp">
+    <span data-ksnb-badge></span>
+    <a class="cbtn noprint" href="index.html">⌂ Về Hub</a>
+    <a class="cbtn noprint" href="ph2-execution.html">⚙ Execution Hub</a>
+    <button class="cbtn noprint" id="btn-present">▣ Trình bày</button>
+    <button class="cbtn gold noprint" onclick="print()">🖨 In PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="src" style="margin:10px 2px 12px">Chế độ điều hành — <b style="color:#B45309">bất thường hiển thị trước</b>, phần đúng tiến độ thu gọn. Nguồn: <span id="srcline"></span>. Phân hệ này CHỈ ĐỌC từ lớp dữ liệu chung (cập nhật tại PH2).</p>
+
+  <!-- ===== HÀNG ĐẦU (money row) ===== -->
+  <div class="money" id="money"></div>
+
+  <!-- ===== EXCEPTION FIRST ===== -->
+  <div class="grid2">
+    <div class="panel acc-red">
+      <h3>⚠ Cần chú ý ngay — quá hạn & nguy cơ chậm <span class="src" id="src1"></span></h3>
+      <div class="lista" id="exclist"></div>
+    </div>
+    <div class="panel acc-gold">
+      <h3>◆ Việc cần HĐTV – TGĐ quyết <span class="src" id="src2"></span></h3>
+      <div class="lista" id="decidelist"></div>
+    </div>
+  </div>
+
+  <!-- ===== BIỂU ĐỒ ===== -->
+  <div class="grid3">
+    <div class="panel chart">
+      <h3>Tiến độ theo Ban chủ trì <span class="src" id="src3"></span></h3>
+      <svg id="banchart"></svg>
+    </div>
+    <div class="panel chart">
+      <h3>Tiến độ theo 8 nhóm nhiệm vụ <span class="src" id="src4"></span></h3>
+      <svg id="grpchart"></svg>
+    </div>
+    <div class="panel">
+      <h3>Cơ cấu trạng thái & sắp đến hạn <span class="src" id="src5"></span></h3>
+      <div class="donutbox">
+        <svg id="donut" width="130" height="130" viewBox="0 0 130 130"></svg>
+        <div class="dleg" id="dleg"></div>
+      </div>
+      <div style="border-top:1px solid var(--dline);margin-top:10px;padding-top:8px">
+        <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dmute);margin-bottom:5px">Mốc gần nhất</div>
+        <div id="duelist" style="font-size:11.5px;color:var(--dmute);line-height:1.8"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ĐANG ỔN (thu gọn) ===== -->
+  <details class="okz">
+    <summary id="oksum"></summary>
+    <div class="lista" id="oklist" style="max-height:none;padding-bottom:10px"></div>
+  </details>
+</div>
+
+<script src="data.js"></script>
+<script src="shell.js"></script>
+<script>
+"use strict";
+const D = window.OECD;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const vn = n => String(n).replace(".", ",");
+const st = D.stats();
+const SRC = "Nguồn: " + D.META.tracker + " · cập nhật " + D.META.updated;
+$("#srcline").textContent = D.META.tracker + " · " + D.META.acgs + " · cập nhật " + D.META.updated;
+["src1","src2","src3","src4","src5"].forEach(id => $("#"+id).textContent = SRC);
+
+/* ===== tiến độ KẾ HOẠCH tuyến tính để so sánh (elapsed/duration từng NV) ===== */
+function plannedPct(t){
+  if(D.NOW_IDX < t.s) return 0;
+  const dur = t.e - t.s + 1;
+  return Math.min(100, Math.round(((D.NOW_IDX - t.s + 1) / dur) * 100));
+}
+const planAvg = Math.round(D.TASKS.reduce((a,t)=>a+plannedPct(t),0) / D.TASKS.length * 10)/10;
+const delta = Math.round((st.avg - planAvg)*10)/10;
+
+/* ===== money row ===== */
+$("#money").innerHTML = `
+  <div class="mtile">
+    <div class="l">Tiến độ tổng toàn PVEP · so kế hoạch</div>
+    <div class="v">${vn(st.avg)}<small>%</small></div>
+    <div class="plan"><div class="bar"><i style="width:${st.avg}%"></i><b style="left:${planAvg}%" title="Kế hoạch tuyến tính"></b></div><span>KH: ${vn(planAvg)}%</span></div>
+    <div class="d">Xu hướng so kế hoạch tuyến tính: <b style="color:${delta<0?'var(--red)':'var(--ok)'}">${delta>=0?"+":""}${vn(delta)} điểm</b> · tháng hiện tại: ${D.GMONTHS[D.NOW_IDX-1]}</div>
+  </div>
+  <div class="mtile ${st.red?'hot':''}"><div class="l">Quá hạn (Đỏ)</div><div class="v">${st.red}</div><div class="d">nhiệm vụ trễ mốc</div></div>
+  <div class="mtile warn"><div class="l">Nguy cơ (Vàng)</div><div class="v">${st.amber}</div><div class="d">sắp hạn & tiến độ thấp</div></div>
+  <div class="mtile good"><div class="l">Đúng hướng (Xanh)</div><div class="v">${st.green + st.done}</div><div class="d">gồm ${st.done} đã hoàn thành</div></div>
+  <div class="mtile"><div class="l">Tỷ lệ hoàn thành</div><div class="v">${Math.round(st.done/st.total*100)}<small>%</small></div><div class="d">${st.done}/${st.total} nhiệm vụ đóng</div></div>
+  <div class="mtile gold"><div class="l">Việc cần HĐTV – TGĐ quyết</div><div class="v">${st.decide}</div><div class="d">xem danh mục bên dưới ↓</div></div>`;
+
+/* ===== exception list (đỏ trước, vàng sau — sắp theo hạn gần) ===== */
+const excs = D.TASKS.map(t=>({t, s:D.taskStatus(t)}))
+  .filter(x=>x.s.cls==="red"||x.s.cls==="amber")
+  .sort((a,b)=>(a.s.cls==="red"?0:1)-(b.s.cls==="red"?0:1) || a.t.e-b.t.e);
+$("#exclist").innerHTML = excs.length ? excs.map(({t,s})=>`
+  <div class="exc ${s.cls}"><div class="no">${t.id}</div>
+    <div><div class="tt">${esc(t.t)}</div>
+      <div class="mm">Chủ trì: <b>${esc(t.own)}</b> · Hạn: <b>${esc(t.dl)}</b>${t.prereq?` · Tiên quyết: ${esc(t.prereq)}`:""}</div></div>
+    <div class="right"><span class="st ${s.cls}">${s.label}</span><div class="pv">${vn(t.p)}%</div>
+      <div class="bar"><i style="width:${Math.min(100,t.p)}%"></i></div></div>
+  </div>`).join("") : '<div class="exc"><div class="tt">Không có nhiệm vụ bất thường.</div></div>';
+
+/* ===== việc cần quyết ===== */
+const dec = D.TASKS.filter(t=>(t.requests||"").trim());
+$("#decidelist").innerHTML = dec.length ? dec.map(t=>`
+  <div class="decide"><div class="dt">NV ${t.id} · ${esc(t.t)}</div>
+    <div class="dm">Kiến nghị: <b>${esc(t.requests)}</b><br>Ban chịu trách nhiệm: <b>${esc(t.own)}</b> · ${esc(t.lead)}${t.issues?`<br>Vướng mắc: ${esc(t.issues)}`:""}</div>
+  </div>`).join("") : '<div class="decide"><div class="dt">Chưa có kiến nghị nào chờ Lãnh đạo quyết.</div></div>';
+
+/* ===== biểu đồ theo Ban (SVG thuần) ===== */
+function primaryBan(own){
+  const b = own.split("·")[0].split("(")[0].trim();
+  return b.length > 14 ? "Các Ban CM" : b;
+}
+const byBan = {};
+D.TASKS.forEach(t=>{ const b = primaryBan(t.own); (byBan[b]=byBan[b]||[]).push(t); });
+(function(){
+  const entries = Object.entries(byBan).map(([b,ts])=>({b, n:ts.length, avg:Math.round(ts.reduce((a,t)=>a+t.p,0)/ts.length*10)/10}))
+    .sort((a,b)=>b.avg-a.avg);
+  const rowH = 30, W = 420, H = entries.length*rowH + 18;
+  let out = "";
+  [25,50,75,100].forEach(f=>{
+    const gx = 118 + (W-170)*f/100;
+    out += `<line class="gridln" x1="${gx}" y1="2" x2="${gx}" y2="${H-14}"/><text class="gridtx" x="${gx}" y="${H-4}" text-anchor="middle">${f}</text>`;
+  });
+  entries.forEach((e,i)=>{
+    const y = i*rowH + 6, bw = (W-170) * e.avg/100;
+    out += `<text class="bban" x="0" y="${y+13}">${esc(e.b)} (${e.n})</text>
+      <rect x="118" y="${y+3}" width="${W-170}" height="12" rx="6" fill="#E9EEF4"/>
+      <rect x="118" y="${y+3}" width="${Math.max(bw,2)}" height="12" rx="6" fill="url(#bg1)"/>
+      <text class="blabel" x="${W-44}" y="${y+14}">${vn(e.avg)}%</text>`;
+  });
+  $("#banchart").setAttribute("viewBox",`0 0 ${W} ${H}`);
+  $("#banchart").innerHTML = `<defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#006838"/><stop offset="1" stop-color="#00a651"/></linearGradient></defs>` + out;
+})();
+
+/* ===== biểu đồ theo 8 nhóm ===== */
+(function(){
+  const gs = Object.keys(D.GROUPS).map(g=>{
+    const ts = D.TASKS.filter(t=>t.g===g);
+    return {g, avg: Math.round(ts.reduce((a,t)=>a+t.p,0)/ts.length*10)/10};
+  });
+  const rowH = 28, W = 420, H = gs.length*rowH + 18;
+  let out = "";
+  [25,50,75,100].forEach(f=>{
+    const gx = 68 + (W-190)*f/100;
+    out += `<line class="gridln" x1="${gx}" y1="2" x2="${gx}" y2="${H-14}"/><text class="gridtx" x="${gx}" y="${H-4}" text-anchor="middle">${f}</text>`;
+  });
+  gs.forEach((e,i)=>{
+    const y = i*rowH + 5, bw = (W-190) * e.avg/100;
+    out += `<text class="bban" x="0" y="${y+13}">Nhóm ${e.g}</text>
+      <rect x="68" y="${y+3}" width="${W-190}" height="11" rx="5.5" fill="#E9EEF4"/>
+      <rect x="68" y="${y+3}" width="${Math.max(bw,2)}" height="11" rx="5.5" fill="url(#bg2)"/>
+      <text class="blabel" x="${W-114}" y="${y+13}">${vn(e.avg)}%</text>
+      <text class="axis" x="${W-72}" y="${y+13}">${esc(D.GROUPS[e.g]).slice(0,14)}…</text>`;
+  });
+  $("#grpchart").setAttribute("viewBox",`0 0 ${W} ${H}`);
+  $("#grpchart").innerHTML = `<defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1c4e8a"/><stop offset="1" stop-color="#6fb3ff"/></linearGradient></defs>` + out;
+})();
+
+/* ===== donut trạng thái ===== */
+(function(){
+  const parts = [
+    {k:"Quá hạn", v:st.red, c:"#e0604f"},
+    {k:"Nguy cơ", v:st.amber, c:"#F5C64F"},
+    {k:"Đúng hướng", v:st.green, c:"#2e7d52"},
+    {k:"Hoàn thành", v:st.done, c:"#00a651"},
+  ];
+  const R=48, C=2*Math.PI*R;
+  let off=0, out=`<circle cx="65" cy="65" r="${R}" fill="none" stroke="#EDF2F7" stroke-width="18"/>`;
+  parts.forEach(p=>{
+    if(!p.v) return;
+    const frac = p.v/st.total;
+    out += `<circle cx="65" cy="65" r="${R}" fill="none" stroke="${p.c}" stroke-width="18"
+      stroke-dasharray="${frac*C} ${C}" stroke-dashoffset="${-off*C}" transform="rotate(-90 65 65)"/>`;
+    off += frac;
+  });
+  out += `<text x="65" y="63" text-anchor="middle" fill="var(--ink)" font-size="20" font-weight="800">${st.total}</text>
+          <text x="65" y="79" text-anchor="middle" fill="var(--muted)" font-size="8.5" font-weight="700">NHIỆM VỤ</text>`;
+  $("#donut").innerHTML = out;
+  $("#dleg").innerHTML = parts.map(p=>`<div><i style="background:${p.c}"></i>${p.k}: <b>${p.v}</b> <span style="color:var(--dfaint)">· ${Math.round(p.v/st.total*100)}%</span></div>`).join("");
+})();
+
+/* ===== mốc gần nhất ===== */
+const due = D.TASKS.filter(t=>t.p<100 && !t.cont).sort((a,b)=>a.e-b.e).slice(0,4);
+$("#duelist").innerHTML = due.map(t=>`▸ <b style="color:var(--ink)">NV ${t.id}</b> — hạn ${esc(t.dl)} (${D.GMONTHS[t.e-1]})`).join("<br>");
+
+/* ===== nhóm đang ổn (thu gọn) ===== */
+const oks = D.TASKS.map(t=>({t, s:D.taskStatus(t)})).filter(x=>x.s.cls==="green"||x.s.cls==="done");
+$("#oksum").textContent = `Đang đúng tiến độ / hoàn thành — ${oks.length} nhiệm vụ (bấm để xem)`;
+$("#oklist").innerHTML = oks.map(({t,s})=>`
+  <div class="exc"><div class="no">${t.id}</div>
+    <div><div class="tt">${esc(t.t)}</div><div class="mm">Chủ trì: <b>${esc(t.own)}</b> · Hạn: <b>${esc(t.dl)}</b></div></div>
+    <div class="right"><span class="st ${s.cls}">${s.label}</span><div class="pv">${vn(t.p)}%</div></div>
+  </div>`).join("");
+
+/* ===== trình bày ===== */
+$("#btn-present").addEventListener("click", ()=>{
+  document.body.classList.toggle("present");
+  $("#btn-present").textContent = document.body.classList.contains("present") ? "▣ Thu nhỏ" : "▣ Trình bày";
+});
+</script>
+</body>
+</html>

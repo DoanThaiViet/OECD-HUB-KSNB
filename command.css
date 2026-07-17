@@ -1,0 +1,168 @@
+/* ============================================================
+   OECD GOVERNANCE COMMAND CENTER — EXECUTIVE LIGHT
+   1 ngôn ngữ thiết kế cho cả 7 trang. Nguồn dữ liệu: data.js.
+   Lưu ý: các biến "d*" (--dink, --dmute, --panel…) là tên kế
+   thừa từ bản tối — nay trỏ sang giá trị SÁNG để mọi trang
+   tự chuyển tông. Không đổi tên biến.
+   ============================================================ */
+@import url("assets/fonts/fonts.css");   /* Be Vietnam Pro + Inter self-host (offline) */
+
+:root{
+  /* nền chuyển sắc — fixed để cuộn tạo cảm giác transition */
+  --bg-page: linear-gradient(180deg,#FBFDFF 0%,#EEF4FB 28%,#E9F5EF 58%,#F2F7FC 100%);
+  --bg-glow-1: radial-gradient(900px 420px at 12% -8%, rgba(0,166,81,.10), transparent 65%);
+  --bg-glow-2: radial-gradient(800px 380px at 92% 4%,  rgba(37,99,235,.08), transparent 60%);
+
+  --surface: rgba(255,255,255,.82);
+  --surface-solid:#FFFFFF;
+  --line:#E2E9F2; --line-strong:#CBD6E4;
+  --ink:#0F2540; --muted:#5B6B84; --faint:#8A97AB;
+
+  --pvep:#00A651; --pvep-deep:#046B39;
+  --green:#046B39; --green2:#00A651; --mint:#0E9F6E;
+  --navy:#23286b; --navy2:#2e3192;
+  --amber:#D97706; --amber-d:#B45309; --gold:#D97706;
+  --red:#DC2626; --ok:#059669;
+  --ph1:#0E9F6E; --ph2:#D97706; --ph3:#2563EB; --ph4:#0D9488; --ph5:#7C3AED;
+
+  /* —— biến kế thừa từ bản tối, nay = giá trị sáng —— */
+  --bg0:#FBFDFF; --bg1:#EEF4FB;
+  --panel:var(--surface); --panel2:#F4F8FC;
+  --dline:var(--line); --dink:var(--ink); --dmute:var(--muted); --dfaint:var(--faint);
+  --paper:#F2F6FA; --card:#FFFFFF;
+
+  --ff:"Inter","Be Vietnam Pro",system-ui,"Segoe UI",sans-serif;
+  --ff-head:"Be Vietnam Pro","Inter",system-ui,"Segoe UI",sans-serif;
+  --shadow:var(--shadow-card);
+  --shadow-card:0 8px 28px rgba(15,37,64,.08),0 1px 3px rgba(15,37,64,.06);
+  --shadow-hover:0 18px 44px rgba(15,37,64,.14);
+  --r:16px; --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip}
+body{font-family:var(--ff);font-size:14px;line-height:1.6;background:var(--bg-page);background-attachment:fixed;color:var(--ink);overflow-x:clip;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--bg-glow-1),var(--bg-glow-2)}
+body>*{position:relative;z-index:1}
+/* glow theo phân hệ */
+body.theme-ph1{--bg-glow-1:radial-gradient(900px 420px at 12% -8%, rgba(14,159,110,.11), transparent 65%)}
+body.theme-ph2{--bg-glow-1:radial-gradient(900px 420px at 12% -8%, rgba(217,119,6,.10), transparent 65%)}
+body.theme-ph3{--bg-glow-1:radial-gradient(900px 420px at 12% -8%, rgba(37,99,235,.10), transparent 65%)}
+body.theme-ph4{--bg-glow-1:radial-gradient(900px 420px at 12% -8%, rgba(13,148,136,.11), transparent 65%)}
+body.theme-ph5{--bg-glow-1:radial-gradient(900px 420px at 12% -8%, rgba(124,58,237,.09), transparent 65%)}
+/* giữ tương thích: .dark không còn nền tối */
+body.dark{background:var(--bg-page);background-attachment:fixed;color:var(--ink)}
+
+h1,h2,h3,h4,.hd{font-family:var(--ff-head)}
+a{color:var(--pvep-deep);text-decoration:none} a:hover{text-decoration:underline}
+button{font-family:inherit}
+.wrap{max-width:none;margin:0 auto;padding:0 46px}
+@media(max-width:640px){.wrap{padding:0 16px}}
+.tnum,.v,.pv,.cv{font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
+
+/* ---------- Header dùng chung: logo → breadcrumb → nút ---------- */
+.cbar{display:flex;align-items:center;gap:14px;padding:11px 46px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;background:linear-gradient(100deg,#015a30 0%,#0a5048 42%,#212666 100%)}
+.cbar a.logolink{display:flex;flex:none}
+.cbar img.logo{height:38px;filter:drop-shadow(0 0 5px rgba(255,255,255,.9)) drop-shadow(0 0 14px rgba(255,255,255,.5))}
+.cbar .who{line-height:1.25;color:#fff;min-width:0}
+.cbar .who small{display:block;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:#cfe8d8}
+.cbar .who b{font-family:var(--ff-head);font-size:14.5px;font-weight:700}
+.cbar .crumb{font-size:12px;color:#cfe8d8;white-space:nowrap}
+.cbar .crumb a{color:#fff;font-weight:700}
+.cbar .crumb b{color:#F5C64F}
+.cbar .sp{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cbtn{font-size:12px;font-weight:700;padding:7px 14px;border-radius:9px;border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.13);color:#fff;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.cbtn:hover{background:rgba(255,255,255,.24);text-decoration:none}
+.cbtn.gold{background:#F5C64F;border-color:#F5C64F;color:#1d2440}
+.cbtn.gold:hover{background:#ffd35e}
+@media(max-width:760px){.cbar{padding:10px 16px}.cbar .who small,.cbar .crumb{display:none}}
+
+/* ---------- Badge Ban KSNB (SVG shield-check) ---------- */
+.ksnb-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,166,81,.08);border:1px solid rgba(0,166,81,.35);border-radius:999px;padding:3px 12px 3px 8px;font-size:10.5px;font-weight:700;color:var(--pvep-deep);white-space:nowrap}
+.ksnb-badge svg{width:13px;height:13px;flex:none}
+.cbar .ksnb-badge{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);color:#eafff3}
+.cbar .ksnb-badge svg circle{fill:#fff}
+.cbar .ksnb-badge svg path{stroke:#046B39}
+
+/* ---------- Footer chạy chung ---------- */
+.cfoot{margin-top:26px;padding:16px 46px 22px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
+@media(max-width:640px){.cfoot{padding:14px 16px 18px}}
+
+/* ---------- FAB: về Hub / lên đầu trang ---------- */
+.fabnav{position:fixed;right:20px;bottom:20px;z-index:80;display:flex;flex-direction:column;gap:8px;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s,transform .25s}
+.fabnav.show{opacity:1;pointer-events:auto;transform:none}
+.fabnav a,.fabnav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-strong);background:var(--surface-solid);color:var(--pvep-deep);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-card);text-decoration:none;font-family:inherit}
+.fabnav a:hover,.fabnav button:hover{box-shadow:var(--shadow-hover);border-color:var(--pvep)}
+
+/* ---------- Nguồn + ngày ---------- */
+.src{font-size:11px;color:var(--faint);letter-spacing:.2px}
+
+/* ---------- Panel/card kính mờ ---------- */
+.panel{background:var(--surface);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:18px 20px;transition:box-shadow .2s,transform .2s}
+.panel h3{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.panel h3 .src{font-weight:600;text-transform:none;letter-spacing:.2px}
+.lpanel{background:var(--surface);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);padding:18px 20px;margin-bottom:16px}
+.lpanel h3{font-size:11.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--pvep-deep);margin-bottom:12px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+
+/* ---------- Chip trạng thái ---------- */
+.st{display:inline-block;font-size:10.5px;font-weight:800;padding:2.5px 10px;border-radius:12px;white-space:nowrap;letter-spacing:.3px}
+.st.red{background:#FDECEA;color:#B91C1C;border:1px solid #F3C1BB}
+.st.amber{background:#FEF3E2;color:#92400E;border:1px solid #F1D5A8}
+.st.green{background:#E7F5EC;color:#046B39;border:1px solid #BFE4CC}
+.st.done{background:#D7F0E2;color:#065F46;border:1px solid #A7DCBF}
+
+/* ---------- Bảng ---------- */
+.dtable{width:100%;border-collapse:collapse;font-size:12.5px}
+.dtable th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:9px 10px;border-bottom:2px solid var(--line-strong);white-space:nowrap}
+.dtable td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+.dtable tr:hover td{background:rgba(15,37,64,.03)}
+
+/* ---------- Thanh tiến độ mini ---------- */
+.mtrack{height:8px;background:#E4ECE7;border-radius:5px;overflow:hidden;min-width:70px}
+.mtrack i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--pvep-deep),var(--pvep))}
+
+/* ---------- Modal chung ---------- */
+#modal{position:fixed;inset:0;z-index:100;background:rgba(15,37,64,.45);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px}
+#modal[hidden]{display:none}
+.mbox{background:#fff;color:var(--ink);border-radius:16px;box-shadow:0 24px 70px rgba(15,37,64,.3);max-width:680px;width:100%;max-height:88vh;overflow:auto;padding:28px 30px;position:relative;border-top:5px solid var(--pvep)}
+.mx{position:absolute;top:13px;right:15px;border:none;background:#EEF3F1;color:var(--muted);width:31px;height:31px;border-radius:50%;font-size:16px;cursor:pointer}
+.mcat{font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--pvep-deep)}
+.mbox h3{font-size:19px;font-weight:800;color:var(--ink);margin:6px 0 3px;padding-right:26px;line-height:1.35}
+.mmeta{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.mkp{list-style:none}
+.mkp li{position:relative;padding:6px 0 6px 20px;font-size:13.5px;line-height:1.6;border-bottom:1px dashed var(--line)}
+.mkp li:last-child{border-bottom:none}
+.mkp li::before{content:"";position:absolute;left:2px;top:13px;width:8px;height:8px;background:var(--pvep);border-radius:2px}
+.mnote{font-size:12px;color:var(--faint);font-style:italic;margin-top:8px}
+.mact{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.mact a{display:inline-flex;font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:9px;background:var(--pvep-deep);color:#fff}
+.mact a::after{content:"↗";margin-left:6px}
+.mact a:hover{background:var(--pvep);text-decoration:none}
+
+/* ---------- Drawer trượt phải (dùng chung PH4/PH5) ---------- */
+.sdrawer{position:fixed;inset:0;z-index:95;background:rgba(15,37,64,.4);backdrop-filter:blur(2px);display:flex;justify-content:flex-end}
+.sdrawer[hidden]{display:none}
+.sdrawer .sbox{width:min(540px,100vw);height:100%;background:#fff;border-left:1px solid var(--line-strong);display:flex;flex-direction:column;box-shadow:-18px 0 50px rgba(15,37,64,.18);animation:slidein .28s ease-out}
+@keyframes slidein{from{transform:translateX(40px);opacity:.4}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){.sdrawer .sbox{animation:none}}
+.sdrawer .shead{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:10px}
+.sdrawer .shead .tt{font-family:var(--ff-head);font-size:15px;font-weight:800;color:var(--ink);line-height:1.35;flex:1}
+.sdrawer .shead .mx2{border:none;background:#EEF3F1;color:var(--muted);width:30px;height:30px;border-radius:50%;font-size:15px;cursor:pointer;flex:none}
+.sdrawer .sbody{flex:1;overflow:auto;padding:16px 22px;font-size:13px;line-height:1.6}
+
+/* ---------- fade-up khi vào khung nhìn ---------- */
+.fx{opacity:0;transform:translateY(14px);transition:opacity .5s ease-out,transform .5s ease-out}
+.fx.inview{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.fx{opacity:1;transform:none;transition:none}}
+
+/* ---------- In PDF A4 ---------- */
+@media print{
+  @page{size:A4 landscape;margin:9mm}
+  body,body.dark{background:#fff !important;color:var(--ink) !important;font-size:10.5px}
+  body::before{display:none}
+  .cbar{position:static;background:#046B39 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .noprint,#modal,.sdrawer,.fabnav{display:none !important}
+  .panel,.lpanel{background:#fff;border:1px solid #ccd;box-shadow:none;break-inside:avoid;backdrop-filter:none}
+  .st,.ksnb-badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .fx{opacity:1 !important;transform:none !important}
+  a{color:var(--navy)}
+}
