@@ -17,7 +17,7 @@ window.OECD = (function () {
     org: "Ban Kiểm soát Nội bộ · PVEP",
   };
   const SP_BASE = "https://pvepcorp.sharepoint.com/sites/m365-ksnb/Shared Documents/";
-  const OECD_DIR = "08_CƠ SỞ DỮ LIỆU CHUNG/10.0_LUAT_QUY DINH/OECD/";
+  const OECD_DIR = "8.5_OECD/";   // kho OECD trên M365-KSNB (đã dời từ 08_CƠ SỞ DỮ LIỆU CHUNG/... sang 8.5_OECD — xác minh 17/07/2026)
   const sp  = (rel) => encodeURI(SP_BASE + rel);
   const spO = (rel) => sp(OECD_DIR + rel);
 
