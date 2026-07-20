@@ -198,8 +198,8 @@ const NODES = [
   ring:{pct:bcPct, txt:String(D.DIRECTIVES.length), unit:"chỉ đạo"},
   kv:`<b>${D.DIRECTIVES.length}</b> văn bản 4 cấp · <b>${D.DIRECTIVES.filter(d=>d.reportedBy).length}</b> đã có báo cáo của PVEP`},
  {ph:"PH5", nm:"OECD Assessment Center", tier:"COMMAND", ac:"#7C3AED", href:"ph5-assessment.html", verb:"Đánh giá",
-  ring:{pct:live, txt:vn(live)+"%", unit:"điểm live"},
-  kv:`<b>${D.CRITERIA.length}</b> tiêu chí 5 trụ cột · <b>${D.gaps().length}</b> gap cần xử lý`},
+  ring:{pct:D.ROUNDS[0].self.pct, txt:vn(D.ROUNDS[0].self.pct)+"%", unit:"tự đánh giá"},
+  kv:`Đợt 1: <b>${D.ROUNDS[0].self.pts} — Hạng ${D.ROUNDS[0].self.rank}</b> · chờ Tập đoàn chốt · mục tiêu 2027: <b>95%</b>`},
 ];
 
 document.getElementById("core-score").innerHTML = vn(D.SCORES.find(s=>s.real).v) + "<small>%</small>";

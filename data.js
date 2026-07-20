@@ -291,6 +291,90 @@ window.OECD = (function () {
     {y:"2027", v:95,    note:"Mục tiêu: quản trị hàng đầu quốc gia (QĐ 1017 · Mục I.2)", target:true},
   ];
 
+  /* ---------- ROUNDS: các đợt đánh giá ACGS (PH5 — hành trình trưởng thành) ----------
+     pct null = chưa có số — điền khi Tập đoàn chấm lại / chốt. parts render từ PILLARS. */
+  const ROUNDS = [
+    {id:"R1", name:"Tự đánh giá theo Bộ ACGS Hybrid 152 tiêu chí", when:"Tháng 5/2026", status:"done",
+     ask:{ref:"CV 2971/CNNL-HĐTV (16/04) · CV 3698/CNNL-KSNB (11/05)",
+          txt:"Petrovietnam yêu cầu Người đại diện PVEP tự rà soát, chấm điểm thực trạng quản trị theo Bộ câu hỏi khảo sát, gửi kết quả trước 15/05/2026.",
+          url:spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260511_3698.CNNL-KSNB_Tu ra soat danh gia thuc trang quan tri DN theo OECD.pdf")},
+     steps:[
+      {d:"14/05", t:"Chốt khung chấm Hybrid với Ban CL&QTRR; gửi kết quả khảo sát cho Petrovietnam lúc 20:36 — trước hạn 15/05",
+       url:spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/260514_PVEP-gui-ket-qua-danh-gia-cho-Petrovietnam-20.36.35-14.05.2026.pdf")},
+      {d:"15/05", t:"Trình HĐTV kết quả rà soát (CV 161/CVNB-HNT)",
+       url:spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260515_161.CVNB-HNT_Ra soat danh gia thuc trang quan tri doanh nghiep theo OECD.pdf")},
+      {d:"19/05", t:"Hoàn thiện bộ điểm theo ý kiến HĐTV",
+       url:spO("5. Bo cau hoi khao sat cham diem/260519 Sau họp HĐTV/260519_ACGS_Hybrid_Scoring_Framework_Petrovietnam_PVEP_Sua theo y kien HĐTV.xlsx")},
+      {d:"20/05", t:"CV 1152/TDKT-CL&QTRR gửi Petrovietnam kết quả chính thức",
+       url:spO("5. Bo cau hoi khao sat cham diem/260520 Trinh PVN/260520_CV 1152_Bao cao ve ket qua ra soat OECD tai PVEP.pdf")},
+     ],
+     self:{pct:89.25, pts:"407/456", rank:"A", note:"4 điểm thưởng · không điểm phạt"},
+     pvn:{pct:null, note:"Tập đoàn đang thẩm định — chưa có kết quả chấm lại"},
+     final:{pct:null, note:"Chốt sau khi Tập đoàn thẩm định"},
+     folder:spO("5. Bo cau hoi khao sat cham diem")},
+    {id:"R2", name:"Đánh giá theo Bộ tiêu chí chính thức của Petrovietnam", when:"Từ quý III/2026", status:"wait",
+     ask:{ref:"NQ 5432/NQ-CNNL · Mục 2.5 · NV 2.2 KH 1017",
+          txt:"Petrovietnam ban hành Bộ tiêu chí quản trị doanh nghiệp theo OECD (từ quý III/2026); PVEP đánh giá mức độ đáp ứng và báo cáo trong 15 ngày sau khi nhận bộ tiêu chí."},
+     improve:["Ban hành quy định quản trị ESG cấp HĐTV (NV 6.1 — Q4/2026)","Quy định công bố thông tin mới (NV 7.1 — Q3/2026)","Quy chế QTRR sửa đổi + danh mục rủi ro, bộ KRI (NV 4.1 — Q4/2026)","Quy chế quản lý Người đại diện (NV 8.1 — Q4/2026)"],
+     self:{pct:null}, pvn:{pct:null}, final:{pct:null}},
+    {id:"R3", name:"Đánh giá nội bộ mức độ trưởng thành + đánh giá chéo Tập đoàn", when:"Tháng 1/2027", status:"plan",
+     ask:{ref:"NV 2.3 KH 1017 · NQ 5432 · Mục 2.3",
+          txt:"PVEP tự đánh giá nội bộ mức độ trưởng thành quản trị hằng năm; Tổ công tác Petrovietnam đánh giá chéo định kỳ giữa các đơn vị thành viên."},
+     self:{pct:null}, pvn:{pct:null}, final:{pct:null}},
+    {id:"R4", name:"Đánh giá độc lập toàn Tập đoàn", when:"Quý II/2027", status:"plan", target:95,
+     ask:{ref:"NQ 5432 · Mục 2.3 · NV 2.4 KH 1017",
+          txt:"Đánh giá độc lập mức độ trưởng thành toàn Tập đoàn; PVEP hoàn thiện hồ sơ từ quý I/2027. Mục tiêu QĐ 1017: quản trị hàng đầu quốc gia — 95%."},
+     self:{pct:null}, pvn:{pct:null}, final:{pct:null}},
+  ];
+
+  /* ---------- REPORTS: chế độ báo cáo định kỳ (PH4) ---------- */
+  const REQS = [
+    {id:"hdtv", from:"TGĐ", to:"HĐTV PVEP", cad:"Hằng tháng", color:"#046B39",
+     ref:"QĐ 1017/QĐ-TDKT · Mục II.3",
+     txt:"Tổng giám đốc báo cáo Hội đồng Thành viên kết quả thực hiện Kế hoạch OECD định kỳ hằng tháng và đột xuất khi có yêu cầu.",
+     url:spO("8. KH trien khai ap dung OECD tai PVEP/260710_QD 1017_HDTV_KH ttrien khai OECD tai PVEP.pdf"),
+     pvep:{done:false, note:"QĐ 1017 ban hành 10/07/2026 — kỳ báo cáo đầu tiên là T8/2026"}},
+    {id:"pvn", from:"NĐD", to:"Petrovietnam", cad:"Định kỳ", color:"#23286b",
+     ref:"NQ 5432/NQ-CNNL · Mục 2.8",
+     txt:"Người đại diện kiểm soát giám sát mục tiêu chiến lược, cảnh báo sớm và định kỳ báo cáo Petrovietnam; Tổ công tác PVN đánh giá chéo, đánh giá độc lập quý II/2027.",
+     url:spO("8. KH trien khai ap dung OECD tai PVEP/20260630_5432.NQ-CNNL_KH trien khai ap dung nguyen tac quan tri cong ty OECD.pdf"),
+     pvep:{done:true, note:"Đã báo cáo Petrovietnam 2 lần trong đợt rà soát 5/2026; tần suất định kỳ chờ PVN hướng dẫn",
+       ev:[{n:"CV 1076/TDKT-HĐTV (12/05)", u:spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260512_1076.TDKT-HĐTV_Trien khai ap dung cac nguyen tac quan tri doanh nghiep OECD tai PVEP.pdf")},
+            {n:"CV 1152/TDKT-CL&QTRR (20/05)", u:spO("5. Bo cau hoi khao sat cham diem/260520 Trinh PVN/260520_CV 1152_Bao cao ve ket qua ra soat OECD tai PVEP.pdf")}]}},
+    {id:"gb", from:"KSNB", to:"Giao ban HĐTV–BTGĐ", cad:"Hằng tháng", color:"#D97706",
+     ref:"Thông lệ giao ban",
+     txt:"Ban KSNB chuẩn bị báo cáo giao ban hằng tháng kèm phụ lục danh mục chỉ đạo PVN / HĐTV — trong đó theo dõi các chỉ đạo về OECD.",
+     url:sp("04_BÁO CÁO/4.0_BAO CAO/03_Ban KSNB/Giao ban HĐTV-BTGĐ/2026"),
+     pvep:{done:true, note:"Đã có báo cáo giao ban T1–T7/2026",
+       ev:[{n:"Thư mục Giao ban 2026", u:sp("04_BÁO CÁO/4.0_BAO CAO/03_Ban KSNB/Giao ban HĐTV-BTGĐ/2026")}]}},
+  ];
+  const REPORTS = [
+    {g:"1017", n:"Báo cáo kết quả thực hiện Kế hoạch OECD (TGĐ → HĐTV)", cad:"Hằng tháng", own:"Ban TGĐ · các Ban chủ trì cập nhật", cc:"QĐ 1017 · Mục II.3", st:["wait","Kỳ đầu: T8/2026"],
+     bc:{done:false, note:"Chưa đến kỳ — QĐ 1017 ban hành 10/07/2026"}},
+    {g:"1017", n:"Báo cáo trạng thái thực hiện NQ, QĐ, chỉ đạo Lãnh đạo PVEP (NV 1.3)", cad:"Hằng tháng", own:"KSNB (HĐTV) · CL&QTRR (BTGĐ)", cc:"QĐ 1017 · NV 1.3", st:["run","Đang xây dashboard (Q3/2026)"],
+     bc:{done:false, note:"Chưa có kỳ báo cáo — dashboard đang xây (KSNB đã dựng prototype)"}},
+    {g:"1017", n:"Dashboard quản trị giám sát chiến lược / kế hoạch (NV 3.2)", cad:"Hằng tháng", own:"CL&QTRR", cc:"QĐ 1017 · NV 3.2", st:["wait","Hạn thiết lập: Q4/2026"],
+     bc:{done:false, note:"Chưa đến kỳ — chờ thiết lập bộ chỉ tiêu (sau NV 3.1)"}},
+    {g:"1017", n:"Báo cáo & hồ sơ rủi ro chuẩn hóa (NV 4.2)", cad:"Định kỳ", own:"CL&QTRR · các Ban chủ sở hữu rủi ro", cc:"QĐ 1017 · NV 4.2", st:["run","Đang thực hiện (Q3/2026)"],
+     bc:{done:false, note:"Đang chuẩn hóa biểu mẫu hồ sơ rủi ro (21,7%) — báo cáo theo mẫu mới chưa phát hành"}},
+    {g:"1017", n:"Báo cáo tình hình thực hiện kiến nghị KTGS/KTNB (NV 5.2 – 5.3)", cad:"Hằng quý", own:"KSNB · các Ban chủ trì KTGS", cc:"QĐ 1017 · NV 5.2–5.3", st:["wait","Hạn nền tảng: Q4/2026"],
+     bc:{done:false, note:"Chưa đến kỳ — nền tảng theo dõi kiến nghị hạn Q4/2026"}},
+    {g:"1017", n:"Báo cáo thường niên song ngữ Việt – Anh (NV 7.1)", cad:"Tháng 4 hằng năm", own:"Văn phòng", cc:"QĐ 1017 · NV 7.1", st:["wait","Kỳ đầu: T4/2027"],
+     bc:{done:true, note:"BCTN 2025 (chuẩn hiện hành) đã công bố 04/05/2026; bản song ngữ theo chuẩn mới từ kỳ T4/2027",
+       ev:[{n:"Website PVEP", u:"https://www.pvep.com.vn"}]}},
+    {g:"khac", n:"Báo cáo chuẩn bị Giao ban HĐTV – Ban TGĐ (kèm PL danh mục chỉ đạo)", cad:"Hằng tháng", own:"Ban KSNB", cc:"Thông lệ giao ban", st:["ok","Đã có T1–T7/2026"],
+     bc:{done:true, note:"Đủ 7/7 kỳ năm 2026 đến nay",
+       ev:[{n:"Thư mục Giao ban 2026 (T1–T7)", u:sp("04_BÁO CÁO/4.0_BAO CAO/03_Ban KSNB/Giao ban HĐTV-BTGĐ/2026")}]}},
+    {g:"khac", n:"Báo cáo Petrovietnam kết quả thực hiện (Người đại diện kiểm soát)", cad:"Định kỳ theo yêu cầu PVN", own:"NĐD kiểm soát · Ban KSNB đầu mối", cc:"NQ 5432 · Mục 2.8", st:["wait","Chờ hướng dẫn tần suất của PVN"],
+     bc:{done:true, note:"Đã báo cáo 2 lần trong đợt rà soát 5/2026 (theo CV 2971 và CV 3698)",
+       ev:[{n:"CV 1076/TDKT-HĐTV (12/05)", u:spO("5. Bo cau hoi khao sat cham diem/260515 Trình HĐTV/20260512_1076.TDKT-HĐTV_Trien khai ap dung cac nguyen tac quan tri doanh nghiep OECD tai PVEP.pdf")},
+            {n:"CV 1152/TDKT-CL&QTRR (20/05)", u:spO("5. Bo cau hoi khao sat cham diem/260520 Trinh PVN/260520_CV 1152_Bao cao ve ket qua ra soat OECD tai PVEP.pdf")}]}},
+    {g:"khac", n:"Phục vụ đánh giá chéo định kỳ & đánh giá độc lập mức độ trưởng thành", cad:"Định kỳ · độc lập Q2/2027", own:"CL&QTRR · KSNB phối hợp", cc:"NQ 5432 · Mục 2.3", st:["wait","Chuẩn bị hồ sơ (NV 2.3–2.4)"],
+     bc:{done:false, note:"Chưa đến kỳ — hồ sơ tự đánh giá đợt 1 (5/2026) làm nền",
+       ev:[{n:"Hồ sơ tự đánh giá đợt 1", u:spO("5. Bo cau hoi khao sat cham diem")}]}},
+  ];
+  const REP_GROUPS = {"1017":"Theo Kế hoạch QĐ 1017", "khac":"Nhiệm vụ định kỳ khác"};
+
   /* ---------- DOCS PH1 (giữ nguyên dữ liệu & link từ index gốc) ---------- */
   const DOCS = {
     original: [
@@ -318,6 +402,9 @@ window.OECD = (function () {
        kp:["Bài trình bày của tư vấn CGS/VNICG tại hội thảo Petrovietnam ngày 20/05/2026.","Giới thiệu phương pháp đánh giá mức độ đáp ứng OECD theo thang ACGS (ASEAN Corporate Governance Scorecard).","Cơ sở phương pháp luận cho bộ chấm điểm Hybrid 152 câu mà Ban KSNB xây dựng cho PVEP."]},
       {t:"Bộ câu hỏi & chấm điểm ACGS Hybrid — 152 tiêu chí", org:"Ban KSNB · PVEP", yr:"05/2026", vn:true, d:"Bộ công cụ tự đánh giá theo ASEAN CG Scorecard — kết quả PVEP đạt 89,25%, Hạng A.", f:"PDF", u:spO("5. Bo cau hoi khao sat cham diem/260520 Trinh PVN/260520_CV 1152_Bao cao ve ket qua ra soat OECD tai PVEP.pdf"),
        kp:["152 câu hỏi theo ACGS, chấm Hybrid: nhóm Có/Không (0 hoặc 3 điểm) và nhóm thang 0–3 theo 4 rubric; Level 2 có 18 câu thưởng (+1) và 26 câu phạt (−1/−2).","Kết quả PVEP: 407/456 = 89,25% — Hạng A (A: 100% · B: 71,2% · C: 87,3% · D: 88,9%); 4 điểm thưởng, không điểm phạt.","Hoàn thiện qua 4 vòng: phối hợp CL&QTRR (14/05) → trình HĐTV (15/05) → tiếp thu ý kiến (19/05) → gửi Petrovietnam kèm CV 1152 (20/05).","Bản mở kèm theo CV 1152/TDKT-CL&QTRR — toàn bộ 152 câu, điểm và bằng chứng nằm trong phụ lục công văn."]},
+      {t:"Sổ tay chấm điểm ACGS — bản tương tác", org:"Ban KSNB · PVEP", yr:"2026", vn:true, inapp:true,
+       d:"Sổ tay điện tử ngay trong Hub: cách chấm Hybrid, kết quả đợt 1 theo trụ cột và bàn chấm thử 14 tiêu chí cốt lõi — bấm là điểm tính lại tức thời.", f:"Sổ tay", u:"acgs-book.html",
+       kp:["Chương 1 — cách chấm Hybrid: nhóm Có/Không (0 hoặc 3 điểm), nhóm thang 0–3 theo 4 rubric, 18 câu thưởng +1 và 26 câu phạt −1/−2; tổng tối đa 456 điểm.","Chương 2 — kết quả đợt 1 (5/2026): 407/456 = 89,25% Hạng A, xem theo 5 trụ cột A–E.","Chương 3 — bàn chấm thử tương tác trên 14 tiêu chí cốt lõi: chỉnh mức 1–5 từng tiêu chí, điểm trọng số tính lại ngay để thử các kịch bản cải thiện.","Thay đổi ở bàn chấm thử chỉ nằm trong phiên xem — không ghi vào kết quả chính thức."]},
       {t:"King IV Report on Corporate Governance", org:"IoDSA · Nam Phi", yr:"2016", d:"Bộ quy tắc quản trị nổi tiếng theo nguyên tắc 'apply and explain' — tham khảo quốc tế ngoài OECD.", f:"PDF", u:"",
        kp:["Bộ quy tắc quản trị công ty của Nam Phi (Institute of Directors South Africa), áp dụng 'apply and explain' cho mọi loại hình tổ chức kể cả DNNN.","17 nguyên tắc xoay quanh 4 kết quả quản trị: văn hóa đạo đức, hiệu quả hoạt động, kiểm soát hữu hiệu và tính chính danh.","Nguồn tham khảo tốt cho quản trị ESG, vai trò ủy ban và báo cáo tích hợp (integrated reporting).","★ Chưa có file trong kho — Nam tải bản PDF và điền link vào trường u của thẻ này."]},
       {t:"Bộ memo nghiên cứu OECD của Ban KSNB (Level 2–3 & Gap analysis)", org:"Ban KSNB", yr:"01–04/2026", vn:true, d:"Chuỗi memo nội bộ: hệ thống hóa nguyên tắc OECD, đối chiếu hiện trạng PVEP, cập nhật chỉ đạo các cấp.", f:"Nội bộ", u:"",
@@ -408,7 +495,7 @@ window.OECD = (function () {
   const evidenceForTask      = (tid) => EVIDENCE.filter((e) => (e.tasks || []).includes(tid));
 
   return { META, sp, spO, GMONTHS, NOW_IDX, GROUPS, TASKS, PILLARS, CRITERIA, EVIDENCE, SCORES, DOCS,
-           LEVELS, DIRECTIVES, dirById, dirChildren,
+           LEVELS, DIRECTIVES, dirById, dirChildren, ROUNDS, REQS, REPORTS, REP_GROUPS,
            taskStatus, stats, scoreLive, maturity, gaps, SCORE_LABELS, critStatus,
            taskById, critById, evById, evidenceForCriterion, tasksForCriterion, evidenceForTask };
 })();

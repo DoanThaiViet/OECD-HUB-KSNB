@@ -24,7 +24,7 @@
 @media(max-width:900px){.flowband{grid-template-columns:repeat(2,1fr)}.fnode:nth-child(2)::after{display:none}.fnode:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 /* ---------- thanh lọc ---------- */
 .mxtools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.mxtools input,.mxtools select{font-family:inherit;font-size:12.5px;padding:8px 12px;border-radius:9px;border:1px solid var(--line-strong);background:#fff;color:var(--ink)}
+.mxtools input,.mxtools select{font-family:inherit;font-size:12.5px;padding:8px 12px;border-radius:9px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);max-width:100%}
 .mxtools input[type=search]{min-width:220px}
 /* ---------- 4.2 ma trận ---------- */
 .mxscroll{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface-solid);box-shadow:var(--shadow-card);max-height:70vh}
@@ -60,23 +60,64 @@
 .dmeta .tag{font-size:10px;font-weight:700;background:#F2F6FA;border:1px solid var(--line);border-radius:8px;padding:2px 9px;color:var(--muted)}
 .dmeta .tag.ok{background:#E7F5EC;border-color:#BFE4CC;color:var(--pvep-deep)}
 .dmeta .tag.warn{background:#FEF3E2;border-color:#F1D5A8;color:#92400E}
-/* ---------- kho + tracer giữ lại ---------- */
-.tracer{display:grid;grid-template-columns:280px 1fr;gap:16px}
-@media(max-width:900px){.tracer{grid-template-columns:1fr}}
-.critsel{max-height:360px;overflow:auto;padding-right:4px}
-.csel{width:100%;text-align:left;font-family:inherit;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;margin-bottom:7px;cursor:pointer;font-size:12px;color:var(--ink);line-height:1.4}
-.csel:hover{border-color:var(--pvep)}
-.csel.on{border-color:var(--pvep-deep);background:#F0F9F3;box-shadow:0 0 0 1px var(--pvep-deep)}
-.csel b{color:var(--pvep-deep);margin-right:5px}
-.csel .pst{float:right;font-size:9px;font-weight:800;padding:1px 7px;border-radius:8px}
-.csel .pst.dat{background:#E7F5EC;color:#046B39}.csel .pst.dangsua{background:#FEF3E2;color:#92400E}.csel .pst.hut{background:#FDECEA;color:#B91C1C}
-.traceout{border:1px solid var(--line);border-radius:12px;background:#FBFDFC;padding:16px 18px;min-height:280px}
-.traceout .step{display:flex;gap:12px;margin-bottom:14px}
-.traceout .ic{width:34px;height:34px;border-radius:10px;background:var(--pvep-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
-.traceout .ic.n2{background:var(--navy)} .traceout .ic.n3{background:var(--amber)}
-.traceout h4{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
-.traceout .bd{font-size:13px;color:var(--ink);line-height:1.6}
-.traceout .bd .tag{display:inline-block;font-size:10px;font-weight:800;background:#F2F6FA;border:1px solid var(--line);border-radius:8px;padding:1px 8px;margin:2px 4px 2px 0;color:var(--muted)}
+/* ---------- chế độ báo cáo định kỳ (motion infographic) ---------- */
+.repflow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+@media(max-width:980px){.repflow{grid-template-columns:1fr}}
+.rf{position:relative;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 8%,#fff),#fff 62%);padding:13px 15px 12px;overflow:hidden}
+.rf .rfr{font-family:var(--ff-head);font-size:9.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--rc)}
+.rf .lane{position:relative;display:flex;align-items:center;justify-content:space-between;margin:10px 0 9px;gap:8px}
+.rf .lane::before{content:"";position:absolute;left:52px;right:52px;top:50%;height:0;border-top:2px dashed color-mix(in srgb,var(--rc) 45%,transparent)}
+.rf .nodep{z-index:1;flex:none;min-width:44px;height:30px;padding:0 10px;border-radius:15px;background:#fff;border:2px solid var(--rc);color:var(--rc);display:inline-flex;align-items:center;justify-content:center;font-family:var(--ff-head);font-size:10.5px;font-weight:800;white-space:nowrap}
+.rf .nodep.to{background:var(--rc);color:#fff}
+.rf .dot{position:absolute;top:50%;left:52px;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--rc);box-shadow:0 0 8px var(--rc);animation:repdot 3.4s linear infinite}
+@keyframes repdot{0%{left:52px;opacity:0}14%{opacity:1}86%{opacity:1}100%{left:calc(100% - 58px);opacity:0}}
+.rf .cadp{display:inline-flex;align-items:center;gap:6px;font-family:var(--ff-head);font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--rc);background:color-mix(in srgb,var(--rc) 10%,#fff);border:1px solid color-mix(in srgb,var(--rc) 30%,#fff);border-radius:10px;padding:2.5px 10px;margin-bottom:7px}
+.rf .cadp i{width:7px;height:7px;border-radius:50%;background:var(--rc);animation:cadpulse 2.2s ease-out infinite}
+@keyframes cadpulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--rc) 45%,transparent)}100%{box-shadow:0 0 0 9px transparent}}
+.rf .rft{font-size:11.5px;color:var(--muted);line-height:1.55;margin-bottom:7px}
+.rf a.open{font-size:11.5px;font-weight:700}
+/* danh sách báo cáo dạng bảng — 4 cột: nhịp / báo cáo / trạng thái / PVEP đã BC */
+.replist{border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden;box-shadow:var(--shadow-card)}
+.rlhead,.rlrow{display:grid;grid-template-columns:88px 1.6fr 168px 1.4fr;gap:14px;align-items:center;padding:10px 16px}
+.rlhead{background:linear-gradient(180deg,#F8FBF9,#EFF5F1);border-bottom:2px solid var(--line-strong);font-family:var(--ff-head);font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.rlgroup{display:flex;align-items:center;gap:9px;padding:9px 16px 8px;background:color-mix(in srgb,var(--gc) 7%,#fff);border-top:1px solid var(--line);font-family:var(--ff-head);font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--gc)}
+.rlgroup i{width:9px;height:9px;border-radius:3px;background:var(--gc);flex:none}
+.rlgroup small{margin-left:auto;font-size:9.5px;font-weight:700;letter-spacing:.3px;text-transform:none;color:var(--faint)}
+.rlrow{border-top:1px solid var(--line);transition:background .15s;position:relative}
+.rlrow::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3.5px;background:var(--gc)}
+.rlrow:hover{background:color-mix(in srgb,var(--gc) 4%,#fff)}
+.cadw{text-align:center}
+.cadw svg{width:40px;height:40px;display:block;margin:0 auto}
+.cadw svg text{font-size:13px;fill:var(--gc);font-weight:800}
+.cadw .orb{transform-origin:22px 22px;animation:orbspin var(--spd,8s) linear infinite}
+@keyframes orbspin{to{transform:rotate(360deg)}}
+.cadw span{display:block;font-family:var(--ff-head);font-size:8px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--faint);margin-top:3px;line-height:1.25}
+.rlrow .rn{font-family:var(--ff-head);font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.4}
+.rlrow .rm{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+.rlrow .rm b{color:var(--ink)}
+.rlbc .bce{border-top:none;margin-top:0;padding-top:0}
+@media(max-width:1020px){
+  .rlhead{display:none}
+  .rlrow{grid-template-columns:56px 1fr;gap:8px 12px;padding:11px 14px}
+  .rlrow .rlst{grid-column:2}
+  .rlrow .rlbc{grid-column:1/3}
+  .rlbc .bce{border-top:1px dashed var(--line);padding-top:7px}
+}
+@media print{.rlrow{break-inside:avoid}}
+.st.wt{background:#F2F6FA;color:#5B6B84;border:1px solid #CBD6E4}
+.rlst .st{white-space:normal;display:inline-block;line-height:1.4;padding:3.5px 11px;text-align:left}
+/* PVEP đã báo cáo chưa + evidence */
+.bce{display:flex;gap:7px;align-items:flex-start;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);font-size:10.5px;line-height:1.5;color:var(--muted)}
+.bce .tick{flex:none;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-top:1px}
+.bce.yes .tick{background:#E7F5EC;color:#046B39;border:1px solid #BFE4CC}
+.bce.no .tick{background:#F2F6FA;color:#8A97AB;border:1px solid #CBD6E4}
+.bce b{color:var(--ink)}
+.bce.yes b.lbl{color:#046B39}
+.bce .evl{display:block;margin-top:2px}
+.bce .evl a{display:inline-block;font-weight:700;font-size:10.5px;margin:1px 9px 1px 0;white-space:nowrap}
+.bce .evl a::after{content:" ↗";font-size:9px}
+.rf .bce{border-top-color:color-mix(in srgb,var(--rc) 25%,transparent);margin-top:8px}
+@media (prefers-reduced-motion: reduce){.rf .dot,.rf .cadp i,.cadw .orb{animation:none}}
 .ev{display:grid;grid-template-columns:60px 1.7fr 110px 1fr auto;gap:12px;align-items:center;border-top:1px solid var(--line);padding:9px 6px;border-radius:8px;transition:background .15s}
 .ev:hover{background:rgba(13,148,136,.045)}
 .ev .id{font-size:11px;font-weight:800;color:var(--pvep-deep);text-align:center}
@@ -132,13 +173,11 @@
   </div>
   <div class="mxlegend fx" id="mxlegend"></div>
 
-  <!-- tracer tiêu chí (giữ) -->
+  <!-- chế độ báo cáo định kỳ -->
   <div class="lpanel fx" style="margin-top:18px">
-    <h3>Truy xuất theo tiêu chí ACGS — tiêu chí → nhiệm vụ → minh chứng <span class="src">"Cơ chế công bố thông tin đâu?" → bấm D1</span></h3>
-    <div class="tracer">
-      <div class="critsel" id="critsel"></div>
-      <div class="traceout" id="traceout"></div>
-    </div>
+    <h3>Chế độ báo cáo định kỳ — Tập đoàn & Hội đồng Thành viên <span class="src">QĐ 1017 · Mục II.3 — NQ 5432 · Mục 2.8 & 2.3</span></h3>
+    <div class="repflow" id="repflow"></div>
+    <div class="replist" id="replist"></div>
   </div>
 
   <!-- kho hồ sơ -->
@@ -276,29 +315,57 @@ $("#dd-x").addEventListener("click", ()=>$("#ddrawer").hidden = true);
 $("#ddrawer").addEventListener("click", e=>{ if(e.target.id==="ddrawer") $("#ddrawer").hidden = true; });
 addEventListener("keydown", e=>{ if(e.key==="Escape") $("#ddrawer").hidden = true; });
 
-/* ===== tracer tiêu chí (giữ nguyên logic, theme sáng) ===== */
-const STNAME = {dat:"Đạt", dangsua:"Đang sửa", hut:"Hụt"};
-$("#critsel").innerHTML = D.CRITERIA.map(c=>{
-  const stx = D.critStatus(c);
-  return `<button class="csel" data-c="${c.id}"><b>${c.id}</b>${esc(c.name)}<span class="pst ${stx}">${STNAME[stx]} · ${c.score}/5</span></button>`;
-}).join("");
-function trace(cid){
-  const c = D.critById(cid);
-  document.querySelectorAll(".csel").forEach(b=>b.classList.toggle("on", b.dataset.c===cid));
-  const tks = D.tasksForCriterion(cid), evs = D.evidenceForCriterion(cid);
-  $("#traceout").innerHTML = `
-    <div class="step"><div class="ic">①</div><div style="flex:1">
-      <h4>Tiêu chí ${c.id} · Trụ cột ${c.pillar} — ${STNAME[D.critStatus(c)]} (${c.score}/5 · trọng số ${c.w})</h4>
-      <div class="bd">${esc(c.name)}<br><span class="tag">Ban: ${esc(c.ban)}</span><span class="tag">Hạn: ${esc(c.dl)}</span>${c.score<4?`<span class="tag">Biện pháp: ${esc(c.action)}</span>`:""}</div></div></div>
-    <div class="step"><div class="ic n2">②</div><div style="flex:1">
-      <h4>Nhiệm vụ KH 1017 gắn với tiêu chí (${tks.length})</h4>
-      <div class="bd">${tks.length ? tks.map(t=>`▸ <b>NV ${t.id}</b> — ${esc(t.t)} <span class="tag">${esc(t.own)}</span><span class="tag">${esc(t.dl)}</span><span class="tag">${String(t.p).replace(".",",")}%</span>`).join("<br>") : "Không gắn nhiệm vụ (tiêu chí duy trì)."}</div></div></div>
-    <div class="step"><div class="ic n3">③</div><div style="flex:1">
-      <h4>Minh chứng (${evs.length})</h4>
-      <div class="bd">${evs.length ? evs.map(e=>`▸ <span class="lab ${e.label==="Bằng chứng"?"bc":"tc"}">${e.label}</span> ${e.link?`<a href="${e.link}" target="_blank" rel="noopener">${esc(e.name)}</a>`:esc(e.name)}`).join("<br>") : "Chưa có minh chứng — bổ sung khi nhiệm vụ hoàn thành."}</div></div></div>`;
+/* ===== chế độ báo cáo định kỳ (motion infographic) ===== */
+/* dòng "PVEP đã báo cáo chưa + evidence" dùng chung cho thẻ dòng chảy và thẻ báo cáo */
+function bcLine(p){
+  if(!p) return "";
+  const evs = (p.ev||[]).map(e=>`<a href="${e.u}" target="_blank" rel="noopener">${esc(e.n)}</a>`).join("");
+  return `<div class="bce ${p.done?'yes':'no'}">
+    <span class="tick">${p.done?'✓':'—'}</span>
+    <span><b class="lbl">${p.done?'PVEP đã báo cáo':'PVEP chưa báo cáo'}</b> — ${esc(p.note)}${evs?`<span class="evl">Evidence: ${evs}</span>`:""}</span>
+  </div>`;
 }
-document.querySelectorAll(".csel").forEach(b=>b.addEventListener("click", ()=>trace(b.dataset.c)));
-trace("D1");
+$("#repflow").innerHTML = D.REQS.map((r,i)=>`
+  <div class="rf" style="--rc:${r.color}">
+    <div class="rfr">${esc(r.ref)}</div>
+    <div class="lane">
+      <span class="nodep">${esc(r.from)}</span>
+      <span class="dot" style="animation-delay:${(i*1.1).toFixed(1)}s"></span>
+      <span class="nodep to">${esc(r.to)}</span>
+    </div>
+    <div class="cadp"><i></i>${esc(r.cad)}</div>
+    <div class="rft">${esc(r.txt)}</div>
+    <a class="open" href="${r.url}" target="_blank" rel="noopener">Văn bản căn cứ</a>
+    ${bcLine(r.pvep)}
+  </div>`).join("");
+
+(function(){
+  const GC = {"1017":"#046B39", "khac":"#23286b"};
+  let html = `<div class="rlhead"><span>Nhịp</span><span>Báo cáo · chủ trì · căn cứ</span><span>Trạng thái</span><span>PVEP đã báo cáo? · Evidence</span></div>`;
+  let lastg = "";
+  D.REPORTS.forEach(r=>{
+    if(r.g !== lastg){
+      lastg = r.g;
+      const n = D.REPORTS.filter(x=>x.g===r.g).length;
+      html += `<div class="rlgroup" style="--gc:${GC[r.g]}"><i></i>${esc(D.REP_GROUPS[r.g])}<small>${n} báo cáo</small></div>`;
+    }
+    const spd = /tháng/i.test(r.cad) ? "5s" : /quý/i.test(r.cad) ? "9s" : "14s";
+    const stcls = r.st[0]==="ok" ? "green" : r.st[0]==="run" ? "amber" : "wt";
+    html += `<div class="rlrow" style="--gc:${GC[r.g]}">
+      <div class="cadw" style="--spd:${spd}">
+        <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="17" fill="none" stroke="#E4ECE7" stroke-width="3"/>
+          <g class="orb"><circle cx="22" cy="5" r="3.4" fill="var(--gc)"/></g>
+          <text x="22" y="26" text-anchor="middle">↻</text></svg>
+        <span>${esc(r.cad)}</span>
+      </div>
+      <div><div class="rn">${esc(r.n)}</div>
+        <div class="rm">Chủ trì: <b>${esc(r.own)}</b> · Căn cứ: ${esc(r.cc)}</div></div>
+      <div class="rlst"><span class="st ${stcls}">${esc(r.st[1])}</span></div>
+      <div class="rlbc">${bcLine(r.bc)}</div>
+    </div>`;
+  });
+  $("#replist").innerHTML = html;
+})();
 
 /* ===== kho hồ sơ ===== */
 $("#f-pil").innerHTML += Object.entries(D.PILLARS).map(([k,p])=>`<option value="${k}">Trụ ${k} — ${p.name}</option>`).join("");

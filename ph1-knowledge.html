@@ -108,7 +108,11 @@ function render(){
     n++; return true;
   }).map((b)=>{
     const i = ALL.indexOf(b);
-    const open = b.u ? `<a class="open" href="${b.u}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Mở ${esc(b.f)}</a>` : `<span class="miss">Chưa đính kèm</span>`;
+    const open = b.u
+      ? (b.inapp
+          ? `<a class="open" href="${b.u}" onclick="event.stopPropagation()">Mở sổ tay</a>`
+          : `<a class="open" href="${b.u}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Mở ${esc(b.f)}</a>`)
+      : `<span class="miss">Chưa đính kèm</span>`;
     return `<div class="book" data-i="${i}">
       <div class="cover${b.vn?' vn':''}"><span class="catlbl">${esc(b.cat)}</span><span class="yr">${esc(b.yr)}</span><span class="org">${esc(b.org)}</span><h3>${esc(b.t)}</h3></div>
       <div class="body"><div class="desc">${esc(b.d)}</div>
@@ -122,7 +126,9 @@ function render(){
     $("#mtitle").textContent = b.t;
     $("#mmeta").textContent = "Ấn bản " + b.yr + " · định dạng " + b.f;
     $("#mkp").innerHTML = (b.kp||[]).map(k=>`<li>${esc(k)}</li>`).join("");
-    $("#mact").innerHTML = b.u ? `<a href="${b.u}" target="_blank" rel="noopener">Mở tài liệu gốc</a>` : "";
+    $("#mact").innerHTML = b.u
+      ? (b.inapp ? `<a href="${b.u}">Mở sổ tay tương tác</a>` : `<a href="${b.u}" target="_blank" rel="noopener">Mở tài liệu gốc</a>`)
+      : "";
     $("#modal").hidden = false;
   }));
 }

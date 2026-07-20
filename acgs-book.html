@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sổ tay chấm điểm ACGS — bản tương tác · PVEP</title>
+<meta name="theme-color" content="#046B39">
+<link rel="icon" href="assets/pvep-logo.png">
+<link rel="stylesheet" href="command.css">
+<style>
+.wrap{padding-top:16px;padding-bottom:40px}
+/* ---------- bìa sổ tay ---------- */
+.bookhero{display:grid;grid-template-columns:300px 1fr;gap:18px;margin-bottom:16px}
+@media(max-width:900px){.bookhero{grid-template-columns:1fr}}
+.bcover{position:relative;border-radius:16px;padding:26px 24px 22px;color:#fff;background:linear-gradient(140deg,#04502B 0%,#046B39 55%,#0A7C46 100%);box-shadow:var(--shadow-card);display:flex;flex-direction:column;justify-content:flex-end;min-height:250px;overflow:hidden}
+.bcover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:#F5C64F}
+.bcover::after{content:"";position:absolute;inset:0;background:radial-gradient(300px 180px at 85% 0%,rgba(255,255,255,.16),transparent 70%)}
+.bcover .org{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.85}
+.bcover h1{font-family:var(--ff-head);font-size:23px;font-weight:800;line-height:1.3;margin-top:6px}
+.bcover .ed{font-size:11px;opacity:.8;margin-top:8px}
+.bstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-content:start}
+@media(max-width:640px){.bstats{grid-template-columns:1fr}}
+.bst{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--line);border-top:3px solid var(--pvep);border-radius:13px;box-shadow:var(--shadow-card);padding:14px 16px}
+.bst .v{font-family:var(--ff-head);font-size:31px;font-weight:800;color:var(--ink);letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.bst .l{font-size:10px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin-top:4px;line-height:1.4}
+.bst.gold{border-top-color:var(--amber)}.bst.gold .v{color:var(--amber)}
+.bintro{grid-column:1/-1;font-size:12.5px;color:var(--muted);line-height:1.65;background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow-card);padding:13px 16px}
+.bintro b{color:var(--ink)}
+/* ---------- chương ---------- */
+.chap{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--pvep-deep);margin:22px 2px 10px;display:flex;align-items:center;gap:10px}
+.chap::after{content:"";flex:1;height:1px;background:var(--line-strong)}
+.rulegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:900px){.rulegrid{grid-template-columns:1fr}}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow-card);padding:14px 16px}
+.rule .rh{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.rule .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;flex:none}
+.rule .rt{font-family:var(--ff-head);font-size:13.5px;font-weight:800;color:var(--ink)}
+.rule .rb{font-size:12px;color:var(--muted);line-height:1.6}
+.rule .rb b{color:var(--ink)}
+.rule .pts{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.rule .pts span{font-size:11px;font-weight:800;border-radius:8px;padding:3px 10px;background:#F2F6FA;border:1px solid var(--line);color:var(--muted)}
+.rule .pts span.hi{background:#E7F5EC;border-color:#BFE4CC;color:#046B39}
+.rule .pts span.lo{background:#FDECEA;border-color:#F3C1BB;color:#B91C1C}
+/* ---------- kết quả đợt 1 ---------- */
+.res{display:grid;grid-template-columns:1fr 1.4fr;gap:14px}
+@media(max-width:900px){.res{grid-template-columns:1fr}}
+.rank{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px}
+.rank .big{font-family:var(--ff-head);font-size:56px;font-weight:800;color:var(--pvep-deep);line-height:1;letter-spacing:-2px}
+.rank .pts2{font-size:13px;color:var(--muted)}
+.rank .pts2 b{color:var(--ink)}
+.pilrow{display:grid;grid-template-columns:22px 1fr 92px;gap:10px;align-items:center;border-top:1px solid var(--line);padding:8px 0}
+.pilrow:first-of-type{border-top:none}
+.pilrow .pk{font-size:12px;font-weight:800;color:var(--pvep-deep)}
+.pilrow .ptr{position:relative;height:10px;background:#E9EEF4;border-radius:5px}
+.pilrow .ptr i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,#046B39,#00A651)}
+.pilrow .ptr b{position:absolute;top:-3px;bottom:-3px;width:2.5px;background:var(--amber);border-radius:2px}
+.pilrow .pv{font-size:11px;font-weight:800;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+.pilrow .pv small{color:var(--faint);font-weight:700}
+.pname{font-size:10px;color:var(--faint);margin:-4px 0 3px 32px;line-height:1.3}
+/* ---------- bàn chấm thử ---------- */
+.trybar{display:grid;grid-template-columns:190px 1fr auto;gap:16px;align-items:center;margin-bottom:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-card);padding:13px 18px;position:sticky;top:62px;z-index:20;backdrop-filter:blur(14px)}
+@media(max-width:760px){.trybar{grid-template-columns:1fr;text-align:center}}
+.trybar .lv{font-family:var(--ff-head);font-size:33px;font-weight:800;color:var(--pvep-deep);line-height:1;font-variant-numeric:tabular-nums}
+.trybar .lv small{font-size:14px;color:var(--muted);font-weight:700}
+.trybar .ll{font-size:9.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.trybar .cmp{font-size:11.5px;color:var(--muted);line-height:1.6}
+.trybar .cmp b{color:var(--ink)}
+.trybar button{font-family:inherit;font-size:12px;font-weight:700;padding:8px 16px;border-radius:9px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);cursor:pointer}
+.trybar button:hover{border-color:var(--pvep)}
+.scgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
+.pilcard{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--pvep);border-radius:14px;box-shadow:var(--shadow-card);padding:15px 17px}
+.pilhead{display:flex;align-items:center;gap:13px;margin-bottom:9px}
+.pd{width:58px;height:58px;flex:none}
+.pd .pbg{fill:none;stroke:#E4ECE7;stroke-width:7}
+.pd .pval{fill:none;stroke:var(--pvep);stroke-width:7;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .5s}
+.pd text{font-family:var(--ff-head);font-size:14px;font-weight:800;fill:var(--ink)}
+.pilhead .pk2{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--pvep-deep);text-transform:uppercase}
+.pilhead .pt2{font-family:var(--ff-head);font-size:13px;font-weight:800;color:var(--ink);line-height:1.3}
+.critrow{border-top:1px solid var(--line);padding:9px 0}
+.critrow .cn{font-size:12.5px;color:var(--ink);line-height:1.45}
+.critrow .cn b{color:var(--pvep-deep)}
+.critrow .cmeta{font-size:10.5px;color:var(--faint);margin:3px 0 6px}
+.seg{display:flex;gap:4px}
+.seg button{flex:1;font-family:inherit;font-size:11px;font-weight:800;padding:6px 0;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--faint);cursor:pointer;transition:.12s}
+.seg button:hover{border-color:var(--line-strong);color:var(--muted)}
+.seg button.on.s1,.seg button.on.s2{background:#FDECEA;color:#B91C1C;border-color:#F3C1BB}
+.seg button.on.s3{background:#FEF3E2;color:#92400E;border-color:#F1D5A8}
+.seg button.on.s4,.seg button.on.s5{background:#E7F5EC;color:#046B39;border-color:#BFE4CC}
+.seglbl{font-size:9.5px;color:var(--faint);margin-top:3px}
+@media print{.trybar{position:static}}
+</style>
+</head>
+<body class="theme-ph1">
+
+<div class="cbar">
+  <a class="logolink" href="index.html" title="Về Hub"><img class="logo" src="assets/pvep-logo.png" alt="PVEP"></a>
+  <div class="who"><small>OECD Knowledge Hub · Tài liệu tương tác</small><b>Sổ tay chấm điểm ACGS</b></div>
+  <span class="crumb"><a href="index.html">Hub</a> / <a href="ph1-knowledge.html">PH1</a> / <b>Sổ tay ACGS</b></span>
+  <div class="sp">
+    <span data-ksnb-badge></span>
+    <a class="cbtn noprint" href="ph1-knowledge.html">← Kho tri thức</a>
+    <a class="cbtn noprint" href="ph5-assessment.html">Các đợt đánh giá</a>
+    <button class="cbtn gold noprint" onclick="print()">🖨 In PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- ===== BÌA ===== -->
+  <div class="bookhero">
+    <div class="bcover fx">
+      <span class="org">Ban KSNB · PVEP — 2026</span>
+      <h1>Sổ tay chấm điểm ACGS Hybrid</h1>
+      <span class="ed">152 tiêu chí theo ASEAN Corporate Governance Scorecard · bản tương tác trong Hub</span>
+    </div>
+    <div class="bstats">
+      <div class="bst fx"><div class="v">152</div><div class="l">Câu hỏi khảo sát · 5 trụ cột</div></div>
+      <div class="bst fx"><div class="v">456</div><div class="l">Điểm tối đa (đã gồm thưởng/phạt)</div></div>
+      <div class="bst gold fx"><div class="v" id="hero-score">—</div><div class="l">Kết quả đợt 1 — Hạng A</div></div>
+      <div class="bintro fx">Bộ chấm do Ban KSNB xây dựng trên phương pháp <b>ACGS của ASEAN</b>, phối hợp Ban CL&QTRR, hoàn thiện qua 4 vòng (14/05 → 20/05/2026) và gửi Petrovietnam kèm <b>CV 1152/TDKT-CL&QTRR</b>. Chương 3 là bàn chấm thử trên 14 tiêu chí cốt lõi — thay đổi chỉ nằm trong phiên xem, không ghi vào kết quả chính thức.</div>
+    </div>
+  </div>
+
+  <!-- ===== CHƯƠNG 1 ===== -->
+  <div class="chap">Chương 1 — Cách chấm Hybrid</div>
+  <div class="rulegrid">
+    <div class="rule fx">
+      <div class="rh"><span class="ic" style="background:#046B39">◐</span><span class="rt">Nhóm Có / Không</span></div>
+      <div class="rb">Câu hỏi nhị phân: đáp ứng đủ bằng chứng thì nhận trọn điểm, không đáp ứng thì 0.</div>
+      <div class="pts"><span class="hi">Có → 3 điểm</span><span class="lo">Không → 0 điểm</span></div>
+    </div>
+    <div class="rule fx">
+      <div class="rh"><span class="ic" style="background:#23286b">☰</span><span class="rt">Nhóm thang 0–3</span></div>
+      <div class="rb">Chấm theo 4 rubric mức độ thực hành, từ chưa có đến thông lệ tốt có bằng chứng đầy đủ.</div>
+      <div class="pts"><span>0</span><span>1</span><span>2</span><span class="hi">3</span></div>
+    </div>
+    <div class="rule fx">
+      <div class="rh"><span class="ic" style="background:#D97706">±</span><span class="rt">Thưởng & phạt (Level 2)</span></div>
+      <div class="rb">Ngoài điểm nền có <b>18 câu thưởng</b> và <b>26 câu phạt</b>. Đợt 1 PVEP nhận 4 điểm thưởng, không câu phạt nào.</div>
+      <div class="pts"><span class="hi">Thưởng +1</span><span class="lo">Phạt −1 / −2</span></div>
+    </div>
+  </div>
+
+  <!-- ===== CHƯƠNG 2 ===== -->
+  <div class="chap">Chương 2 — Kết quả đợt 1 (tháng 5/2026)</div>
+  <div class="res">
+    <div class="panel rank fx">
+      <div class="big" id="rank-big">—</div>
+      <div class="pts2"><b id="rank-pts">—</b> · Hạng <b>A</b> · tự đánh giá, đang chờ Tập đoàn chốt</div>
+      <div class="src" style="margin-top:6px">CV 1152/TDKT-CL&QTRR (20/05/2026) — chi tiết từng câu và bằng chứng trong phụ lục công văn</div>
+    </div>
+    <div class="panel fx">
+      <h3>5 trụ cột A–E <span class="src">vạch cam = mục tiêu 2027</span></h3>
+      <div id="pillist"></div>
+    </div>
+  </div>
+
+  <!-- ===== CHƯƠNG 3 ===== -->
+  <div class="chap">Chương 3 — Bàn chấm thử · 14 tiêu chí cốt lõi</div>
+  <div class="trybar fx">
+    <div><div class="lv" id="try-score">—<small>%</small></div><div class="ll">Điểm trọng số live</div></div>
+    <div class="cmp" id="try-cmp"></div>
+    <button id="try-reset">↺ Đặt lại như đợt 1</button>
+  </div>
+  <div class="scgrid" id="scgrid"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="shell.js"></script>
+<script>
+"use strict";
+const D = window.OECD;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const vn = n => String(n).replace(".", ",");
+
+const R1 = D.ROUNDS[0];
+const BASE = D.scoreLive();                                   // điểm 14 tiêu chí lúc tải trang
+const ORIG = Object.fromEntries(D.CRITERIA.map(c=>[c.id, c.score]));
+
+$("#hero-score").textContent = vn(R1.self.pct) + "%";
+$("#rank-big").textContent = vn(R1.self.pct) + "%";
+$("#rank-pts").textContent = R1.self.pts + " điểm";
+
+/* ===== chương 2: trụ cột ===== */
+$("#pillist").innerHTML = Object.entries(D.PILLARS).map(([k,p])=>`
+  <div class="pilrow" title="${esc(p.name)}">
+    <span class="pk">${k}</span>
+    <span class="ptr"><i style="width:${p.score2026}%"></i><b style="left:${p.target2027}%"></b></span>
+    <span class="pv">${vn(p.score2026)}% <small>/ ${vn(p.target2027)}</small></span>
+  </div>
+  <div class="pname">${esc(p.name)}</div>`).join("");
+
+/* ===== chương 3: bàn chấm thử ===== */
+const PD_L = 2*Math.PI*24;
+function renderTry(){
+  const pct = D.scoreLive();
+  $("#try-score").innerHTML = vn(pct) + "<small>%</small>";
+  const d1 = Math.round((pct - BASE)*10)/10;
+  $("#try-cmp").innerHTML =
+    `So với bộ điểm nền: <b style="color:${d1>0?'var(--pvep-deep)':d1<0?'var(--red)':'var(--muted)'}">${d1>0?"+":""}${vn(d1)} điểm</b> · ` +
+    `ACGS đợt 1: <b>${vn(R1.self.pct)}%</b> · mục tiêu 2027: <b>95%</b>. Kịch bản thử trong phiên — không ghi vào kết quả chính thức.`;
+  document.querySelectorAll(".pd").forEach(pd=>{
+    const k = pd.dataset.p, v = D.scoreLive(k);
+    pd.querySelector(".pval").style.strokeDashoffset = PD_L*(1-v/100);
+    pd.querySelector("text").textContent = Math.round(v) + "%";
+  });
+}
+function renderScorecard(){
+  $("#scgrid").innerHTML = Object.entries(D.PILLARS).map(([k,p])=>{
+    const list = D.CRITERIA.filter(c=>c.pillar===k);
+    return `<div class="pilcard fx inview">
+      <div class="pilhead">
+        <svg class="pd" viewBox="0 0 58 58" data-p="${k}">
+          <circle class="pbg" cx="29" cy="29" r="24"/>
+          <circle class="pval" cx="29" cy="29" r="24" style="stroke-dasharray:${PD_L}"/>
+          <text x="29" y="34" text-anchor="middle"></text>
+        </svg>
+        <div><div class="pk2">Trụ cột ${k}</div><div class="pt2">${esc(p.name)}</div></div>
+      </div>
+      ${list.map(c=>`
+        <div class="critrow">
+          <div class="cn"><b>${c.id}</b> · ${esc(c.name)}</div>
+          <div class="cmeta">Trọng số ${c.w} · Ban: ${esc(c.ban)} · Hạn: ${esc(c.dl)}${(c.tasks||[]).length?` · NV ${c.tasks.join(", ")}`:""}</div>
+          <div class="seg" data-c="${c.id}">
+            ${[1,2,3,4,5].map(n=>`<button class="s${n} ${c.score===n?'on s'+n:''}" data-s="${n}" title="${n} — ${D.SCORE_LABELS[n-1]}">${n}</button>`).join("")}
+          </div>
+          <div class="seglbl">${c.score} — ${D.SCORE_LABELS[c.score-1]}</div>
+        </div>`).join("")}
+    </div>`;
+  }).join("");
+  document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click", ()=>{
+    D.critById(b.parentElement.dataset.c).score = +b.dataset.s;
+    renderScorecard(); renderTry();
+  }));
+  renderTry();
+}
+$("#try-reset").addEventListener("click", ()=>{
+  D.CRITERIA.forEach(c=>{ c.score = ORIG[c.id]; });
+  renderScorecard();
+});
+renderScorecard();
+</script>
+</body>
+</html>
