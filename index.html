@@ -28,12 +28,16 @@ body[data-page="hub"]{background:#071527;color:#EAF3FA}
 /* ---------- LỚP 1: BACKGROUND MOTION — video hệ sinh thái ngoài khơi ---------- */
 .stage{position:absolute;inset:0;overflow:hidden;z-index:0}
 .vwrap{position:absolute;inset:0;overflow:hidden}
-.bgvid,.vposter{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bgvid,.vposter{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:brightness(1.22) saturate(1.16) contrast(1.02)}   /* nâng sáng cảnh: trời bớt u ám, biển tươi hơn */
+/* lớp "nắng lên": screen-blend xanh sáng ở vùng trời để mây trắng ra */
+.lift{position:absolute;left:0;right:0;top:0;height:55%;pointer-events:none;z-index:1;mix-blend-mode:screen;
+  background:linear-gradient(180deg,rgba(126,184,232,.34) 0%,rgba(126,184,232,.14) 55%,transparent 100%)}
 /* scrim đảm bảo tương phản chữ — video sáng vùng trời */
 .scrim{position:absolute;left:0;right:0;pointer-events:none;z-index:1}
-.scrim.t{top:0;height:34%;background:linear-gradient(180deg,rgba(4,14,28,.78) 0%,rgba(4,14,28,.35) 55%,rgba(4,14,28,0) 100%)}
-.scrim.b{bottom:0;height:22%;background:linear-gradient(0deg,rgba(4,14,28,.6) 0%,rgba(4,14,28,0) 100%)}
-.scrim.v{inset:0;height:auto;background:radial-gradient(120% 90% at 50% 55%,transparent 55%,rgba(4,14,28,.42) 100%)}
+.scrim.t{top:0;height:28%;background:linear-gradient(180deg,rgba(4,14,28,.4) 0%,rgba(4,14,28,.14) 55%,rgba(4,14,28,0) 100%)}
+.scrim.b{bottom:0;height:18%;background:linear-gradient(0deg,rgba(4,14,28,.32) 0%,rgba(4,14,28,0) 100%)}
+.scrim.v{inset:0;height:auto;background:radial-gradient(120% 90% at 50% 55%,transparent 62%,rgba(4,14,28,.2) 100%)}
 /* vầng sáng "bật đèn" tài sản ngoài khơi khi hover phân hệ */
 .spot{position:absolute;transform:translate(-50%,-50%);width:24%;aspect-ratio:1.4;border-radius:50%;
   background:radial-gradient(closest-side,var(--ac) 0%,transparent 70%);
@@ -69,7 +73,7 @@ body[data-page="hub"]{background:#071527;color:#EAF3FA}
   .orb.o3{animation:orbit 26s linear infinite;animation-delay:-9s;width:3.5px;height:3.5px}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes spinr{to{transform:rotate(-360deg)}}
-  @keyframes orbit{from{transform:rotate(0) translateX(148px)}to{transform:rotate(360deg) translateX(148px)}}
+  @keyframes orbit{from{transform:rotate(0) translateX(var(--orbR,148px))}to{transform:rotate(360deg) translateX(var(--orbR,148px))}}
 }
 .core .inner{position:absolute;inset:22px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:16px;
   background:radial-gradient(120% 120% at 50% 30%,rgba(16,42,70,.66),rgba(5,16,32,.82));
@@ -97,30 +101,30 @@ body[data-page="hub"]{background:#071527;color:#EAF3FA}
 #links.dimall circle.lp{opacity:0}
 
 /* ---------- LỚP 3: INTERACTIVE MODULES — 5 thẻ phân hệ ---------- */
-.node{position:absolute;width:280px;transform:translate(-50%,-50%);z-index:4;text-decoration:none;display:block;transition:opacity .3s}
+.node{position:absolute;width:336px;transform:translate(-50%,-50%);z-index:4;text-decoration:none;display:block;transition:opacity .3s}
 .node .fl{display:block}
 @media (prefers-reduced-motion: no-preference){
   .stage .node .fl{animation:floaty var(--fdur,6s) ease-in-out var(--fd,0s) infinite alternate;will-change:transform}
   @keyframes floaty{from{transform:translateY(-2px)}to{transform:translateY(3px)}}
 }
 .node .box{background:linear-gradient(160deg,rgba(14,30,52,.82),rgba(7,19,36,.68));backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ac);border-radius:16px;padding:13px 15px 12px;
+  border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ac);border-radius:16px;padding:15px 17px 14px;
   box-shadow:0 14px 40px rgba(2,10,22,.45);transition:transform .22s,box-shadow .22s,border-color .22s;
-  position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 56px;gap:5px 12px;color:#EAF3FA}
+  position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 66px;gap:6px 12px;color:#EAF3FA}
 .node .box::after{content:"";position:absolute;inset:0;background:radial-gradient(220px 110px at 88% -25%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 70%);pointer-events:none}
-.node .ph{grid-column:1/3;font-size:10.5px;font-weight:800;letter-spacing:1.6px;color:color-mix(in srgb,var(--ac) 72%, #fff);text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.node .ph .nicon{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid color-mix(in srgb,var(--ac) 65%, #fff);box-shadow:0 0 8px color-mix(in srgb,var(--ac) 55%, transparent);flex:none}
+.node .ph{grid-column:1/3;font-size:11.5px;font-weight:800;letter-spacing:1.7px;color:color-mix(in srgb,var(--ac) 72%, #fff);text-transform:uppercase;display:flex;align-items:center;gap:9px}
+.node .ph .nicon{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid color-mix(in srgb,var(--ac) 65%, #fff);box-shadow:0 0 8px color-mix(in srgb,var(--ac) 55%, transparent);flex:none}
 .node .ph .tier{margin-left:auto;font-size:8px;letter-spacing:1px;padding:2.5px 8px;border-radius:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#9FB2C6}
-.node .nm{grid-column:1;font-family:var(--ff-head);font-size:15.5px;font-weight:800;color:#fff;line-height:1.28}
+.node .nm{grid-column:1;font-family:var(--ff-head);font-size:18px;font-weight:800;color:#fff;line-height:1.28}
 .node .ndonut{grid-column:2;grid-row:2/4;align-self:center;justify-self:end}
-.node .ndonut svg{width:56px;height:56px;display:block}
+.node .ndonut svg{width:66px;height:66px;display:block}
 .node .ndonut .nb{fill:none;stroke:rgba(255,255,255,.16);stroke-width:6.5}
 .node .ndonut .nv{fill:none;stroke:var(--ac);stroke-width:6.5;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;filter:drop-shadow(0 0 4px color-mix(in srgb,var(--ac) 60%, transparent))}
 .node .ndonut text{font-family:var(--ff-head);font-size:14px;font-weight:800;fill:#fff}
 .node .ndonut .u{font-size:7.5px;fill:#9FB2C6;font-weight:700;letter-spacing:.5px}
-.node .kv{grid-column:1;font-size:11.5px;color:#B9CBDC;line-height:1.5}
+.node .kv{grid-column:1;font-size:12.5px;color:#B9CBDC;line-height:1.5}
 .node .kv b{color:#fff}
-.node .go{grid-column:1/3;margin-top:4px;font-size:11.5px;font-weight:800;color:color-mix(in srgb,var(--ac) 70%, #fff)}
+.node .go{grid-column:1/3;margin-top:5px;font-size:12.5px;font-weight:800;color:color-mix(in srgb,var(--ac) 70%, #fff)}
 .node .go::after{content:" →"}
 .node .go.off{color:#8FA6BC;font-weight:700}
 a.node{cursor:pointer}
@@ -172,6 +176,20 @@ a.node.mob:hover .box{transform:none}
   .loopline{display:none}
   .hubhead{padding-top:14px}
   .hubhead h1{font-size:clamp(22px,2.2vw,32px)}
+}
+/* màn thấp: thu thẻ + lõi để bố cục orbital không chạm nhau */
+@media(max-height:820px) and (min-width:981px){
+  .node{width:296px}
+  .node .box{grid-template-columns:1fr 58px;padding:13px 15px 12px}
+  .node .nm{font-size:16px}
+  .node .kv,.node .go{font-size:11.5px}
+  .node .ph{font-size:10.5px}
+  .node .ph .nicon{width:27px;height:27px}
+  .node .ndonut svg{width:58px;height:58px}
+  .core{width:206px;height:206px;--orbR:120px}
+  .core .radar{inset:-34px;width:calc(100% + 68px);height:calc(100% + 68px)}
+  .core .cv{font-size:26px}
+  .core img{height:30px}
 }
 @media(max-width:980px){
   .stage{display:none}
@@ -226,6 +244,7 @@ a.node.mob:hover .box{transform:none}
         <source src="assets/hero-eco.webm" type="video/webm">
         <source src="assets/hero-eco.mp4" type="video/mp4">
       </video>
+      <div class="lift"></div>
       <div class="scrim v"></div>
       <div class="scrim t"></div>
       <div class="scrim b"></div>
@@ -288,7 +307,7 @@ const MODULES = [
  {id:"knowledge", ph:"PH1", verb:"Kiến thức", nm:"OECD Knowledge Hub", tier:"PORTAL",
   ac:"#0E9F6E", route:"ph1-knowledge.html", icon:"assets/icon-ph1.webp", fx:"network",
   desc:"Thư viện chuẩn mực OECD & quy định nội bộ",
-  pos:{cx:50, cy:28}, spot:{x:52, y:30},
+  pos:{cx:50, cy:29}, spot:{x:52, y:30},
   ring:{pct:100, txt:String(D.DOCS.original.length + D.DOCS.training.length), unit:"tài liệu"},
   kv:`<b>${D.DOCS.original.length + D.DOCS.training.length}</b> tài liệu chuẩn mực · <b>${D.DOCS.vbqlnb.length}</b> quy định nội bộ`},
  {id:"execution", ph:"PH2", verb:"Thực thi", nm:"Governance Execution Hub", tier:"COMMAND",
