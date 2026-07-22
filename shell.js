@@ -53,3 +53,63 @@
   document.querySelectorAll(".fx").forEach(function (el) { io.observe(el); });
   setTimeout(function () { document.querySelectorAll(".fx").forEach(function (el) { el.classList.add("inview"); }); }, 900);
 })();
+
+/* ============================================================
+   ZOOM TRANSITION hub ↔ phân hệ (chỉ chạy trên trang theme-phN)
+   - Reveal (G4): đến từ hub qua click-to-zoom → wash màu phân hệ
+     tan dần, header vào trước, các khối nội dung stagger sau.
+   - Back: bấm về Hub → thu về màu phân hệ rồi mới điều hướng;
+     hub đọc sessionStorage "oecdReturn" để chạy pull-back.
+   ============================================================ */
+(function () {
+  "use strict";
+  var PHC = { ph1: "#0E9F6E", ph2: "#D97706", ph3: "#2563EB", ph4: "#0D9488", ph5: "#7C3AED" };
+  var m = document.body.className.match(/theme-(ph\d)/);
+  if (!m) return;
+  var ph = m[1], col = PHC[ph] || "#00A651";
+  var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var wash = "radial-gradient(140% 140% at 50% 46%, color-mix(in srgb," + col + " 62%, #0A1C33) 0%, #061222 80%)";
+
+  /* ---------- G4 · DASHBOARD REVEAL ---------- */
+  var z = null;
+  try { z = JSON.parse(sessionStorage.getItem("oecdZoom") || "null"); } catch (e) {}
+  sessionStorage.removeItem("oecdZoom");
+  if (z && !RM && z.t && Date.now() - z.t < 15000) {
+    var ov = document.createElement("div");
+    ov.style.cssText = "position:fixed;inset:0;z-index:999;pointer-events:none;background:" + wash;
+    document.body.appendChild(ov);
+    var head = document.querySelector(".cbar");
+    var parts = [].slice.call(document.body.children).filter(function (el) {
+      return el !== ov && !/^(SCRIPT|STYLE|LINK)$/.test(el.tagName) && el.offsetHeight > 0;
+    }).slice(0, 9);
+    var idx = 0;
+    parts.forEach(function (el) {
+      var isHead = el === head;
+      if (!isHead) idx++;
+      el.animate(
+        [{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }],
+        { duration: 460, delay: isHead ? 0 : 150 + idx * 85, easing: "cubic-bezier(.22,.61,.36,1)", fill: "backwards" });
+    });
+    ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 580, easing: "ease-out" })
+      .onfinish = function () { ov.remove(); };
+    setTimeout(function () { if (ov.parentNode) ov.remove(); }, 900);   /* phòng tab bị throttle animation */
+  }
+
+  /* ---------- BACK: thu về màu phân hệ rồi về Hub ---------- */
+  if (!RM) {
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest ? e.target.closest('a[href$="index.html"]') : null;
+      if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      try { sessionStorage.setItem("oecdReturn", JSON.stringify({ ph: ph, t: Date.now() })); } catch (err) {}
+      var ov = document.createElement("div");
+      ov.style.cssText = "position:fixed;inset:0;z-index:999;pointer-events:none;opacity:0;background:" + wash;
+      document.body.appendChild(ov);
+      document.body.animate([{ opacity: 1 }, { opacity: .4 }], { duration: 300, easing: "ease-in", fill: "forwards" });
+      var gone = false;
+      var nav = function () { if (gone) return; gone = true; location.href = a.href; };
+      ov.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = nav;
+      setTimeout(nav, 420);   /* đảm bảo luôn điều hướng dù animation bị throttle */
+    }, true);
+  }
+})();
