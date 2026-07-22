@@ -97,6 +97,7 @@
 
   /* ---------- BACK: thu về màu phân hệ rồi về Hub ---------- */
   if (!RM) {
+    var backOv = null, backFade = null;
     document.addEventListener("click", function (e) {
       var a = e.target.closest ? e.target.closest('a[href$="index.html"]') : null;
       if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
@@ -105,11 +106,18 @@
       var ov = document.createElement("div");
       ov.style.cssText = "position:fixed;inset:0;z-index:999;pointer-events:none;opacity:0;background:" + wash;
       document.body.appendChild(ov);
-      document.body.animate([{ opacity: 1 }, { opacity: .4 }], { duration: 300, easing: "ease-in", fill: "forwards" });
+      backOv = ov;
+      backFade = document.body.animate([{ opacity: 1 }, { opacity: .4 }], { duration: 300, easing: "ease-in", fill: "forwards" });
       var gone = false;
       var nav = function () { if (gone) return; gone = true; location.href = a.href; };
       ov.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = nav;
       setTimeout(nav, 420);   /* đảm bảo luôn điều hướng dù animation bị throttle */
     }, true);
+    /* bfcache khôi phục trang giữa chừng transition → gỡ overlay + trả opacity */
+    addEventListener("pageshow", function (e) {
+      if (!e.persisted) return;
+      if (backFade) { backFade.cancel(); backFade = null; }
+      if (backOv && backOv.parentNode) { backOv.remove(); backOv = null; }
+    });
   }
 })();
