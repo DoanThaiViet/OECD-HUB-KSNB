@@ -497,6 +497,11 @@ function washHTML(color){
   const w = document.createElement("div");
   w.className = "zwash"; return w;
 }
+/* bấm Back của trình duyệt từ dashboard ngoài (PH2/PH3): bfcache khôi phục hub
+   đúng trạng thái cuối của zoom (overlay che kín + click khoá) → nạp lại sạch */
+addEventListener("pageshow", e=>{
+  if(e.persisted && (LOCKED || !document.getElementById("zoomfx").hidden)) location.reload();
+});
 async function runZoom(n){
   if(LOCKED) return; LOCKED = true;
   if(SIMPLE){   /* máy yếu / reduced-motion: fade đơn giản */
