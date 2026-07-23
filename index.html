@@ -93,8 +93,8 @@ body.showlist .loopline i{color:#4ADE80}
   @keyframes orbit{from{transform:rotate(0) translateX(var(--orbR,148px))}to{transform:rotate(360deg) translateX(var(--orbR,148px))}}
 }
 .core .inner{position:absolute;inset:22px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:16px;
-  background:radial-gradient(120% 120% at 50% 30%,rgba(16,42,70,.66),rgba(5,16,32,.82));
-  backdrop-filter:blur(8px);
+  background:radial-gradient(120% 120% at 50% 30%,rgba(16,42,70,.8),rgba(5,16,32,.9));
+  backdrop-filter:blur(5px);
   border:2px solid color-mix(in srgb,var(--corec) 80%, #fff);
   box-shadow:0 0 0 10px color-mix(in srgb,var(--corec) 12%, transparent),0 24px 70px rgba(2,10,22,.6),inset 0 0 40px color-mix(in srgb,var(--corec) 16%, transparent);
   transition:border-color .35s,box-shadow .35s}
@@ -121,10 +121,10 @@ body.showlist .loopline i{color:#4ADE80}
 .node{position:absolute;width:336px;transform:translate(-50%,-50%);z-index:4;text-decoration:none;display:block;transition:opacity .3s}
 .node .fl{display:block}
 @media (prefers-reduced-motion: no-preference){
-  .stage .node .fl{animation:floaty var(--fdur,6s) ease-in-out var(--fd,0s) infinite alternate;will-change:transform}
+  .stage .node .fl{animation:floaty var(--fdur,6s) ease-in-out var(--fd,0s) infinite alternate}
   @keyframes floaty{from{transform:translateY(-2px)}to{transform:translateY(3px)}}
 }
-.node .box{background:linear-gradient(160deg,rgba(14,30,52,.82),rgba(7,19,36,.68));backdrop-filter:blur(12px);
+.node .box{background:linear-gradient(160deg,rgba(14,30,52,.94),rgba(7,19,36,.86));backdrop-filter:blur(5px);
   border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ac);border-radius:16px;padding:15px 17px 14px;
   box-shadow:0 14px 40px rgba(2,10,22,.45);transition:transform .22s,box-shadow .22s,border-color .22s;
   position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 66px;gap:6px 12px;color:#EAF3FA}
@@ -257,9 +257,9 @@ a.node.mob:hover .box{transform:none}
   <div class="stage intro" id="stage">
     <!-- LỚP 1: video hệ sinh thái ngoài khơi (không chữ/không logo trong video) -->
     <div class="vwrap" id="vwrap">
-      <video class="bgvid" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/hero-eco-poster.webp" aria-hidden="true">
-        <source src="assets/hero-eco.webm" type="video/webm">
-        <source src="assets/hero-eco.mp4" type="video/mp4">
+      <video class="bgvid" id="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/hero-eco-poster-2560.webp" aria-hidden="true">
+        <source src="assets/hero-eco-2560.webm" type="video/webm">
+        <source src="assets/hero-eco-2560.mp4" type="video/mp4">
       </video>
       <div class="lift"></div>
       <div class="scrim v"></div>
@@ -287,7 +287,7 @@ a.node.mob:hover .box{transform:none}
     <!-- LỚP 3: 5 thẻ phân hệ — dựng bằng JS từ MODULES -->
   </div>
 
-  <div class="mobhero" aria-hidden="true"><img src="assets/hero-eco-poster.webp" alt=""></div>
+  <div class="mobhero" aria-hidden="true"><img src="assets/hero-eco-poster-2560.webp" alt=""></div>
   <div class="menulist" id="menulist">
     <h2>Danh mục phân hệ</h2>
   </div>
@@ -480,6 +480,9 @@ buildLinks();
 addEventListener("resize", buildLinks, {passive:true});
 addEventListener("load", buildLinks);
 if(window.ResizeObserver) new ResizeObserver(buildLinks).observe(stage);
+/* guard: một số môi trường không bắn resize/RO khi stage từ 0 → có kích thước */
+const lkGuard = setInterval(()=>{ if(links.querySelector("path")){ clearInterval(lkGuard); } else buildLinks(); }, 700);
+setTimeout(()=>clearInterval(lkGuard), 15000);
 /* intro: vẽ đường kết nối lần đầu */
 if(stage.classList.contains("intro") && !SIMPLE){
   links.querySelectorAll("path").forEach((p,i)=>{
@@ -609,7 +612,7 @@ if(RET && !SIMPLE){
 const vid = document.getElementById("bgvid");
 if(SIMPLE){
   const img = document.createElement("img");
-  img.className = "vposter"; img.src = "assets/hero-eco-poster.webp"; img.alt = "";
+  img.className = "vposter"; img.src = "assets/hero-eco-poster-2560.webp"; img.alt = "";
   vid.replaceWith(img);
 }else{
   vid.play && vid.play().catch(()=>{});
