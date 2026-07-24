@@ -394,8 +394,9 @@ let LOCKED = false;
 let RET = null;
 try{ RET = JSON.parse(sessionStorage.getItem("oecdReturn") || "null"); }catch(e){}
 sessionStorage.removeItem("oecdReturn");
+let RETURNING = !!RET;   /* đã mở 1 phân hệ trong phiên này — kể cả khi cửa sổ hiệu ứng pull-back đã hết hạn */
 if(RET && (!RET.t || Date.now()-RET.t > 15000)) RET = null;
-if(RET || SIMPLE) stage.classList.remove("intro");
+if(RET || SIMPLE || RETURNING) stage.classList.remove("intro");   /* quay về từ PH2/PH3 (site ngoài) → bỏ intro nặng */
 
 MODULES.forEach((n,i)=>{
   /* vầng sáng trên tài sản ngoài khơi tương ứng */
@@ -500,10 +501,42 @@ function washHTML(color){
   const w = document.createElement("div");
   w.className = "zwash"; return w;
 }
+/* Gỡ mọi hiệu ứng inline (fill:forwards) còn giữ trên phần tử, nhưng KHÔNG đụng
+   animation CSS (vd: hiệu ứng trôi của thẻ) để nền vẫn sống. */
+function clearInlineFx(el){
+  if(!el || !el.getAnimations) return;
+  el.getAnimations().forEach(a=>{
+    if(typeof CSSAnimation === "undefined" || !(a instanceof CSSAnimation)) a.cancel();
+  });
+}
+/* Đưa Hub về đúng trạng thái idle tương tác được — dùng khi bfcache khôi phục Hub
+   giữa chừng zoom (overlay che kín + click khoá). Reset tại chỗ, KHÔNG reload,
+   nên hết đơ và không phải dựng lại intro nặng. */
+function resetToIdle(){
+  LOCKED = false;
+  const fx = document.getElementById("zoomfx");
+  fx.hidden = true; fx.innerHTML = "";
+  stage.classList.remove("zooming");
+  delete stage.dataset.focus;
+  core.classList.remove("fast");
+  core.style.setProperty("--corec", "#00A651");
+  links.classList.remove("dimall");
+  links.querySelectorAll("path.hi").forEach(p=>p.classList.remove("hi"));
+  clearInlineFx(vwrap); clearInlineFx(hubhead); clearInlineFx(core.querySelector(".inner"));
+  MODULES.forEach(m=>{
+    clearInlineFx(m._el);
+    if(m._el) m._el.classList.remove("on");
+    if(m._spot) m._spot.classList.remove("on");
+  });
+}
 /* bấm Back của trình duyệt từ dashboard ngoài (PH2/PH3): bfcache khôi phục hub
-   đúng trạng thái cuối của zoom (overlay che kín + click khoá) → nạp lại sạch */
+   đúng trạng thái cuối của zoom (overlay che kín + click khoá) → reset tại chỗ,
+   reload chỉ là lưới an toàn nếu reset lỗi. */
 addEventListener("pageshow", e=>{
-  if(e.persisted && (LOCKED || !document.getElementById("zoomfx").hidden)) location.reload();
+  if(!e.persisted) return;
+  if(LOCKED || !document.getElementById("zoomfx").hidden){
+    try{ resetToIdle(); }catch(err){ location.reload(); }
+  }
 });
 async function runZoom(n){
   if(LOCKED) return; LOCKED = true;
@@ -572,7 +605,12 @@ async function runZoom(n){
   go(n);   /* G4 · DASHBOARD REVEAL chạy ở trang đích (shell.js) */
 }
 function go(n){
-  try{ sessionStorage.setItem("oecdZoom", JSON.stringify({id:n.id, ph:n.ph.toLowerCase(), color:n.ac, t:Date.now()})); }catch(e){}
+  try{
+    sessionStorage.setItem("oecdZoom", JSON.stringify({id:n.id, ph:n.ph.toLowerCase(), color:n.ac, t:Date.now()}));
+    /* PH2/PH3 là site ngoài, không có shell.js để set "oecdReturn" lúc quay lại →
+       set sẵn ở đây để Hub nhận ra là quay về (pull-back / bỏ intro) thay vì dựng lại từ đầu. */
+    sessionStorage.setItem("oecdReturn", JSON.stringify({ph:n.ph.toLowerCase(), t:Date.now()}));
+  }catch(e){}
   location.href = n.route;
 }
 
@@ -635,7 +673,10 @@ if(SIMPLE){
     box.insertAdjacentHTML("beforeend", `<div class="conn"></div>`);
     const el = makeNode(n, "mob");
     if(n.route) el.addEventListener("click", ()=>{   /* mobile: vẫn có reveal ở trang đích */
-      try{ sessionStorage.setItem("oecdZoom", JSON.stringify({id:n.id, ph:n.ph.toLowerCase(), color:n.ac, t:Date.now()})); }catch(e){}
+      try{
+        sessionStorage.setItem("oecdZoom", JSON.stringify({id:n.id, ph:n.ph.toLowerCase(), color:n.ac, t:Date.now()}));
+        sessionStorage.setItem("oecdReturn", JSON.stringify({ph:n.ph.toLowerCase(), t:Date.now()}));   /* về từ PH2/PH3 ngoài → bỏ intro nặng */
+      }catch(e){}
     });
     box.appendChild(el);
   });
